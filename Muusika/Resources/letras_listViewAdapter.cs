@@ -24,12 +24,12 @@ namespace Muusika.Resources
 
     public class letras_listViewAdapter : BaseAdapter
     {
-        private Activity letras_activity;
+        private Android.Support.V4.App.Fragment letras_fragment;
         private List<Letra> lstLetras;
 
-        public letras_listViewAdapter(Activity letras_activity, List<Letra> lstLetras)
+        public letras_listViewAdapter(Android.Support.V4.App.Fragment letras_fragment, List<Letra> lstLetras)
         {
-            this.letras_activity = letras_activity;
+            this.letras_fragment = letras_fragment;
             this.lstLetras = lstLetras;
         }
 
@@ -53,7 +53,7 @@ namespace Muusika.Resources
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = convertView ?? letras_activity.LayoutInflater.Inflate(Resource.Layout.letras_layout_listView_dataTemplate, parent, false);
+            var view = convertView ?? letras_fragment.LayoutInflater.Inflate(Resource.Layout.letras_layout_listView_dataTemplate, parent, false);
               
             var TituloTextView = view.FindViewById<TextView>(Resource.Id.TituloTextView);
             var ArtistaTextView = view.FindViewById<TextView>(Resource.Id.ArtistaTextView);

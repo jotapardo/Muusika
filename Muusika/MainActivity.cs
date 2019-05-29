@@ -5,6 +5,8 @@ using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Muusika.Resources.DataHelper;
+using Muusika.Resources.model;
 using SupportFragment = Android.Support.V4.App.Fragment;
 
 namespace Muusika
@@ -15,7 +17,8 @@ namespace Muusika
         //TextView textMessage;
         private SupportFragment mCurrentFragment;
         private letras_Fragment mLetras_Fragment;
-
+        private Fragment2_fragment mFragment2_fragment;
+        private Fragment3_fragment mFragment3_fragment;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -33,11 +36,23 @@ namespace Muusika
 
             //Fragmentos
             mLetras_Fragment = new letras_Fragment();
+            mFragment2_fragment = new Fragment2_fragment();
+            mFragment3_fragment = new Fragment3_fragment();
 
             var trans = SupportFragmentManager.BeginTransaction();
+
             trans.Add(Resource.Id.content_frame, mLetras_Fragment, "Letras_Fragment");
             trans.Hide(mLetras_Fragment);
+
+            trans.Add(Resource.Id.content_frame, mFragment2_fragment, "Fragment2_fragment");
+            trans.Hide(mFragment2_fragment);
+
+            trans.Add(Resource.Id.content_frame, mFragment3_fragment, "Fragment3_fragment");
+            trans.Hide(mFragment3_fragment);
+
+
             /// ... add more fragments
+            /// 
             trans.Commit();
 
             mCurrentFragment = mLetras_Fragment;
@@ -47,10 +62,13 @@ namespace Muusika
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
+
         }
 
         private void FabOnClick(object sender, System.EventArgs e)
         {
+
+            mLetras_Fragment.AddLiryc();
             View view = (View)sender;
             Snackbar.Make(view, "Test", Snackbar.LengthLong).SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
         }
@@ -69,14 +87,16 @@ namespace Muusika
             switch (item.ItemId)
             {
                 case Resource.Id.navigation_home:
-                    showFragment(mLetras_Fragment);
+                    ShowFragment(mLetras_Fragment);
 
                     //textMessage.SetText(Resource.String.title_home);
                     return true;
                 case Resource.Id.navigation_dashboard:
+                    ShowFragment(mFragment2_fragment);
                     //textMessage.SetText(Resource.String.title_dashboard);
                     return true;
                 case Resource.Id.navigation_notifications:
+                    ShowFragment(mFragment3_fragment);
                     //textMessage.SetText(Resource.String.title_notifications);
                     return true;
             }
@@ -84,7 +104,7 @@ namespace Muusika
             return false;
         }
 
-        private void showFragment(SupportFragment fragment)
+        private void ShowFragment(SupportFragment fragment)
         {
             if (fragment != null)
             {

@@ -10,22 +10,64 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Muusika.Resources;
+using Muusika.Resources.DataHelper;
+using Muusika.Resources.model;
 
 namespace Muusika
 {
     public class letras_Fragment : Android.Support.V4.App.Fragment
     {
+        ListView lstData;
+        List<Letra> lstSorce = new List<Letra>();
+        DataBase db;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
 
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            return inflater.Inflate(Resource.Layout.letras_layout, container, false);
+            View view = inflater.Inflate(Resource.Layout.letras_layout, container, false);
+
+            //Create Database
+            db = new DataBase();
+            db.CreateDatabase();
+
+
+            lstData = view.FindViewById<ListView>(Resource.Id.LetrasListView);
+
+
+            LoadData();
+
+            return view;
+        }
+
+        private void LoadData()
+        {
+            lstSorce = db.SelectTableLetras();
+            var adapter = new letras_listViewAdapter(this, lstSorce);
+
+            lstData.Adapter = adapter;
+        }
+
+        public void AddLiryc()
+        {
+            Letra letra = new Letra()
+            {
+                Artista = "Arautus",
+                Album = "Novo",
+                Titulo = "Aleluia",
+                letra = "Yo descubri"
+            };
+            db.InsertIntoTableLetras(letra);
+            LoadData();
+
         }
     }
 }
