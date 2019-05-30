@@ -31,11 +31,14 @@
 		android:layout_alignParentRight="true"
         android:layout_marginBottom="70dp"
         android:layout_marginEnd="@dimen/fab_margin"
-		android:src="@android:drawable/ic_menu_add"
+		android:src="@drawable/baseline_add_black_36dp"
+        android:tint="@android:color/white"
         
     />
     
     <!-- 
+    @android:drawable/ic_menu_add
+    
     https://developer.android.com/design/downloads/index.html
     
     -->

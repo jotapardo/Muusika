@@ -108,6 +108,8 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
     <AndroidResource Include="Resources\layout\fragment2_layout.xml" />
     <AndroidResource Include="Resources\layout\fragment3_layout.xml" />
+    <AndroidResource Include="Resources\drawable\baseline_list_black_36dp.png" />
+    <AndroidResource Include="Resources\drawable\baseline_add_black_36dp.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl">
