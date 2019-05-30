@@ -20,7 +20,7 @@ namespace Muusika.Resources.model
 
         public string Titulo { get; set; }
 
-        public string Artista { get; set; }
+        public string Autor { get; set; }
 
         public string Album { get; set; }
 
@@ -28,7 +28,7 @@ namespace Muusika.Resources.model
 
         public override string ToString()
         {
-            return string.Format("[{0} by {1} \n {2}]", Titulo, Artista, letra);
+            return string.Format("[{0} by {1} \n {2}]", Titulo, Autor, letra);
         }
     }
 }

@@ -7,6 +7,12 @@
 
   <string name="LetrasTitulo">Letras</string>
   
-  
-  
+  <string name="Title">Titulo</string>
+  <string name="Author">Autor</string>
+  <string name="Album">Álbum</string>
+  <string name="Liryc">Letra</string>
+  <string name="Optional">Opcional</string>
+
+  <string name="title_add_liryc">Añadir letra</string>
+
 </resources>

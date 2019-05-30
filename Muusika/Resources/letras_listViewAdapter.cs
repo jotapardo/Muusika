@@ -61,7 +61,7 @@ namespace Muusika.Resources
             var AdjuntosTextView = view.FindViewById<TextView>(Resource.Id.AdjuntosTextView);
 
             TituloTextView.Text = lstLetras[position].Titulo;
-            ArtistaTextView.Text = lstLetras[position].Artista;
+            ArtistaTextView.Text = lstLetras[position].Autor;
             AlbumTextView.Text = lstLetras[position].Album;
             AdjuntosTextView.Text = "";
 

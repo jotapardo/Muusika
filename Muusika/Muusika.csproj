@@ -58,8 +58,8 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="letras_activity.cs" />
     <Compile Include="letras_Fragment.cs" />
+    <Compile Include="letras_nueva_activity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\letras_listViewAdapter.cs" />
     <Compile Include="Resources\model\Letra.cs" />
@@ -129,7 +129,12 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\DataHelper\" />
+    <AndroidResource Include="Resources\menu\letras_nueva_toolbar.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\letras_nueva_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

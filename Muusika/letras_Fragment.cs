@@ -22,12 +22,18 @@ namespace Muusika
         List<Letra> lstSorce = new List<Letra>();
         DataBase db;
 
+        public letras_Fragment()
+        {
+            //Create Database
+            db = new DataBase();
+            db.CreateDatabase();
+        }
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
-
 
         }
 
@@ -35,13 +41,7 @@ namespace Muusika
         {
             View view = inflater.Inflate(Resource.Layout.letras_layout, container, false);
 
-            //Create Database
-            db = new DataBase();
-            db.CreateDatabase();
-
-
             lstData = view.FindViewById<ListView>(Resource.Id.LetrasListView);
-
 
             LoadData();
 
@@ -56,17 +56,25 @@ namespace Muusika
             lstData.Adapter = adapter;
         }
 
-        public void AddLiryc()
+        public void AddLiryc(string title, string author, string album, string liryc)
         {
-            Letra letra = new Letra()
+            try
             {
-                Artista = "Arautus",
-                Album = "Novo",
-                Titulo = "Aleluia",
-                letra = "Yo descubri"
-            };
-            db.InsertIntoTableLetras(letra);
-            LoadData();
+                Letra mLetra = new Letra()
+                {
+                    Autor = author,
+                    Album = album,
+                    Titulo = title,
+                    letra = liryc
+                };
+                db.InsertIntoTableLetras(mLetra);
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error letras_Fragment", ex.Message);
+            }
+            
 
         }
     }

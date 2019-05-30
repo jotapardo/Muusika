@@ -1,8 +1,10 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Muusika.Resources.DataHelper;
@@ -62,15 +64,30 @@ namespace Muusika
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
+            CreateDataBase();
+        }
 
+        private void CreateDataBase()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error CreateDataBase", ex.Message);
+            }
         }
 
         private void FabOnClick(object sender, System.EventArgs e)
         {
 
-            mLetras_Fragment.AddLiryc();
-            View view = (View)sender;
-            Snackbar.Make(view, "Test", Snackbar.LengthLong).SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
+            //mLetras_Fragment.AddLiryc();
+            //View view = (View)sender;
+            //Snackbar.Make(view, "Test", Snackbar.LengthLong).SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
+
+            //StartActivity(typeof(letras_nueva_activity(mLetras_Fragment)));
+            //https://www.youtube.com/watch?v=sj-eXmpRjtI
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
