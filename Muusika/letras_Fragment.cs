@@ -16,7 +16,7 @@ using Muusika.Resources.model;
 
 namespace Muusika
 {
-    public class letras_Fragment : Android.Support.V4.App.Fragment
+    public class letras_Fragment: Android.Support.V4.App.Fragment
     {
         ListView lstData;
         List<Letra> lstSorce = new List<Letra>();
@@ -48,7 +48,7 @@ namespace Muusika
             return view;
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             lstSorce = db.SelectTableLetras();
             var adapter = new letras_listViewAdapter(this, lstSorce);

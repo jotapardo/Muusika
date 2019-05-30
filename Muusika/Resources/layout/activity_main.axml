@@ -20,16 +20,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" 
         android:id="@+id/content_frame"/>
-        
-   
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fab"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_home_black_24dp"/>
 
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/fab"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="@dimen/fab_margin"
+		android:src="@android:drawable/ic_menu_add"
+        
+    />
+    
+    <!-- 
+    https://developer.android.com/design/downloads/index.html
+    
+    -->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"

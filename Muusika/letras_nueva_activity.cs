@@ -8,14 +8,17 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Java.IO;
+using Newtonsoft.Json;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
 {
     [Activity(Label = "@string/title_add_liryc", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
-    public class letras_nueva_activity : AppCompatActivity
+    public class letras_nueva_activity : AppCompatActivity, ISerializable
     {
         EditText TitleEditText;
         EditText AuthorEditText;
@@ -24,27 +27,29 @@ namespace Muusika
 
         private letras_Fragment mLetras_Fragment;
 
-
-        private letras_nueva_activity(letras_Fragment fragment)
-        {
-            //Fragmentos
-            mLetras_Fragment = fragment;
-        }
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.letras_nueva_layout);
+            try
+            {
+                base.OnCreate(savedInstanceState);
+                Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+                SetContentView(Resource.Layout.letras_nueva_layout);
 
-            TitleEditText = FindViewById<EditText>(Resource.Id.TitleEditText);
-            AuthorEditText = FindViewById<EditText>(Resource.Id.AuthorEditText);
-            AlbumEditText = FindViewById<EditText>(Resource.Id.AlbumEditText);
-            LirycEditText = FindViewById<EditText>(Resource.Id.LirycEditText);
+                TitleEditText = FindViewById<EditText>(Resource.Id.TitleEditText);
+                AuthorEditText = FindViewById<EditText>(Resource.Id.AuthorEditText);
+                AlbumEditText = FindViewById<EditText>(Resource.Id.AlbumEditText);
+                LirycEditText = FindViewById<EditText>(Resource.Id.LirycEditText);
 
-            SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_nueva_toolbar);
-            SetSupportActionBar(toolbar);
+                SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_nueva_toolbar);
+                SetSupportActionBar(toolbar);
 
+                mLetras_Fragment = JsonConvert.DeserializeObject<letras_Fragment>(Intent.GetStringExtra("Letras_Fragment"));
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error_OnCreate", ex.Message);
+            }
         }
         
         public override bool OnCreateOptionsMenu(IMenu menu)
