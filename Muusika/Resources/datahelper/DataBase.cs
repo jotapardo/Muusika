@@ -63,6 +63,59 @@ namespace Muusika.Resources.DataHelper
             }
         }
 
+        public bool SelectQueryTableLetras(int Id)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?",Id);
+                    return true;
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return false;
+            }
+        }
+
+        public Letra SelectQueryTableLetrasById(int Id)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    var Lista = connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?", Id);
+                    return Lista[0];
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return null;
+            }
+        }
+
+        public bool deleteTableLetras(Letra letra)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    connection.Delete(letra);
+                    return true;
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return false;
+            }
+        }
+
         public DataBase()
         {
         }
