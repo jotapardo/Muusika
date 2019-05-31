@@ -5,4 +5,6 @@
     <color name="colorAccent">#3498db</color>
     
     <color name="colorListItemSelected">#78909c</color>
+  
+    <color name="colorPrimaryToolbar">#5A8622</color>
 </resources>

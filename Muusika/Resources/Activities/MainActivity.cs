@@ -176,10 +176,11 @@ namespace Muusika
                 //    Toast.MakeText(this, "You pressed edit action!", ToastLength.Short).Show();
                 //    break;
                 case Resource.Id.action_delete:
-                    Toast.MakeText(this, "Eliminadas!", ToastLength.Short).Show();
-                    mLetras_Fragment.DeleteLirycs();
+                    if (mLetras_Fragment.DeleteLirycs())
+                    {
+                        Toast.MakeText(this, "Eliminadas!", ToastLength.Short).Show();
+                    }
                     //hideAndShowKeyboard.hideSoftKeyboard(this);
-                    
                     break;
                 case Android.Resource.Id.Home:
                     //hideAndShowKeyboard.hideSoftKeyboard(this);

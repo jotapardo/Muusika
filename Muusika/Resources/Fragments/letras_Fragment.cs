@@ -228,20 +228,22 @@ namespace Muusika
             }
         }
 
-        public void DeleteLirycs()
+        public bool DeleteLirycs()
         {
             try
             {
                 foreach (Letra letra in _LetrasSeleccionadas)
                 {
-                    db.deleteTableLetras(letra);
+                    db.DeleteTableLetras(letra);
                 }
                 _LetrasSeleccionadas.Clear();
                 LoadData();
+                return true;
             }
             catch (Exception ex)
             {
                 Log.Error("Error letras_Fragment", ex.Message);
+                return false;
             }
         }
     }

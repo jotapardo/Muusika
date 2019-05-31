@@ -7,6 +7,14 @@
 	      android:title="Edit"
 	      android:icon="@android:drawable/ic_menu_edit"
 	      app:showAsAction="ifRoom"/>
-
-
+  
+  <!--this causes the Preferences menu to appear in the overflow menu (three vertical dots).-->
+  <item
+       android:id="@+id/menu_copy"
+       android:showAsAction="never" 
+       android:title="Copiar" />
+  <item
+       android:id="@+id/menu_share"
+       android:showAsAction="never" 
+       android:title="Compartir" />
 </menu>
