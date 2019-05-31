@@ -12,10 +12,11 @@ using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Newtonsoft.Json;
 using SupportFragment = Android.Support.V4.App.Fragment;
+using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/Theme.AppCompat.Light.NoActionBar", MainLauncher = true)]
     public class MainActivity: AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         //TextView textMessage;
@@ -66,6 +67,14 @@ namespace Muusika
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
 
+            //Toolbar
+            SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
+            SetSupportActionBar(toolbar);
+
+            //backbutton
+            //SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+            //SupportActionBar.SetHomeButtonEnabled(true);
+            SupportActionBar.Title = "Muusika";
 
         }
 
@@ -147,6 +156,37 @@ namespace Muusika
             //DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
             //drawer.closeDrawer(GravityCompat.START);
 
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            //if (_LetrasSeleccionadas.Count > 0)
+            //{
+                MenuInflater.Inflate(Resource.Menu.letras_listview_toolbar, menu);
+            //}
+
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                //case Resource.Id.action_edit:
+                //    Toast.MakeText(this, "You pressed edit action!", ToastLength.Short).Show();
+                //    break;
+                case Resource.Id.action_delete:
+                    Toast.MakeText(this, "Eliminadas!", ToastLength.Short).Show();
+                    mLetras_Fragment.DeleteLirycs();
+                    //hideAndShowKeyboard.hideSoftKeyboard(this);
+                    
+                    break;
+                case Android.Resource.Id.Home:
+                    //hideAndShowKeyboard.hideSoftKeyboard(this);
+                    this.OnBackPressed();
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

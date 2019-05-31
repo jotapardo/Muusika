@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -79,6 +78,7 @@ namespace Muusika
                 case Resource.Id.action_save:
                     Toast.MakeText(this, "Letra añadida correctamente!", ToastLength.Short).Show();
                     mLetras_Fragment.AddLiryc(TitleEditText.Text,AuthorEditText.Text,AlbumEditText.Text,LirycEditText.Text);
+                    hideAndShowKeyboard.hideSoftKeyboard(this);
                     Finish();
                     break;
                 case Android.Resource.Id.Home:

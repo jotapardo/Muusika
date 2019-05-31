@@ -58,20 +58,20 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="letras_Fragment.cs" />
-    <Compile Include="letras_nueva_activity.cs" />
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Activities\letras_viewer_activity.cs" />
     <Compile Include="Resources\Adapters\Letras_ListAdapter.cs" />
-    <Compile Include="Resources\letras_listViewAdapter.cs" />
     <Compile Include="Resources\model\Letra.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Fragment2_fragment.cs" />
-    <Compile Include="Fragment3_fragment.cs" />
     <Compile Include="Resources\DataHelper\DataBase.cs" />
     <Compile Include="Resources\Utils\HideAndShowKeyboard.cs" />
     <Compile Include="Resources\Utils\ISelectedChecker.cs" />
+    <Compile Include="Resources\Adapters\letras_listViewAdapter.cs" />
+    <Compile Include="Resources\Fragments\Fragment2_fragment.cs" />
+    <Compile Include="Resources\Fragments\Fragment3_fragment.cs" />
+    <Compile Include="Resources\Fragments\letras_Fragment.cs" />
+    <Compile Include="Resources\Activities\letras_nueva_activity.cs" />
+    <Compile Include="Resources\Activities\MainActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -114,6 +114,8 @@
     <AndroidResource Include="Resources\layout\fragment3_layout.xml" />
     <AndroidResource Include="Resources\drawable\baseline_list_black_36dp.png" />
     <AndroidResource Include="Resources\drawable\baseline_add_black_36dp.png" />
+    <AndroidResource Include="Resources\menu\letras_listview_toolbar.xml" />
+    <AndroidResource Include="Resources\menu\letras_main_toolbar.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl">

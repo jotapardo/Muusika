@@ -22,7 +22,7 @@ namespace Muusika.Resources
         public TextView AdjuntosTextView { get; set; }
     }
 
-    public class letras_listViewAdapter : BaseAdapter
+    public class letras_listViewAdapter : BaseAdapter<Letra>
     {
         private Android.Support.V4.App.Fragment letras_fragment;
         private List<Letra> lstLetras;
@@ -33,17 +33,13 @@ namespace Muusika.Resources
             this.lstLetras = lstLetras;
         }
 
-        public override int Count
-        {
-            get
-            {
-                return lstLetras.Count;
-            }
-        }
+        public override Letra this[int position] => lstLetras[position];
+
+        public override int Count => lstLetras.Count;
 
         public override Java.Lang.Object GetItem(int position)
         {
-            return null;
+            return position;
         }
 
         public override long GetItemId(int position)

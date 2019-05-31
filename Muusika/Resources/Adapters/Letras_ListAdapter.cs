@@ -59,7 +59,7 @@ namespace Muusika.Resources.Adapters
 
                 if (_selectedChecker.IsItemSelected(id))
                 {
-                    var colorForSelected = Android.Graphics.Color.BlueViolet;
+                    var colorForSelected = Android.Graphics.Color.ParseColor(_context.Resources.GetString(Resource.Color.colorListItemSelected));
                     rl.SetBackgroundColor(colorForSelected);
                 }
                 else

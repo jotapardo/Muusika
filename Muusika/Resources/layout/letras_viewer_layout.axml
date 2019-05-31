@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:keepScreenOn="true"
-    >
-        
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:keepScreenOn="true"
+              android:scrollbarAlwaysDrawVerticalTrack="true">
         <android.support.v7.widget.Toolbar android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/letras_viewer_toolbar"/>
+            
+    <ScrollView android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView1"
+            android:padding="16dp">
         <TextView
             android:text="Liryc text"
             android:layout_width="wrap_content"
@@ -17,7 +24,7 @@
             android:minHeight="25px"
             android:id="@+id/LirycTextView"
             android:padding="?android:attr/dialogPreferredPadding"
+            android:scrollbars="vertical"
         />
-        
-
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
