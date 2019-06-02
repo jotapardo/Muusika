@@ -8,5 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+    
+    <style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/colorPrimaryToolbar</item>
+        <!--<item name="android:elevation" tools:ignore="NewApi">4dp</item>
+        <item name="titleTextAppearance">...</item>-->
+    </style>
+
+    <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
+        <item name="android:textColorPrimary">@color/actionbar_title_text</item>
+        <item name="android:textColorSecondary">@color/actionbar_title_text</item>
+        <!--<item name="colorControlNormal">#de000000</item>
+        <item name="android:colorControlNormal" tools:ignore="NewApi">?colorControlNormal</item>-->
+    </style>
 
 </resources>

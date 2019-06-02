@@ -17,7 +17,7 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
 {
-    [Activity(Label = "letras_viewer_activity", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
+    [Activity(Label = "letras_viewer_activity", Theme = "@style/Theme.AppCompat.Light.NoActionBar", NoHistory = false)]
     public class letras_viewer_activity : AppCompatActivity
     {
         TextView LirycTextView;
@@ -71,6 +71,7 @@ namespace Muusika.Resources.Activities
             {
                 mLetra = db.SelectQueryTableLetrasById(idLetra);
                 SupportActionBar.Title = mLetra.Titulo;
+                SupportActionBar.Subtitle = mLetra.Autor;
                 LirycTextView.Text = mLetra.letra;
 
                 //Window.AddFlags(WindowManagerFlags.KeepScreenOn);
@@ -92,6 +93,10 @@ namespace Muusika.Resources.Activities
         {
             switch (item.ItemId)
             {
+                case Resource.Id.action_attach:
+                    Intent intent = new Intent(this, typeof(letras_attach_activity));
+                    StartActivity(intent);
+                    break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
                     break;

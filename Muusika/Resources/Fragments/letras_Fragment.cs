@@ -31,7 +31,16 @@ namespace Muusika
         DataBase db;
         bool SelectingMultipleItems = false;
 
-        SupportToolbar toolbar;
+        //SupportToolbar toolbar;
+
+            
+        public bool IsSelectingMultipleItms 
+        {
+            get 
+            {
+                return SelectingMultipleItems;
+            }
+        }
 
         public letras_Fragment()
         {
@@ -52,7 +61,7 @@ namespace Muusika
             _LetrasSeleccionadas.Clear();
             //SetHasOptionsMenu(true);
 
-            toolbar = this.Activity.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
+            //toolbar = this.Activity.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
 
 
         }
@@ -166,16 +175,29 @@ namespace Muusika
             }
         }
 
-        protected void UnselectElements()
+        public void UnselectElements()
         {
-            int count = _LetrasListView.ChildCount;
-
-            for (int i = 0; i < count; i++)
+            try
             {
-                View row = _LetrasListView.GetChildAt(i);
-                var rl = row.FindViewById<RelativeLayout>(Resource.Id.LetrasListItem_LinearLayout);
-                var color = Android.Graphics.Color.Transparent;
-                rl.SetBackgroundColor(color);
+                int count = _LetrasListView.ChildCount;
+
+                for (int i = 0; i < count; i++)
+                {
+                    View row = _LetrasListView.GetChildAt(i);
+                    var rl = row.FindViewById<LinearLayout>(Resource.Id.LetrasListItem_LinearLayout);
+                    var color = Android.Graphics.Color.Transparent;
+                    rl.SetBackgroundColor(color);
+                }
+
+                SelectingMultipleItems = false;
+                _LetrasSeleccionadas.Clear();
+
+                //Forces Android to execute OnCreateOptionsMenu
+                this.Activity.InvalidateOptionsMenu();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UnselectElements", ex.Message);
             }
         }
 
@@ -203,9 +225,20 @@ namespace Muusika
 
         public void LoadData()
         {
-            _Letras = db.SelectTableLetras();
-            _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
-            _LetrasListView.Adapter = _LetrasAdapter;
+            try
+            {
+                if (!SelectingMultipleItems)
+                {
+                    _Letras = db.SelectTableLetras();
+                    _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
+                    _LetrasListView.Adapter = _LetrasAdapter;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error_LoadData",ex.Message);
+            }
+
         }
 
         public void AddLiryc(string title, string author, string album, string liryc)
@@ -236,7 +269,12 @@ namespace Muusika
                 {
                     db.DeleteTableLetras(letra);
                 }
+
                 _LetrasSeleccionadas.Clear();
+                SelectingMultipleItems = false;
+                //Forces Android to execute OnCreateOptionsMenu
+                this.Activity.InvalidateOptionsMenu();
+
                 LoadData();
                 return true;
             }
@@ -245,6 +283,21 @@ namespace Muusika
                 Log.Error("Error letras_Fragment", ex.Message);
                 return false;
             }
+        }//DeleteLirycs
+
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            if (_LetrasSeleccionadas.Count > 0)
+            {
+                inflater.Inflate(Resource.Menu.letras_listview_toolbar, menu);
+            }
+            else
+            {
+                //change main_compat_menu
+                inflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
+            }
+
+            base.OnCreateOptionsMenu(menu, inflater);
         }
     }
 }

@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/letras_main_toolbar"
-        android:background="@color/colorPrimaryToolbar"
+        style="@style/Widget.MyApp.Toolbar.Solid"
+        app:titleTextColor="@color/primary_text"
+        app:subtitleTextColor="@color/secondary_text"
     />
     <!-- <TextView
         android:id="@+id/message"
@@ -40,7 +42,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
 		android:src="@drawable/baseline_add_black_36dp"
         android:tint="@android:color/white"
-        
+        android:backgroundTint="@color/colorAccent"
     />
     
     <!-- 

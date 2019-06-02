@@ -6,7 +6,8 @@
               android:layout_height="wrap_content"
               android:keepScreenOn="true"
               android:scrollbarAlwaysDrawVerticalTrack="true">
-        <android.support.v7.widget.Toolbar android:layout_width="match_parent"
+        <android.support.v7.widget.Toolbar 
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/letras_viewer_toolbar"/>
             

@@ -28,55 +28,59 @@ namespace Muusika
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
+            try
+            {
+                base.OnCreate(savedInstanceState);
+                Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+                SetContentView(Resource.Layout.activity_main);
 
-            //textMessage = FindViewById<TextView>(Resource.Id.message);
+                //textMessage = FindViewById<TextView>(Resource.Id.message);
 
-            //Navigation
-            BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-            navigation.SetOnNavigationItemSelectedListener(this);
-
-
-            //Fragmentos
-            mLetras_Fragment = new letras_Fragment();
-            mFragment2_fragment = new Fragment2_fragment();
-            mFragment3_fragment = new Fragment3_fragment();
-
-            var trans = SupportFragmentManager.BeginTransaction();
-
-            trans.Add(Resource.Id.content_frame, mLetras_Fragment, "Letras_Fragment");
+                //Navigation
+                BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
+                navigation.SetOnNavigationItemSelectedListener(this);
 
 
-            trans.Add(Resource.Id.content_frame, mFragment2_fragment, "Fragment2_fragment");
-            trans.Hide(mFragment2_fragment);
+                //Fragmentos
+                mLetras_Fragment = new letras_Fragment();
+                mFragment2_fragment = new Fragment2_fragment();
+                mFragment3_fragment = new Fragment3_fragment();
 
-            trans.Add(Resource.Id.content_frame, mFragment3_fragment, "Fragment3_fragment");
-            trans.Hide(mFragment3_fragment);
+                var trans = SupportFragmentManager.BeginTransaction();
 
-
-            /// ... add more fragments
-            /// 
-            trans.Commit();
-
-            mCurrentFragment = mLetras_Fragment;
+                trans.Add(Resource.Id.content_frame, mLetras_Fragment, "Letras_Fragment");
 
 
-            //FloatActionButton
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
+                trans.Add(Resource.Id.content_frame, mFragment2_fragment, "Fragment2_fragment");
+                trans.Hide(mFragment2_fragment);
 
-            //Toolbar
-            SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
-            SetSupportActionBar(toolbar);
+                trans.Add(Resource.Id.content_frame, mFragment3_fragment, "Fragment3_fragment");
+                trans.Hide(mFragment3_fragment);
 
-            //backbutton
-            //SupportActionBar.SetDisplayHomeAsUpEnabled(true);
-            //SupportActionBar.SetHomeButtonEnabled(true);
-            SupportActionBar.Title = "Muusika";
 
-        }
+                /// ... add more fragments
+                /// 
+                trans.Commit();
+
+                mCurrentFragment = mLetras_Fragment;
+
+
+                //FloatActionButton
+                FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+                fab.Click += FabOnClick;
+
+                //Toolbar
+                SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
+                SetSupportActionBar(toolbar);
+                SupportActionBar.Title = GetString(Resource.String.app_name);
+                
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnCreate", ex.Message);
+            }
+        }//oncreate
 
         private void FabOnClick(object sender, System.EventArgs e)
         {
@@ -96,20 +100,20 @@ namespace Muusika
             StartActivity(intent);
 
 
-        }
+        }//FabOnClick
 
         protected override void OnResume()
         {
             mLetras_Fragment.LoadData();
             base.OnResume();
-        }
+        }//OnResume
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+        }//OnRequestPermissionsResult
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
@@ -131,7 +135,7 @@ namespace Muusika
             }
 
             return false;
-        }
+        }//OnNavigationItemSelected
 
         private void ShowFragment(SupportFragment fragment)
         {
@@ -156,16 +160,24 @@ namespace Muusika
             //DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
             //drawer.closeDrawer(GravityCompat.START);
 
-        }
+        }//ShowFragment
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            //if (_LetrasSeleccionadas.Count > 0)
-            //{
-                MenuInflater.Inflate(Resource.Menu.letras_listview_toolbar, menu);
-            //}
+            try
+            {
+                if (mCurrentFragment == mLetras_Fragment)
+                {
+                    mLetras_Fragment.OnCreateOptionsMenu(menu, MenuInflater);
+                }
+                return base.OnCreateOptionsMenu(menu);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnCreateOptionsMenu", ex.Message);
+                return false;
+            }
 
-            return base.OnCreateOptionsMenu(menu);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -188,6 +200,39 @@ namespace Muusika
                     break;
             }
             return base.OnOptionsItemSelected(item);
+        }
+
+        public override void OnBackPressed()
+        {
+            //Do not call the base method
+            //base.Onbackpressed
+            //Do something else
+            // *something else code*
+            //finish this activity unless you want to keep it for some reason
+            //funcionamiento como whatsapp
+            try
+            {
+                if (mCurrentFragment != mLetras_Fragment)
+                {
+                    ShowFragment(mLetras_Fragment);
+                }
+                else
+                {
+                    //mLetras_Fragment is the current
+                    if (mLetras_Fragment.IsSelectingMultipleItms)
+                    {
+                        mLetras_Fragment.UnselectElements();
+                    }
+                    else
+                    {
+                        Finish();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnBackPressed", ex.Message);
+            }
         }
     }
 }

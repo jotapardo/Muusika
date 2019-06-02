@@ -14,5 +14,17 @@
   <string name="Optional">Opcional</string>
 
   <string name="title_add_liryc">Añadir letra</string>
+    
+  
+    
+    <!-- menus -->
+    <string name="Delete">Eliminar</string>
+    <string name="Attach">Adjuntar</string>
+    <string name="Edit">Editar</string>
+    <string name="Share">Compartir</string>
+    <string name="Copy">Copiar</string>
+    <string name="Search">Buscar</string>
+    
 
+    
 </resources>
