@@ -28,7 +28,7 @@ namespace Muusika.Resources.model
 
         public override string ToString()
         {
-            return string.Format("[{0} by {1} \n {2}]", Titulo, Autor, letra);
+            return string.Format("[Muusika - Storage and Share]\n\n*{0}*\nby *{1}*\nfrom *{2}*\n\nLiryc: \n\n*\n{3}\n*", Titulo, Autor, Album, letra);
         }
     }
 }

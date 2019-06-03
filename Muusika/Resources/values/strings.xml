@@ -14,8 +14,8 @@
   <string name="Optional">Opcional</string>
 
   <string name="title_add_liryc">Añadir letra</string>
+  <string name="title_edit_liryc">Editar letra</string>
     
-  
     
     <!-- menus -->
     <string name="Delete">Eliminar</string>

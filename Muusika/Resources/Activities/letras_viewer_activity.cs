@@ -13,6 +13,7 @@ using Android.Views;
 using Android.Widget;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
+using Plugin.Clipboard;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
@@ -97,12 +98,56 @@ namespace Muusika.Resources.Activities
                     Intent intent = new Intent(this, typeof(letras_attach_activity));
                     StartActivity(intent);
                     break;
+                case Resource.Id.action_edit:
+                    Intent intentEdit = new Intent(this, typeof(letras_edit_activity));
+                    intentEdit.PutExtra("IdLiryc", IdLetra.ToString());
+                    StartActivity(intentEdit);
+                    break;
+                case Resource.Id.menu_copy:
+                    /*
+
+                        To set text
+                        CrossClipboard.Current.SetText("my clipboard text");
+                        CrossClipboard.Current.SetText( WebUtility.UrlDecode(message));
+
+                        To get text
+                        string clipboardText = await CrossClipboard.Current.GetTextAsync();                   
+
+                    */
+                    CrossClipboard.Current.SetText(mLetra.ToString());
+                    Toast toast = Toast.MakeText(this, "Letra copiada", ToastLength.Short);
+                    toast.SetGravity(GravityFlags.Center, 0, 0);
+                    toast.Show();
+                    break;
+                case Resource.Id.menu_share:
+                    Intent intentsend = new Intent();
+                    intentsend.SetAction(Intent.ActionSend);
+                    intentsend.PutExtra(Intent.ExtraText, mLetra.ToString());
+                    intentsend.SetType("text/plain");
+                    StartActivity(intentsend);
+                    break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
                     break;
             }
             return base.OnOptionsItemSelected(item);
+        }//OnOptionsItemSelected
+
+        protected override void OnResume()
+        {
+            RetrieveLiryc(IdLetra);
+            base.OnResume();
         }
+
+        protected override void OnRestart()
+        {
+            RetrieveLiryc(IdLetra);
+            base.OnRestart();
+        }
+
+
     }
+
+    
 
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -11,6 +12,7 @@ using Android.Widget;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Newtonsoft.Json;
+using Plugin.Clipboard;
 using SupportFragment = Android.Support.V4.App.Fragment;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -82,14 +84,12 @@ namespace Muusika
             }
         }//oncreate
 
-        private void FabOnClick(object sender, System.EventArgs e)
+        private  void FabOnClick(object sender, System.EventArgs e)
         {
 
             //mLetras_Fragment.AddLiryc();
             //View view = (View)sender;
             //Snackbar.Make(view, "Test", Snackbar.LengthLong).SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-
-
 
 
             //StartActivity(typeof(letras_nueva_activity(mLetras_Fragment)));
@@ -98,6 +98,10 @@ namespace Muusika
             Intent intent = new Intent(this, typeof(letras_nueva_activity));
             intent.PutExtra("Letras_Fragment", JsonConvert.SerializeObject(mLetras_Fragment));
             StartActivity(intent);
+
+            //async
+            //string clipboardText = await CrossClipboard.Current.GetTextAsync();
+            //mLetras_Fragment.AddLirycFromClipboard(clipboardText);
 
 
         }//FabOnClick
@@ -111,7 +115,6 @@ namespace Muusika
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }//OnRequestPermissionsResult
 
@@ -121,16 +124,12 @@ namespace Muusika
             {
                 case Resource.Id.navigation_home:
                     ShowFragment(mLetras_Fragment);
-
-                    //textMessage.SetText(Resource.String.title_home);
                     return true;
                 case Resource.Id.navigation_dashboard:
                     ShowFragment(mFragment2_fragment);
-                    //textMessage.SetText(Resource.String.title_dashboard);
                     return true;
                 case Resource.Id.navigation_notifications:
                     ShowFragment(mFragment3_fragment);
-                    //textMessage.SetText(Resource.String.title_notifications);
                     return true;
             }
 
@@ -151,15 +150,6 @@ namespace Muusika
                 mCurrentFragment = fragment;
             }
 
-            //// set the toolbar title
-            //if (getSupportActionBar() != null)
-            //{
-            //    getSupportActionBar().setTitle(title);
-            //}
-
-            //DrawerLayout drawer = (DrawerLayout)findViewById(R.id.drawer_layout);
-            //drawer.closeDrawer(GravityCompat.START);
-
         }//ShowFragment
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -168,6 +158,7 @@ namespace Muusika
             {
                 if (mCurrentFragment == mLetras_Fragment)
                 {
+                    //Call internal method of mLetras_Fragment
                     mLetras_Fragment.OnCreateOptionsMenu(menu, MenuInflater);
                 }
                 return base.OnCreateOptionsMenu(menu);
@@ -184,18 +175,13 @@ namespace Muusika
         {
             switch (item.ItemId)
             {
-                //case Resource.Id.action_edit:
-                //    Toast.MakeText(this, "You pressed edit action!", ToastLength.Short).Show();
-                //    break;
                 case Resource.Id.action_delete:
                     if (mLetras_Fragment.DeleteLirycs())
                     {
                         Toast.MakeText(this, "Eliminadas!", ToastLength.Short).Show();
                     }
-                    //hideAndShowKeyboard.hideSoftKeyboard(this);
                     break;
                 case Android.Resource.Id.Home:
-                    //hideAndShowKeyboard.hideSoftKeyboard(this);
                     this.OnBackPressed();
                     break;
             }

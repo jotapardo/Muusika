@@ -257,8 +257,80 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("Error letras_Fragment", ex.Message);
+                Log.Error("Error AddLiryc", ex.Message);
             }
+        }
+
+        public void AddLirycFromClipboard(string LirycTextFromClipboard)
+        {
+            try
+            {
+                string[] tokens = LirycTextFromClipboard.Split('*');
+
+                if (tokens.Count() == 9 && tokens[0] == "[Muusika - Storage and Share]\n\n")
+                {
+                    string title = tokens[1];
+                    string author = tokens[3];
+                    string album = tokens[5];
+                    string liryc = tokens[7];
+
+                    Letra mLetra = new Letra()
+                    {
+                        Autor = author,
+                        Album = album,
+                        Titulo = title,
+                        letra = liryc
+                    };
+                    db.InsertIntoTableLetras(mLetra);
+                    LoadData();
+
+                    Toast.MakeText(this.Activity, "Letra añadida", ToastLength.Short);
+                }
+                else
+                {
+                    string clipboardShorted;
+
+                    if (LirycTextFromClipboard.Length > 10)
+                    {
+                        clipboardShorted = LirycTextFromClipboard.Substring(0, 10);
+                    }
+                    else
+                    {
+                        clipboardShorted = LirycTextFromClipboard;
+                    }
+
+                    Toast toast = Toast.MakeText(this.Activity, "El texto '" + clipboardShorted + "...' no proviene de Muusika ;)", ToastLength.Long);
+                    toast.SetGravity(GravityFlags.Center, 0, 0);
+                    toast.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("AddLirycFromClipboard", ex.Message);
+            }
+        }
+        public bool EditLiryc(string title, string author, string album, string liryc, int IdLiryc)
+        {
+            try
+            {
+                Letra mLiryc = new Letra()
+                {
+                    Titulo = title,
+                    Autor = author,
+                    Album = album,
+                    letra = liryc,
+                    IdLetra = IdLiryc
+                };
+                db.UpdateTableLetras(mLiryc);
+                LoadData();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error EditLiryc", ex.Message);
+                return false;
+            }
+
         }
 
         public bool DeleteLirycs()

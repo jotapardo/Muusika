@@ -73,6 +73,7 @@
     <Compile Include="Resources\Activities\letras_nueva_activity.cs" />
     <Compile Include="Resources\Activities\MainActivity.cs" />
     <Compile Include="Resources\Activities\letras_attach_activity.cs" />
+    <Compile Include="Resources\Activities\letras_edit_activity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -123,6 +124,8 @@
     <AndroidResource Include="Resources\drawable\baseline_queue_music_black_36dp.png" />
     <AndroidResource Include="Resources\drawable\baseline_audiotrack_black_36dp.png" />
     <AndroidResource Include="Resources\menu\general_toolbar.xml" />
+    <AndroidResource Include="Resources\layout\letras_edit_layout.xml" />
+    <AndroidResource Include="Resources\menu\letras_edit_toolbar.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl">
@@ -134,6 +137,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Plugins.Clipboard">
+      <Version>2.2.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

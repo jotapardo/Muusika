@@ -26,6 +26,7 @@
             android:id="@+id/LirycTextView"
             android:padding="?android:attr/dialogPreferredPadding"
             android:scrollbars="vertical"
+            android:textIsSelectable="true"
         />
         </ScrollView>
     </LinearLayout>
