@@ -49,7 +49,7 @@ namespace Muusika.Resources.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             //change main_compat_menu
-            MenuInflater.Inflate(Resource.Menu.general_toolbar, menu);
+            MenuInflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
             return base.OnCreateOptionsMenu(menu);
         }//OnCreateOptionsMenu
 

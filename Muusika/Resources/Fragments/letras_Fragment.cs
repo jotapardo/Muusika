@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Android.Animation;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content;
+using Android.Support.V4.View;
 using Android.Util;
 using Android.Views;
+using Android.Views.Animations;
 using Android.Widget;
 using Muusika.Resources;
 using Muusika.Resources.Activities;
@@ -20,23 +23,21 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
 {
-    public class letras_Fragment: Android.Support.V4.App.Fragment, ISelectedChecker
+    public class letras_Fragment : Android.Support.V4.App.Fragment, ISelectedChecker
     {
         ListView _LetrasListView;
         List<Letra> _Letras;
         List<Letra> _LetrasSeleccionadas;
-  
+
         letras_listViewAdapter _LetrasAdapter;
 
         DataBase db;
         bool SelectingMultipleItems = false;
 
-        //SupportToolbar toolbar;
-
-            
-        public bool IsSelectingMultipleItms 
+        SupportToolbar _Toolbar;
+        public bool IsSelectingMultipleItms
         {
-            get 
+            get
             {
                 return SelectingMultipleItems;
             }
@@ -52,18 +53,23 @@ namespace Muusika
             _Letras = new List<Letra>();
             _LetrasSeleccionadas = new List<Letra>();
 
-
         }
 
         public override void OnCreate(Bundle savedInstanceState)
         {
-            base.OnCreate(savedInstanceState);
-            _LetrasSeleccionadas.Clear();
-            //SetHasOptionsMenu(true);
+            try
+            {
+                base.OnCreate(savedInstanceState);
+                _LetrasSeleccionadas.Clear();
+                //SetHasOptionsMenu(true);
 
-            //toolbar = this.Activity.FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
+                _Toolbar = this.Activity.FindViewById<SupportToolbar>(Resource.Id.letras_main_toolbar);
 
-
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnCreate", ex.Message);
+            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -129,7 +135,7 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("Error_LetrasListView_ItemLongClick",ex.Message);
+                Log.Error("Error_LetrasListView_ItemLongClick", ex.Message);
             }
         }
 
@@ -164,7 +170,7 @@ namespace Muusika
                 {
                     SelectingMultipleItems = false;
                 }
-                    
+
 
                 //Forces Android to execute OnCreateOptionsMenu
                 this.Activity.InvalidateOptionsMenu();
@@ -206,8 +212,6 @@ namespace Muusika
             return _LetrasSeleccionadas.Select(x => x.IdLetra).Contains(id);
         }
 
-
-
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -236,10 +240,9 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("Error_LoadData",ex.Message);
+                Log.Error("Error_LoadData", ex.Message);
             }
-
-        }
+        }//LoadData
 
         public void AddLiryc(string title, string author, string album, string liryc)
         {
@@ -259,7 +262,7 @@ namespace Muusika
             {
                 Log.Error("Error AddLiryc", ex.Message);
             }
-        }
+        }//AddLiryc
 
         public void AddLirycFromClipboard(string LirycTextFromClipboard)
         {
@@ -309,6 +312,7 @@ namespace Muusika
                 Log.Error("AddLirycFromClipboard", ex.Message);
             }
         }
+
         public bool EditLiryc(string title, string author, string album, string liryc, int IdLiryc)
         {
             try
@@ -357,19 +361,222 @@ namespace Muusika
             }
         }//DeleteLirycs
 
+        public void FilterLirycs(string filterQuery)
+        {
+            try
+            {
+                if (filterQuery != "" )
+                {
+                    _Letras = db.FilterTableLetras(filterQuery);
+                    _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
+                    _LetrasListView.Adapter = _LetrasAdapter;
+
+                    if (_Letras.Count == 0)
+                    {
+                        Toast.MakeText(this.Activity, "No result found for '" + filterQuery + "'", ToastLength.Short);
+                    }
+                }
+                else
+                {
+                    LoadData();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error FilterLirycs", ex.Message);
+            }
+        }//FilterLirycs
+
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             if (_LetrasSeleccionadas.Count > 0)
             {
+                //Include delete option
                 inflater.Inflate(Resource.Menu.letras_listview_toolbar, menu);
             }
             else
             {
                 //change main_compat_menu
+                //Include search option
                 inflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
+
+                var mSearchItem = menu.FindItem(Resource.Id.action_search);
+
+                var searchView = MenuItemCompat.GetActionView(mSearchItem);
+                var _searchView = searchView.JavaCast<Android.Support.V7.Widget.SearchView>();
+
+                _searchView.QueryTextChange += (s, e) => FilterLirycs(e.NewText);
+
+                _searchView.QueryTextSubmit += (s, e) =>
+                {
+                    // Handle enter/search button on keyboard here
+                    Toast.MakeText(this.Activity, "Searched for: " + e.Query, ToastLength.Short).Show();
+                    e.Handled = true;
+                };
+
+                MenuItemCompat.SetOnActionExpandListener(mSearchItem, new SearchViewExpandListener(this.Activity, _Toolbar));
+
             }
 
             base.OnCreateOptionsMenu(menu, inflater);
         }
-    }
-}
+
+        private class SearchViewExpandListener : Java.Lang.Object, MenuItemCompat.IOnActionExpandListener
+        {
+            Context context;
+            SupportToolbar _Toolbar;
+
+            public SearchViewExpandListener(Context pContext, SupportToolbar pToolbar)
+            {
+                context = pContext;
+                _Toolbar = pToolbar;
+            }
+            public bool OnMenuItemActionCollapse(IMenuItem item)
+            {
+                //MyStuff with context
+
+                // Called when SearchView is collapsing
+
+                //https://stackoverflow.com/questions/30369246/implementing-searchview-as-per-the-material-design-guidelines
+                //https://stackoverflow.com/questions/45930524/searchview-to-your-actionbar-for-recyclerview-in-xamarin-android
+                //https://stackoverflow.com/questions/38761866/xamarin-searchview-onactionexpandlistener
+
+                if (item.IsActionViewExpanded)
+                {
+                    AnimateSearchToolbar(1, false, false);
+                }
+                return true;
+            }
+
+            public bool OnMenuItemActionExpand(IMenuItem item)
+            {
+                try
+                {
+                    // Called when SearchView is expanding
+                    AnimateSearchToolbar(1, true, true);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("OnMenuItemActionExpand", ex.Message);
+                    return false;
+                }
+            }
+
+            public void AnimateSearchToolbar(int numberOfMenuIcon, bool containsOverflow, bool show)
+            {
+                try
+                {
+                    _Toolbar.SetBackgroundColor(Android.Graphics.Color.White);
+                    //mDrawerLayout.setStatusBarBackgroundColor(ContextCompat.getColor(this, R.color.quantum_grey_600));
+
+                    if (show)
+                    {
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                        {
+                            int width = _Toolbar.Width -
+                                    (containsOverflow ? (int)context.Resources.GetDimensionPixelSize(Resource.Dimension.abc_action_button_min_width_overflow_material) : 0) -
+                                    (((int)context.Resources.GetDimensionPixelSize(Resource.Dimension.abc_action_button_min_width_material) * numberOfMenuIcon) / 2);
+
+                            Animator createCircularReveal = ViewAnimationUtils.CreateCircularReveal(_Toolbar,
+                                    IsRtl(context.Resources) ? _Toolbar.Width - width : width, _Toolbar.Height / 2, 0.0f, (float)width);
+                            createCircularReveal.SetDuration(250);
+                            createCircularReveal.Start();
+                        }
+                        else
+                        {
+                            TranslateAnimation translateAnimation = new TranslateAnimation(0.0f, 0.0f, (float)(-_Toolbar.Height), 0.0f);
+                            translateAnimation.Duration = 220;
+                            _Toolbar.ClearAnimation();
+                            _Toolbar.StartAnimation(translateAnimation);
+                        }
+                    }// if (show)
+                    else
+                    {
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                        {
+                            int width = _Toolbar.Width -
+                                (containsOverflow ? (int)context.Resources.GetDimensionPixelSize(Resource.Dimension.abc_action_button_min_width_overflow_material) : 0) -
+                                (((int)context.Resources.GetDimensionPixelSize(Resource.Dimension.abc_action_button_min_width_material) * numberOfMenuIcon) / 2);
+
+                            Animator createCircularReveal = ViewAnimationUtils.CreateCircularReveal(_Toolbar,
+                                    IsRtl(context.Resources) ? _Toolbar.Width - width : width, _Toolbar.Height / 2, (float)width, 0.0f);
+                            createCircularReveal.SetDuration(250);
+                            createCircularReveal.AddListener(new AnimatorListener(_Toolbar));
+                            createCircularReveal.Start();
+                        }
+                        else
+                        {
+                            AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+                            Animation translateAnimation = new TranslateAnimation(0.0f, 0.0f, 0.0f, (float)(-_Toolbar.Height));
+                            AnimationSet animationSet = new AnimationSet(true);
+                            animationSet.AddAnimation(alphaAnimation);
+                            animationSet.AddAnimation(translateAnimation);
+                            animationSet.Duration = 220;
+                            animationSet.SetAnimationListener(new AnimationListener(_Toolbar));
+                            _Toolbar.StartAnimation(animationSet);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("AnimateSearchToolbar", ex.Message);
+                }
+            }//AnimateSearchToolbar
+            
+            private bool IsRtl(Android.Content.Res.Resources resources)
+            {
+                return resources.Configuration.LayoutDirection == Android.Views.LayoutDirection.Rtl;
+            }//isRtl
+
+
+            /// <summary>
+            /// https://forums.xamarin.com/discussion/98853/how-to-write-the-c-equivalent-code-of-this-java-code
+            /// </summary>
+            class AnimationListener : Java.Lang.Object, Animation.IAnimationListener
+            {
+                View View;
+
+                public AnimationListener(View view)
+                {
+                    this.View = view;
+                }
+                public void OnAnimationEnd(Animation animation)
+                {
+                    //base.OnAnimationEnd(animation);
+                    View.SetBackgroundResource(Resource.Color.colorPrimaryToolbar);
+                    //mDrawerLayout.setStatusBarBackgroundColor(getThemeColor(MainActivity.this, R.attr.colorPrimaryDark));
+
+                }
+                // Other interface functions
+                public void OnAnimationCancel(Animation animation) { }
+                public void OnAnimationRepeat(Animation animation) { }
+                public void OnAnimationStart(Animation animation) { }
+            }
+
+            class AnimatorListener : Java.Lang.Object, Animator.IAnimatorListener
+            {
+                View View;
+                public AnimatorListener(View view)
+                {
+                    this.View = view;
+                }
+                public void OnAnimationEnd(Animator animation)
+                {
+                    //base.OnAnimationEnd(animation);
+                    View.SetBackgroundResource(Resource.Color.colorPrimaryToolbar);
+                    //mDrawerLayout.setStatusBarBackgroundColor(getThemeColor(MainActivity.this, R.attr.colorPrimaryDark));
+
+                }
+                // Other interface functions
+                public void OnAnimationCancel(Animator animation) { }
+                public void OnAnimationRepeat(Animator animation) { }
+                public void OnAnimationStart(Animator animation) { }
+            }
+
+        }//private class SearchViewExpandListener
+
+    }//public class letras
+
+}//Namespace Muusika

@@ -36,8 +36,6 @@ namespace Muusika
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);
                 SetContentView(Resource.Layout.activity_main);
 
-                //textMessage = FindViewById<TextView>(Resource.Id.message);
-
                 //Navigation
                 //BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
                 //navigation.SetOnNavigationItemSelectedListener(this);
@@ -52,13 +50,11 @@ namespace Muusika
 
                 trans.Add(Resource.Id.content_frame, mLetras_Fragment, "Letras_Fragment");
 
-
                 trans.Add(Resource.Id.content_frame, mFragment2_fragment, "Fragment2_fragment");
                 trans.Hide(mFragment2_fragment);
 
                 trans.Add(Resource.Id.content_frame, mFragment3_fragment, "Fragment3_fragment");
                 trans.Hide(mFragment3_fragment);
-
 
                 /// ... add more fragments
                 /// 

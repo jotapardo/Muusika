@@ -23,7 +23,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("CreateDatabase", ex.Message);
                 return false;
             }
         }
@@ -41,7 +41,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("InsertIntoTableLetras", ex.Message);
                 return false;
             }
         }
@@ -58,7 +58,25 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("SelectTableLetras", ex.Message);
+                return null;
+            }
+        }
+
+        public List<Letra> FilterTableLetras(string filterQuery)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    string strQuery = "SELECT * FROM Letra WHERE Titulo like '%" + filterQuery + "%' OR Autor like '%" + filterQuery + "%' OR Album like '%" + filterQuery + "%' OR letra like '%" + filterQuery + "%'";
+                    return connection.Query<Letra>(strQuery);
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("FilterTableLetras", ex.Message);
                 return null;
             }
         }
@@ -75,7 +93,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (Exception ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("UpdateTableLetras", ex.Message);
                 return false;
             }
         }
@@ -93,7 +111,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("SelectQueryTableLetras", ex.Message);
                 return false;
             }
         }
@@ -110,7 +128,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("SelectQueryTableLetrasById", ex.Message);
                 return null;
             }
         }
@@ -128,7 +146,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SQLiteEx", ex.Message);
+                Log.Error("DeleteTableLetras", ex.Message);
                 return false;
             }
         }
