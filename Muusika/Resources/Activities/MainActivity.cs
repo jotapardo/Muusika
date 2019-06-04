@@ -19,7 +19,7 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 namespace Muusika
 {
     [Activity(Label = "@string/app_name", Theme = "@style/Theme.AppCompat.Light.NoActionBar", MainLauncher = true)]
-    public class MainActivity: AppCompatActivity, BottomNavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity: AppCompatActivity //, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         //TextView textMessage;
         private SupportFragment mCurrentFragment;
@@ -39,8 +39,8 @@ namespace Muusika
                 //textMessage = FindViewById<TextView>(Resource.Id.message);
 
                 //Navigation
-                BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
-                navigation.SetOnNavigationItemSelectedListener(this);
+                //BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
+                //navigation.SetOnNavigationItemSelectedListener(this);
 
 
                 //Fragmentos
@@ -108,7 +108,15 @@ namespace Muusika
 
         protected override void OnResume()
         {
-            mLetras_Fragment.LoadData();
+            try
+            {
+                mLetras_Fragment.LoadData();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnResume", ex.Message);
+            }
             base.OnResume();
         }//OnResume
 

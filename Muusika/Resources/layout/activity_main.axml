@@ -38,11 +38,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="@dimen/fab_margin"
 		android:src="@drawable/baseline_add_black_36dp"
         android:tint="@android:color/white"
-        android:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/colorAccent"
     />
     
     <!-- 
@@ -50,7 +50,9 @@
     
     https://developer.android.com/design/downloads/index.html
     
-    -->
+    property from FloatingActionButton
+    android:layout_marginBottom="70dp"
+    
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
@@ -60,6 +62,6 @@
         android:background="?android:attr/windowBackground"
         android:layout_alignParentBottom="true"
         app:menu="@menu/navigation" />
-       
+       -->
    
 </RelativeLayout>
