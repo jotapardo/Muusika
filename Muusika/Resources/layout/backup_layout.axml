@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container_RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/backup_toolbar"
+        style="@style/Widget.MyApp.Toolbar.Solid"
+        app:titleTextColor="@color/primary_text"
+        app:subtitleTextColor="@color/secondary_text"/>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:app="http://schemas.android.com/apk/res-auto"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:id="@+id/container_LinearLayout"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_marginTop="70dp"
+                  android:paddingTop="20dp"
+                  android:paddingLeft="20dp">
+        <Button
+            android:text="@string/Backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backup_btn" 
+            android:background="@color/colorAccent"
+            android:textColor="@color/primary_text"
+            android:padding="10dp"/>
+        
+        
+    </LinearLayout>
+	
+    
+</RelativeLayout>

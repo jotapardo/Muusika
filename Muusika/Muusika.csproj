@@ -35,9 +35,6 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
-    <AotAssemblies>false</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
-    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -78,6 +75,7 @@
     <Compile Include="Resources\Activities\MainActivity.cs" />
     <Compile Include="Resources\Activities\letras_attach_activity.cs" />
     <Compile Include="Resources\Activities\letras_edit_activity.cs" />
+    <Compile Include="Resources\Activities\backup_activity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -129,6 +127,10 @@
     <AndroidResource Include="Resources\drawable\baseline_audiotrack_black_36dp.png" />
     <AndroidResource Include="Resources\layout\letras_edit_layout.xml" />
     <AndroidResource Include="Resources\menu\letras_edit_toolbar.xml" />
+    <AndroidResource Include="Resources\drawable\baseline_play_for_work_black_36dp.png" />
+    <AndroidResource Include="Resources\drawable\mobile_receive.png" />
+    <AndroidResource Include="Resources\layout\backup_layout.axml" />
+    <AndroidResource Include="Resources\drawable\img_music.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="sqlite-net-pcl">

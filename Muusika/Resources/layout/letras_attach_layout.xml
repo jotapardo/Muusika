@@ -1,4 +1,4 @@
-﻿
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
@@ -17,12 +17,7 @@
 		android:title="@string/Attach" />
     
     
-	<ImageButton
-		android:src="@drawable/baseline_audiotrack_black_36dp"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/audio_imageButton"
-		android:tag="Audio" />
+	
 	<GridLayout
 		android:minWidth="25px"
 		android:minHeight="25px"
@@ -30,5 +25,19 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/gridLayout1"
 		android:rowCount="2"
-		android:columnCount="3" />
+		android:columnCount="3"
+        android:padding="10dp"
+       >
+
+		<ImageButton
+			android:src="@drawable/img_music"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:id="@+id/audio_imageButton"
+			android:tag="Audio"
+			android:layout_gravity="left|top"
+			android:scaleType="centerInside" />
+        
+        
+    </GridLayout>
 </LinearLayout>

@@ -9,10 +9,11 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Muusika.Resources.Activities;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Newtonsoft.Json;
-using Plugin.Clipboard;
+
 using SupportFragment = Android.Support.V4.App.Fragment;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -95,9 +96,7 @@ namespace Muusika
             intent.PutExtra("Letras_Fragment", JsonConvert.SerializeObject(mLetras_Fragment));
             StartActivity(intent);
 
-            //async
-            //string clipboardText = await CrossClipboard.Current.GetTextAsync();
-            //mLetras_Fragment.AddLirycFromClipboard(clipboardText);
+
 
 
         }//FabOnClick
@@ -187,6 +186,10 @@ namespace Muusika
                     break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
+                    break;
+                case Resource.Id.action_backup:
+                    Intent intent = new Intent(this, typeof(backup_activity));
+                    StartActivity(intent);
                     break;
             }
             return base.OnOptionsItemSelected(item);

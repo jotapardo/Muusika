@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Support.V4.View;
 using Android.Util;
@@ -19,6 +20,7 @@ using Muusika.Resources.Adapters;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using NotiXamarin.Adapters;
+using Plugin.Clipboard;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
@@ -72,19 +74,49 @@ namespace Muusika
             }
         }
 
+        private async void OnFab_Import_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string clipboardText = await CrossClipboard.Current.GetTextAsync();
+
+                AddLirycFromClipboard(clipboardText);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnFab_Import_Click", ex.Message);
+            }
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            View view = inflater.Inflate(Resource.Layout.letras_layout, container, false);
+            try
+            {
 
-            _LetrasListView = view.FindViewById<ListView>(Resource.Id.LetrasListView);
+                View view = inflater.Inflate(Resource.Layout.letras_layout, container, false);
 
-            _LetrasListView.ItemClick += LetrasListView_ItemClick;
 
-            _LetrasListView.ItemLongClick += LetrasListView_ItemLongClick;
+                //ListView
+                _LetrasListView = view.FindViewById<ListView>(Resource.Id.LetrasListView);
+                _LetrasListView.ItemClick += LetrasListView_ItemClick;
+                _LetrasListView.ItemLongClick += LetrasListView_ItemLongClick;
 
-            LoadData();
+                //Methods
+                LoadData();
 
-            return view;
+
+                //FloatingActionButton
+                FloatingActionButton fab_Import = view.FindViewById<FloatingActionButton>(Resource.Id.fab_Import);
+                fab_Import.Click += OnFab_Import_Click;
+
+                return view;
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnCreateView", ex.Message);
+                return null;
+            }
+
         }
 
         private void LetrasListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -373,7 +405,9 @@ namespace Muusika
 
                     if (_Letras.Count == 0)
                     {
-                        Toast.MakeText(this.Activity, "No result found for '" + filterQuery + "'", ToastLength.Short);
+                        Toast toast = Toast.MakeText(this.Activity, "No result found for '" + filterQuery + "'", ToastLength.Short);
+                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                        toast.Show();
                     }
                 }
                 else
