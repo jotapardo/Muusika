@@ -3,10 +3,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
+  <item android:id="@+id/action_addFavorite"
+          android:title="@string/AddFavorite"
+          android:icon="@drawable/baseline_favorite_white_36dp"
+          app:showAsAction="always"/>
+  
+  <item android:id="@+id/action_removeFavorite"
+            android:title="@string/RemoveFavorite"
+            android:icon="@drawable/baseline_favorite_border_white_36dp"
+            app:showAsAction="always"/>
+  
   <item android:id="@+id/action_delete"
-          android:title="Delete"
-          android:icon="@android:drawable/ic_menu_delete"
-          app:showAsAction="ifRoom"/>
+          android:title="@string/Delete"
+          android:icon="@drawable/baseline_delete_outline_white_36dp"
+          app:showAsAction="always"/>
 
+  <item android:id="@+id/action_copy"
+          android:title="@string/Copy"
+          android:icon="@drawable/baseline_file_copy_white_36dp"
+          app:showAsAction="always"/>
+
+  <item android:id="@+id/action_share"
+          android:title="@string/Share"
+          android:icon="@drawable/baseline_mobile_screen_share_white_36dp"
+          app:showAsAction="always"/>
 
 </menu>

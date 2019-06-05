@@ -17,14 +17,17 @@
   <string name="title_edit_liryc">Editar letra</string>
 
   <!-- menus -->
-    <string name="Delete">Eliminar</string>
-    <string name="Attach">Adjuntar</string>
-    <string name="Edit">Editar</string>
-    <string name="Share">Compartir</string>
-    <string name="Copy">Copiar</string>
-    <string name="Search">Buscar</string>
-    <string name="title_search">Buscar...</string>
-    <string name="Backup">Copia de seguridad</string>
+  <string name="Delete">Eliminar</string>
+  <string name="Attach">Adjuntar</string>
+  <string name="Edit">Editar</string>
+  <string name="Share">Compartir</string>
+  <string name="Copy">Copiar</string>
+  <string name="Search">Buscar</string>
+  <string name="title_search">Buscar...</string>
+  <string name="Backup">Copia de seguridad</string>
+  <string name="AddFavorite">Añadir a favoritos</string>
+  <string name="RemoveFavorite">Quitar de favoritos</string>
+  
 
 
   <!-- Copyright (C) 2012 The Android Open Source Project

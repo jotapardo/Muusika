@@ -37,6 +37,9 @@ namespace Muusika
         bool SelectingMultipleItems = false;
 
         SupportToolbar _Toolbar;
+
+        public bool IsSearching;
+
         public bool IsSelectingMultipleItms
         {
             get
@@ -80,7 +83,22 @@ namespace Muusika
             {
                 string clipboardText = await CrossClipboard.Current.GetTextAsync();
 
-                AddLirycFromClipboard(clipboardText);
+
+                if (clipboardText.Contains("--- Muusika ---"))
+                {
+                    string[] tokens = clipboardText.Split("--- Muusika ---");
+
+                    foreach (var token in tokens)
+                    {
+                        AddLirycFromClipboard(token);
+                    }
+                }
+                else
+                {
+                    AddLirycFromClipboard(clipboardText);
+                }
+                
+                
             }
             catch (Exception ex)
             {
@@ -162,8 +180,11 @@ namespace Muusika
                 int id = (int)e.Id;
                 View view = e.View;
 
-                SelectUnselectElements(id, view, e.Position);
-
+                //consult if is searching
+                if (!IsSearching)
+                {
+                    SelectUnselectElements(id, view, e.Position);
+                }
             }
             catch (Exception ex)
             {
@@ -195,6 +216,7 @@ namespace Muusika
                 if (_LetrasSeleccionadas.Count > 0)
                 {
                     SelectingMultipleItems = true;
+                    _Toolbar.Title = _LetrasSeleccionadas.Count.ToString();
                     //this.Activity.SupportActionBar.Title = "Muusika";
 
                 }
@@ -265,7 +287,7 @@ namespace Muusika
             {
                 if (!SelectingMultipleItems)
                 {
-                    _Letras = db.SelectTableLetras();
+                    _Letras = db.SelectTableLetras().OrderBy(n => n.Titulo).ToList();
                     _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
                     _LetrasListView.Adapter = _LetrasAdapter;
                 }
@@ -302,7 +324,7 @@ namespace Muusika
             {
                 string[] tokens = LirycTextFromClipboard.Split('*');
 
-                if (tokens.Count() == 9 && tokens[0] == "[Muusika - Storage and Share]\n\n")
+                if (tokens.Count() >= 9 && tokens[0] == "[Muusika - Storage and Share]\n\n")
                 {
                     string title = tokens[1];
                     string author = tokens[3];
@@ -393,6 +415,66 @@ namespace Muusika
             }
         }//DeleteLirycs
 
+        public void CopyLirycs()
+        {
+            try
+            {
+                string clipBoard = string.Empty;
+
+                foreach (Letra letra in _LetrasSeleccionadas)
+                {
+                    clipBoard += letra.ToString();
+                    clipBoard += "--- Muusika ---";
+                }
+
+                CrossClipboard.Current.SetText(clipBoard);
+                Toast toast = Toast.MakeText(this.Activity, "Letra(s) copiada(s)", ToastLength.Short);
+                toast.SetGravity(GravityFlags.Center, 0, 0);
+                toast.Show();
+
+                _LetrasSeleccionadas.Clear();
+                SelectingMultipleItems = false;
+                //Forces Android to execute OnCreateOptionsMenu
+                this.Activity.InvalidateOptionsMenu();
+
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("CopyLirycs", ex.Message);
+            }
+        }
+
+        public void ShareLirycs()
+        {
+            try
+            {
+                string LirycText = string.Empty;
+
+                foreach (Letra letra in _LetrasSeleccionadas)
+                {
+                    LirycText += letra.ToString();
+                    LirycText += "--- Muusika ---";
+                }
+
+                Intent intentsend = new Intent();
+                intentsend.SetAction(Intent.ActionSend);
+                intentsend.PutExtra(Intent.ExtraText, LirycText);
+                intentsend.SetType("text/plain");
+                StartActivity(intentsend);
+
+                _LetrasSeleccionadas.Clear();
+                SelectingMultipleItems = false;
+                //Forces Android to execute OnCreateOptionsMenu
+                this.Activity.InvalidateOptionsMenu();
+
+                LoadData();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("ShareLirycs", ex.Message);
+            }
+        }
         public void FilterLirycs(string filterQuery)
         {
             try
@@ -422,12 +504,14 @@ namespace Muusika
             }
         }//FilterLirycs
 
+        [Obsolete]
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             if (_LetrasSeleccionadas.Count > 0)
             {
-                //Include delete option
+                //Include delete, share, favorite, etc. option
                 inflater.Inflate(Resource.Menu.letras_listview_toolbar, menu);
+                ((MainActivity)this.Activity).ResetActionBar(true);
             }
             else
             {
@@ -435,6 +519,11 @@ namespace Muusika
                 //Include search option
                 inflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
 
+                _Toolbar.Title = GetString(Resource.String.app_name);
+                ((MainActivity)this.Activity).ResetActionBar(false);
+
+
+                //Search action
                 var mSearchItem = menu.FindItem(Resource.Id.action_search);
 
                 var searchView = MenuItemCompat.GetActionView(mSearchItem);
@@ -468,6 +557,8 @@ namespace Muusika
             }
             public bool OnMenuItemActionCollapse(IMenuItem item)
             {
+
+                //IsSearching = false;
                 //MyStuff with context
 
                 // Called when SearchView is collapsing
@@ -487,6 +578,8 @@ namespace Muusika
             {
                 try
                 {
+                    //IsSearching = true;
+
                     // Called when SearchView is expanding
                     AnimateSearchToolbar(1, true, true);
                     return true;

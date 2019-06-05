@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Gms.Auth.Api.SignIn;
+using Android.Gms.Common.Apis;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.Design.Widget;
@@ -13,6 +15,9 @@ using Muusika.Resources.Activities;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Newtonsoft.Json;
+
+
+
 
 using SupportFragment = Android.Support.V4.App.Fragment;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
@@ -28,6 +33,8 @@ namespace Muusika
         private Fragment2_fragment mFragment2_fragment;
         private Fragment3_fragment mFragment3_fragment;
 
+        //Google
+        //GoogleSignInClient mGoogleSignInClient;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -72,8 +79,8 @@ namespace Muusika
                 SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
                 SetSupportActionBar(toolbar);
                 SupportActionBar.Title = GetString(Resource.String.app_name);
-                
 
+                ConectGoogleAccount();
             }
             catch (Exception ex)
             {
@@ -191,6 +198,16 @@ namespace Muusika
                     Intent intent = new Intent(this, typeof(backup_activity));
                     StartActivity(intent);
                     break;
+                case Resource.Id.action_addFavorite:
+                    break;
+                case Resource.Id.action_removeFavorite:
+                    break;
+                case Resource.Id.action_copy:
+                    mLetras_Fragment.CopyLirycs();
+                    break;
+                case Resource.Id.action_share:
+                    mLetras_Fragment.ShareLirycs();
+                    break;
             }
             return base.OnOptionsItemSelected(item);
         }
@@ -226,7 +243,92 @@ namespace Muusika
             {
                 Log.Error("OnBackPressed", ex.Message);
             }
+        }//OnBackPressed
+
+        //Toolbar show up arrow
+        public void ResetActionBar(bool showHomeButton)
+        {
+            if (showHomeButton)
+            {
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true);//backbutton
+                SupportActionBar.SetHomeButtonEnabled(true);
+            }
+            else
+            {
+                SupportActionBar.SetDisplayHomeAsUpEnabled(false);//backbutton
+                SupportActionBar.SetHomeButtonEnabled(false);
+            }
+
         }
+
+
+        #region Conect with google
+        
+        //https://causerexception.com/2017/12/03/google-native-login-with-xamarin-forms/
+        protected override void OnActivityResult(int requestCode, Result resultCode, Android.Content.Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            if (requestCode == 1)
+            {
+
+                //GoogleSignInResult result = Auth.GoogleSignInApi.GetSignInResultFromIntent(data);
+                //GoogleManager.Instance.OnAuthCompleted(result);
+            }
+        }//OnActivityResult
+
+        private void ConectGoogleAccount()
+        {
+            try
+            {
+                //https://developers.google.com/identity/sign-in/android/sign-in
+
+                // Configure sign-in to request the user's ID, email address, and basic
+                // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+                    .RequestEmail()
+                    .Build();
+                //var mGoogleApiClient = new GoogleApiClient.Builder(this)
+                //    .EnableAutoManage(mLoginFragment, failedHandler)
+                //    .AddApi(Auth.GOOGLE_SIGN_IN_API)
+                //    .Build();
+
+                //If you need to request additional scopes to access Google APIs, specify them with requestScopes. 
+                //For the best user experience, on sign-in, only request the scopes that are required for your app 
+                //to minimally function. Request any additional scopes only when you need them, 
+                //so that your users see the consent screen in the context of an action they performed. 
+                //See Requesting Additional Scopes.
+
+                // Build a GoogleSignInClient with the options specified by gso.
+                //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("ConectGoogleAccount", ex.Message);
+            }
+        }//ConectGoogleAccount
+
+
+        protected override void OnStart()
+        {
+            try
+            {
+                // Check for existing Google Sign In account, if the user is already signed in
+                // the GoogleSignInAccount will be non-null.
+                //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+                //updateUI(account);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            base.OnStart();
+        }
+        #endregion
+
+
+
     }
 }
 

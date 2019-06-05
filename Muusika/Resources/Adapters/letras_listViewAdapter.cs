@@ -12,7 +12,7 @@ using Android.Widget;
 using Java.Lang;
 using Muusika.Resources.model;
 
-namespace Muusika.Resources
+namespace Muusika.Resources.Adapters
 {
     public class ViewHolder : Java.Lang.Object
     {
