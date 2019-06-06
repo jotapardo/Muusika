@@ -7,6 +7,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
+using Android.Text;
 using Android.Util;
 using Android.Views;
 using Android.Views.InputMethods;
@@ -18,13 +19,13 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
 {
-    [Activity(Label = "@string/title_add_liryc", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
+    [Activity(Label = "@string/title_add_Lyric", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class letras_nueva_activity : AppCompatActivity, ISerializable
     {
         EditText TitleEditText;
         EditText AuthorEditText;
         EditText AlbumEditText;
-        EditText LirycEditText;
+        EditText LyricEditText;
         HideAndShowKeyboard hideAndShowKeyboard = new HideAndShowKeyboard();
 
         private letras_Fragment mLetras_Fragment;
@@ -40,7 +41,7 @@ namespace Muusika
                 TitleEditText = FindViewById<EditText>(Resource.Id.TitleEditText);
                 AuthorEditText = FindViewById<EditText>(Resource.Id.AuthorEditText);
                 AlbumEditText = FindViewById<EditText>(Resource.Id.AlbumEditText);
-                LirycEditText = FindViewById<EditText>(Resource.Id.LirycEditText);
+                LyricEditText = FindViewById<EditText>(Resource.Id.LyricEditText);
 
 
                 //Toolbar
@@ -79,10 +80,8 @@ namespace Muusika
                 //    Toast.MakeText(this, "You pressed edit action!", ToastLength.Short).Show();
                 //    break;
                 case Resource.Id.action_save:
-                    Toast.MakeText(this, "Letra añadida correctamente!", ToastLength.Short).Show();
-                    mLetras_Fragment.AddLiryc(TitleEditText.Text,AuthorEditText.Text,AlbumEditText.Text,LirycEditText.Text);
-                    hideAndShowKeyboard.hideSoftKeyboard(this);
-                    Finish();
+
+                    AddLyric();
                     break;
                 case Android.Resource.Id.Home:
                     hideAndShowKeyboard.hideSoftKeyboard(this);
@@ -92,5 +91,37 @@ namespace Muusika
             return base.OnOptionsItemSelected(item);
         }
 
+        private void AddLyric()
+        {
+            try
+            {
+                bool Validated = true;
+
+                //Validate fields
+                if (TextUtils.IsEmpty(TitleEditText.Text))
+                {
+                    TitleEditText.SetError(GetString(Resource.String.message_text_empty), null);
+                    Validated = false;
+                }
+
+                if (TextUtils.IsEmpty(LyricEditText.Text))
+                {
+                    LyricEditText.SetError(GetString(Resource.String.message_text_empty), null);
+                    Validated = false;
+                }
+
+                if (Validated)
+                {
+                    mLetras_Fragment.AddLyric(TitleEditText.Text, AuthorEditText.Text, AlbumEditText.Text, LyricEditText.Text);
+                    Toast.MakeText(this, "Letra añadida correctamente!", ToastLength.Short).Show();
+                    hideAndShowKeyboard.hideSoftKeyboard(this);
+                    Finish();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("AddLyric", ex.Message);
+            }
+        }
     }
 }

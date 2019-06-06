@@ -4,7 +4,7 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/baseline_queue_music_black_36dp"
-        android:title="@string/title_lirycs" />
+        android:title="@string/title_Lyrics" />
 
     <item
         android:id="@+id/navigation_dashboard"

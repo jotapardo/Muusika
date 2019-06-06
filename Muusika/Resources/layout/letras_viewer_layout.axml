@@ -18,12 +18,12 @@
             android:id="@+id/scrollView1"
             android:padding="16dp">
         <TextView
-            android:text="Liryc text"
+            android:text="Lyric text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="25px"
             android:minHeight="25px"
-            android:id="@+id/LirycTextView"
+            android:id="@+id/LyricTextView"
             android:padding="?android:attr/dialogPreferredPadding"
             android:scrollbars="vertical"
             android:textIsSelectable="true"

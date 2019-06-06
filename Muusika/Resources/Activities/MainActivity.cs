@@ -91,7 +91,7 @@ namespace Muusika
         private  void FabOnClick(object sender, System.EventArgs e)
         {
 
-            //mLetras_Fragment.AddLiryc();
+            //mLetras_Fragment.AddLyric();
             //View view = (View)sender;
             //Snackbar.Make(view, "Test", Snackbar.LengthLong).SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
 
@@ -112,6 +112,8 @@ namespace Muusika
         {
             try
             {
+                //Refresh fragment
+                ShowFragment(mCurrentFragment);
                 mLetras_Fragment.LoadData();
 
             }
@@ -186,7 +188,7 @@ namespace Muusika
             switch (item.ItemId)
             {
                 case Resource.Id.action_delete:
-                    mLetras_Fragment.DeleteLirycs();
+                    mLetras_Fragment.DeleteLyrics();
                     break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
@@ -200,10 +202,10 @@ namespace Muusika
                 case Resource.Id.action_removeFavorite:
                     break;
                 case Resource.Id.action_copy:
-                    mLetras_Fragment.CopyLirycs();
+                    mLetras_Fragment.CopyLyrics();
                     break;
                 case Resource.Id.action_share:
-                    mLetras_Fragment.ShareLirycs();
+                    mLetras_Fragment.ShareLyrics();
                     break;
             }
             return base.OnOptionsItemSelected(item);

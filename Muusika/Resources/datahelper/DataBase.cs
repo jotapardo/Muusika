@@ -133,6 +133,33 @@ namespace Muusika.Resources.DataHelper
             }
         }
 
+        public Letra SelectQueryTableLetrasByObjetc(Letra letra)
+        {
+            try
+            {
+                string Title = letra.Titulo;
+                string Author = letra.Autor;
+                string Lyric = letra.letra.Replace("\n","");
+                string Album = letra.Album;
+
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    var Lista = connection.Query<Letra>("SELECT * FROM Letra WHERE Titulo=? AND Autor=? AND letra=? and Album=?", Title, Author, Lyric, Album);
+
+                    if (Lista.Count > 0)
+                        return Lista[0];
+                    else
+                        return null;
+                    
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("SelectQueryTableLetrasByObjetc", ex.Message);
+                return null;
+            }
+        }
+
         public bool DeleteTableLetras(Letra letra)
         {
             try

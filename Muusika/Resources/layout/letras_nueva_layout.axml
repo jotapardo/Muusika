@@ -71,15 +71,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/LirycTextView"
-        android:text="@string/Liryc"
+        android:id="@+id/LyricTextView"
+        android:text="@string/Lyric"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/colorPrimaryDark"
     />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/LirycEditText"
+        android:id="@+id/LyricEditText"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:padding="5dp"
         android:background="@color/material_grey_50"

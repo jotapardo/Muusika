@@ -21,7 +21,7 @@ namespace Muusika.Resources.Activities
     [Activity(Label = "letras_viewer_activity", Theme = "@style/Theme.AppCompat.Light.NoActionBar", NoHistory = false)]
     public class letras_viewer_activity : AppCompatActivity
     {
-        TextView LirycTextView;
+        TextView LyricTextView;
         int IdLetra;
         Letra mLetra = new Letra();
         DataBase db;
@@ -41,7 +41,7 @@ namespace Muusika.Resources.Activities
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);
                 SetContentView(Resource.Layout.letras_viewer_layout);
 
-                LirycTextView = FindViewById<TextView>(Resource.Id.LirycTextView);
+                LyricTextView = FindViewById<TextView>(Resource.Id.LyricTextView);
 
                 //Toolbar
                 SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_viewer_toolbar);
@@ -51,13 +51,13 @@ namespace Muusika.Resources.Activities
                 SupportActionBar.SetHomeButtonEnabled(true);
 
                 SupportActionBar.Title = "NombreCancion";
-                LirycTextView.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+                LyricTextView.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
                 //Get IdLetra from putextra
                 IdLetra = Convert.ToInt32(Intent.GetStringExtra("IdLetra"));
 
-                //Retrieve liryc
-                RetrieveLiryc(IdLetra);
+                //Retrieve Lyric
+                RetrieveLyric(IdLetra);
             }
             catch (Exception ex)
             {
@@ -66,20 +66,20 @@ namespace Muusika.Resources.Activities
 
         }
 
-        private void RetrieveLiryc(int idLetra)
+        private void RetrieveLyric(int idLetra)
         {
             try
             {
                 mLetra = db.SelectQueryTableLetrasById(idLetra);
                 SupportActionBar.Title = mLetra.Titulo;
                 SupportActionBar.Subtitle = mLetra.Autor;
-                LirycTextView.Text = mLetra.letra;
+                LyricTextView.Text = mLetra.letra;
 
                 //Window.AddFlags(WindowManagerFlags.KeepScreenOn);
             }
             catch (Exception ex)
             {
-                Log.Error("ErrorRetrieveLiryc", ex.Message);
+                Log.Error("ErrorRetrieveLyric", ex.Message);
             }
         }
 
@@ -95,12 +95,13 @@ namespace Muusika.Resources.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_attach:
-                    Intent intent = new Intent(this, typeof(letras_attach_activity));
-                    StartActivity(intent);
+                    Toast.MakeText(this,"Muy pronto ;)", ToastLength.Short).Show();
+                    //Intent intent = new Intent(this, typeof(letras_attach_activity));
+                    //StartActivity(intent);
                     break;
                 case Resource.Id.action_edit:
                     Intent intentEdit = new Intent(this, typeof(letras_edit_activity));
-                    intentEdit.PutExtra("IdLiryc", IdLetra.ToString());
+                    intentEdit.PutExtra("IdLyric", IdLetra.ToString());
                     StartActivity(intentEdit);
                     break;
                 case Resource.Id.menu_copy:
@@ -135,13 +136,13 @@ namespace Muusika.Resources.Activities
 
         protected override void OnResume()
         {
-            RetrieveLiryc(IdLetra);
+            RetrieveLyric(IdLetra);
             base.OnResume();
         }
 
         protected override void OnRestart()
         {
-            RetrieveLiryc(IdLetra);
+            RetrieveLyric(IdLetra);
             base.OnRestart();
         }
 

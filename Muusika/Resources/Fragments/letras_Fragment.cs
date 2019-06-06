@@ -83,25 +83,32 @@ namespace Muusika
             {
                 string clipboardText = await CrossClipboard.Current.GetTextAsync();
 
-
-                if (clipboardText.Contains("--- Muusika ---"))
+                if (clipboardText != "")
                 {
-                    string[] tokens = clipboardText.Split("--- Muusika ---");
-
-                    foreach (var token in tokens)
+                    if (clipboardText.Contains("--- Muusika ---"))
                     {
-                        if (token != "") 
+                        string[] tokens = clipboardText.Split("--- Muusika ---");
+
+                        foreach (var token in tokens)
                         {
-                            AddLirycFromClipboard(token);
+                            if (token != "")
+                            {
+                                AddLyricFromClipboard(token);
+                            }
                         }
                     }
+                    else
+                    {
+                        AddLyricFromClipboard(clipboardText);
+                    }
+
                 }
                 else
                 {
-                    AddLirycFromClipboard(clipboardText);
+                    Toast toast = Toast.MakeText(this.Activity, "Copia un texto que provenga de Muusika para importar ;)", ToastLength.Long);
+                    toast.SetGravity(GravityFlags.Center, 0, 0);
+                    toast.Show();
                 }
-                
-                
             }
             catch (Exception ex)
             {
@@ -301,7 +308,7 @@ namespace Muusika
             }
         }//LoadData
 
-        public void AddLiryc(string title, string author, string album, string liryc)
+        public void AddLyric(string title, string author, string album, string Lyric)
         {
             try
             {
@@ -310,53 +317,74 @@ namespace Muusika
                     Autor = author,
                     Album = album,
                     Titulo = title,
-                    letra = liryc
+                    letra = Lyric
                 };
-                db.InsertIntoTableLetras(mLetra);
-                LoadData();
+
+                if (AlreadyExistLyric(mLetra))
+                {
+                    Toast toast = Toast.MakeText(this.Activity, Resource.String.message_Lyric_alredy_added, ToastLength.Long);
+                    toast.SetGravity(GravityFlags.Center, 0, 0);
+                    toast.Show();
+                }
+                else
+                {
+                    db.InsertIntoTableLetras(mLetra);
+                    LoadData();
+                }
+                
             }
             catch (Exception ex)
             {
-                Log.Error("Error AddLiryc", ex.Message);
+                Log.Error("Error AddLyric", ex.Message);
             }
-        }//AddLiryc
+        }//AddLyric
 
-        public void AddLirycFromClipboard(string LirycTextFromClipboard)
+        public void AddLyricFromClipboard(string LyricTextFromClipboard)
         {
             try
             {
-                string[] tokens = LirycTextFromClipboard.Split('*');
+                string[] tokens = LyricTextFromClipboard.Split('*');
 
                 if (tokens.Count() >= 9 && tokens[0] == "[Muusika - Storage and Share]\n\n")
                 {
                     string title = tokens[1];
                     string author = tokens[3];
                     string album = tokens[5];
-                    string liryc = tokens[7];
+                    string Lyric = tokens[7];
 
                     Letra mLetra = new Letra()
                     {
                         Autor = author,
                         Album = album,
                         Titulo = title,
-                        letra = liryc
+                        letra = Lyric
                     };
-                    db.InsertIntoTableLetras(mLetra);
-                    LoadData();
 
-                    Toast.MakeText(this.Activity, "Letra añadida", ToastLength.Short);
+                    if (AlreadyExistLyric(mLetra))
+                    {
+                        Toast.MakeText(this.Activity, GetString(Resource.String.message_Lyric_alredy_added), ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        db.InsertIntoTableLetras(mLetra);
+                        LoadData();
+
+                        Toast.MakeText(this.Activity, GetString(Resource.String.message_Lyric_added), ToastLength.Short).Show();
+                    }
+                    
+                    
                 }
                 else
                 {
                     string clipboardShorted;
 
-                    if (LirycTextFromClipboard.Length > 10)
+                    if (LyricTextFromClipboard.Length > 10)
                     {
-                        clipboardShorted = LirycTextFromClipboard.Substring(0, 10);
+                        clipboardShorted = LyricTextFromClipboard.Substring(0, 10);
                     }
                     else
                     {
-                        clipboardShorted = LirycTextFromClipboard;
+                        clipboardShorted = LyricTextFromClipboard;
                     }
 
                     Toast toast = Toast.MakeText(this.Activity, "El texto '" + clipboardShorted + "...' no proviene de Muusika ;)", ToastLength.Long);
@@ -366,35 +394,35 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("AddLirycFromClipboard", ex.Message);
+                Log.Error("AddLyricFromClipboard", ex.Message);
             }
         }
 
-        public bool EditLiryc(string title, string author, string album, string liryc, int IdLiryc)
+        public bool EditLyric(string title, string author, string album, string Lyric, int IdLyric)
         {
             try
             {
-                Letra mLiryc = new Letra()
+                Letra mLyric = new Letra()
                 {
                     Titulo = title,
                     Autor = author,
                     Album = album,
-                    letra = liryc,
-                    IdLetra = IdLiryc
+                    letra = Lyric,
+                    IdLetra = IdLyric
                 };
-                db.UpdateTableLetras(mLiryc);
+                db.UpdateTableLetras(mLyric);
                 LoadData();
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Error("Error EditLiryc", ex.Message);
+                Log.Error("Error EditLyric", ex.Message);
                 return false;
             }
 
         }
 
-        public void DeleteLirycs()
+        public void DeleteLyrics()
         {
             try
             {
@@ -404,7 +432,7 @@ namespace Muusika
 
                 if (_LetrasSeleccionadas.Count > 1)
                 {
-                    Message = "¿" + GetString(Resource.String.Delete) + " " + _LetrasSeleccionadas.Count.ToString() + " " + GetString(Resource.String.lirycs)  + "?";
+                    Message = "¿" + GetString(Resource.String.Delete) + " " + _LetrasSeleccionadas.Count.ToString() + " " + GetString(Resource.String.Lyrics)  + "?";
                 }
                 else
                 {
@@ -444,9 +472,9 @@ namespace Muusika
             {
                 Log.Error("Error letras_Fragment", ex.Message);
             }
-        }//DeleteLirycs
+        }//DeleteLyrics
 
-        public void CopyLirycs()
+        public void CopyLyrics()
         {
             try
             {
@@ -472,25 +500,25 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("CopyLirycs", ex.Message);
+                Log.Error("CopyLyrics", ex.Message);
             }
         }
 
-        public void ShareLirycs()
+        public void ShareLyrics()
         {
             try
             {
-                string LirycText = string.Empty;
+                string LyricText = string.Empty;
 
                 foreach (Letra letra in _LetrasSeleccionadas)
                 {
-                    LirycText += letra.ToString();
-                    LirycText += "--- Muusika ---";
+                    LyricText += letra.ToString();
+                    LyricText += "--- Muusika ---";
                 }
 
                 Intent intentsend = new Intent();
                 intentsend.SetAction(Intent.ActionSend);
-                intentsend.PutExtra(Intent.ExtraText, LirycText);
+                intentsend.PutExtra(Intent.ExtraText, LyricText);
                 intentsend.SetType("text/plain");
                 StartActivity(intentsend);
 
@@ -503,10 +531,11 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("ShareLirycs", ex.Message);
+                Log.Error("ShareLyrics", ex.Message);
             }
         }
-        public void FilterLirycs(string filterQuery)
+
+        public void FilterLyrics(string filterQuery)
         {
             try
             {
@@ -531,9 +560,30 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("Error FilterLirycs", ex.Message);
+                Log.Error("Error FilterLyrics", ex.Message);
             }
-        }//FilterLirycs
+        }//FilterLyrics
+
+        public bool AlreadyExistLyric(Letra letra)
+        {
+            try
+            {
+                Letra mLetra;
+
+                mLetra = db.SelectQueryTableLetrasByObjetc(letra);
+
+                if (mLetra != null)
+                    return true;
+                else
+                    return false;
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error("AlreadyExistLyric", ex.Message);
+                return false;
+            }
+        }
 
         [Obsolete]
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
@@ -560,7 +610,7 @@ namespace Muusika
                 var searchView = MenuItemCompat.GetActionView(mSearchItem);
                 var _searchView = searchView.JavaCast<Android.Support.V7.Widget.SearchView>();
 
-                _searchView.QueryTextChange += (s, e) => FilterLirycs(e.NewText);
+                _searchView.QueryTextChange += (s, e) => FilterLyrics(e.NewText);
 
                 _searchView.QueryTextSubmit += (s, e) =>
                 {

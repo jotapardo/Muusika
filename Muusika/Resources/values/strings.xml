@@ -1,7 +1,7 @@
 <resources>
   <string name="app_name">Muusika</string>
   
-  <string name="title_lirycs">Letras</string>
+  <string name="title_Lyrics">Letras</string>
   <string name="title_dashboard">Dashboard</string>
   <string name="title_notifications">Notifications</string>
 
@@ -10,11 +10,11 @@
   <string name="Title">Titulo</string>
   <string name="Author">Autor</string>
   <string name="Album">Álbum</string>
-  <string name="Liryc">Letra</string>
+  <string name="Lyric">Letra</string>
   <string name="Optional">Opcional</string>
 
-  <string name="title_add_liryc">Añadir letra</string>
-  <string name="title_edit_liryc">Editar letra</string>
+  <string name="title_add_Lyric">Añadir letra</string>
+  <string name="title_edit_Lyric">Editar letra</string>
 
   <!-- menus -->
   <string name="Delete">Eliminar</string>
@@ -33,10 +33,16 @@
   <!-- delete messages -->
   <string name="message_Delete_intial">¿Eliminar letra </string>
   <string name="message_Delete">Eliminar letra</string>
-  <string name="lirycs"> letras</string>
+  <string name="Lyrics"> letras</string>
   <string name="message_Delete_success">Letras eliminadas</string>
-    
-    
+
+  <!-- import messages -->
+  <string name="message_Lyric_added">Letra añadida</string>
+  <string name="message_Lyric_alredy_added">Ya tienes esta letra en Muusika</string>
+
+  <!-- messages -->
+  <string name="message_text_empty">El texto no puede estar vacío!</string>
+  
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.

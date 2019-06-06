@@ -9,6 +9,7 @@ using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
+using Android.Text;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -19,18 +20,18 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
 {
-    [Activity(Label = "@string/title_edit_liryc", Theme = "@style/Theme.AppCompat.Light.NoActionBar", NoHistory = false)]
+    [Activity(Label = "@string/title_edit_Lyric", Theme = "@style/Theme.AppCompat.Light.NoActionBar", NoHistory = false)]
     public class letras_edit_activity : AppCompatActivity
     {
         EditText TitleEditText;
         EditText AuthorEditText;
         EditText AlbumEditText;
-        EditText LirycEditText;
-        int intIdLiryc;
+        EditText LyricEditText;
+        int intIdLyric;
         DataBase db;
 
         private letras_Fragment mLetras_Fragment;
-        private Letra mLiryc;
+        private Letra mLyric;
 
         public letras_edit_activity()
         {
@@ -50,7 +51,7 @@ namespace Muusika.Resources.Activities
                 TitleEditText = FindViewById<EditText>(Resource.Id.TitleEditText);
                 AuthorEditText = FindViewById<EditText>(Resource.Id.AuthorEditText);
                 AlbumEditText = FindViewById<EditText>(Resource.Id.AlbumEditText);
-                LirycEditText = FindViewById<EditText>(Resource.Id.LirycEditText);
+                LyricEditText = FindViewById<EditText>(Resource.Id.LyricEditText);
 
 
                 //Toolbar
@@ -65,11 +66,11 @@ namespace Muusika.Resources.Activities
 
 
                 //Params
-                intIdLiryc = Convert.ToInt32(Intent.GetStringExtra("IdLiryc"));
+                intIdLyric = Convert.ToInt32(Intent.GetStringExtra("IdLyric"));
 
 
                 //Call methods
-                RetrieveLiryc(intIdLiryc);
+                RetrieveLyric(intIdLyric);
             }
             catch (Exception ex)
             {
@@ -90,11 +91,7 @@ namespace Muusika.Resources.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_save:
-                    if (mLetras_Fragment.EditLiryc(TitleEditText.Text, AuthorEditText.Text, AlbumEditText.Text, LirycEditText.Text, intIdLiryc))
-                    {
-                        Toast.MakeText(this, "Letra editada correctamente!", ToastLength.Short).Show();
-                        Finish();
-                    }
+                    UpdateLyric();
                     break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
@@ -103,22 +100,58 @@ namespace Muusika.Resources.Activities
             return base.OnOptionsItemSelected(item);
         }//OnOptionItemSelected
 
-        private void RetrieveLiryc(int IdLiryc)
+        private void RetrieveLyric(int IdLyric)
         {
             try
             {
-                mLiryc = db.SelectQueryTableLetrasById(IdLiryc);
-                TitleEditText.Text = mLiryc.Titulo;
-                AuthorEditText.Text = mLiryc.Autor;
-                AlbumEditText.Text = mLiryc.Album;
-                LirycEditText.Text = mLiryc.letra;
+                mLyric = db.SelectQueryTableLetrasById(IdLyric);
+                TitleEditText.Text = mLyric.Titulo;
+                AuthorEditText.Text = mLyric.Autor;
+                AlbumEditText.Text = mLyric.Album;
+                LyricEditText.Text = mLyric.letra;
 
                 //Window.AddFlags(WindowManagerFlags.KeepScreenOn);
             }
             catch (Exception ex)
             {
-                Log.Error("ErrorRetrieveLiryc", ex.Message);
+                Log.Error("ErrorRetrieveLyric", ex.Message);
             }
-        }//RetrieveLiryc
+        }//RetrieveLyric
+
+        private void UpdateLyric()
+        {
+            try
+            {
+                bool Validated = true;
+
+                //Validate fields
+                if (TextUtils.IsEmpty(TitleEditText.Text))
+                {
+                    TitleEditText.SetError(GetString(Resource.String.message_text_empty), null);
+                    Validated = false;
+                }
+
+                if (TextUtils.IsEmpty(LyricEditText.Text))
+                {
+                    LyricEditText.SetError(GetString(Resource.String.message_text_empty), null);
+                    Validated = false;
+                }
+
+                if (Validated)
+                {
+                    if (mLetras_Fragment.EditLyric(TitleEditText.Text, AuthorEditText.Text, AlbumEditText.Text, LyricEditText.Text, intIdLyric))
+                    {
+                        Toast.MakeText(this, "Letra editada correctamente!", ToastLength.Short).Show();
+                        Finish();
+                    }
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UpdateLyric", ex.Message);
+            }
+        }
     }
 }
