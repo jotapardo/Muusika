@@ -22,6 +22,7 @@
   <string name="Edit">Editar</string>
   <string name="Share">Compartir</string>
   <string name="Copy">Copiar</string>
+  <string name="Cancel">Cancelar</string>
   <string name="Search">Buscar</string>
   <string name="title_search">Buscar...</string>
   <string name="Backup">Copia de seguridad</string>
@@ -29,7 +30,13 @@
   <string name="RemoveFavorite">Quitar de favoritos</string>
   
 
-
+  <!-- delete messages -->
+  <string name="message_Delete_intial">¿Eliminar letra </string>
+  <string name="message_Delete">Eliminar letra</string>
+  <string name="lirycs"> letras</string>
+  <string name="message_Delete_success">Letras eliminadas</string>
+    
+    
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.

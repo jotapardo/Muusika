@@ -186,10 +186,7 @@ namespace Muusika
             switch (item.ItemId)
             {
                 case Resource.Id.action_delete:
-                    if (mLetras_Fragment.DeleteLirycs())
-                    {
-                        Toast.MakeText(this, "Eliminadas!", ToastLength.Short).Show();
-                    }
+                    mLetras_Fragment.DeleteLirycs();
                     break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();

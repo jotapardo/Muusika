@@ -22,7 +22,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id = "@+id/LetraImageView"
-                android:src = "@drawable/img_profile" />
+                android:src = "@drawable/img_equalizer" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"

@@ -26,6 +26,8 @@ namespace Muusika.Resources.model
 
         public string letra { get; set; }
 
+        public bool EsFavorita { get; set; }
+
         public override string ToString()
         {
             return string.Format("[Muusika - Storage and Share]\n\n*{0}*\nby *{1}*\nfrom *{2}*\n\nLiryc: \n\n*\n{3}\n*", Titulo, Autor, Album, letra);

@@ -36,8 +36,41 @@
 			android:id="@+id/audio_imageButton"
 			android:tag="Audio"
 			android:layout_gravity="left|top"
-			android:scaleType="centerInside" />
+			android:scaleType="centerInside" 
+            
+        />
         
+        <ImageButton
+            android:src="@drawable/img_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/image_imageButton"
+            android:tag="Image"
+            android:layout_gravity="left|top"
+            android:scaleType="centerInside" />
+        
+        <ImageButton
+            android:src="@drawable/img_play"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/videoWeb_imageButton"
+            android:tag="VideoWeb"
+            android:layout_gravity="left|top"
+            android:scaleType="centerInside" />
         
     </GridLayout>
+	<ImageView
+		android:src="@android:drawable/ic_menu_gallery"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/imageView1" 
+        android:padding = "20dp"
+        android:visibility="invisible"
+    />
+	<android.webkit.WebView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/webView1" />
+    
+    
 </LinearLayout>

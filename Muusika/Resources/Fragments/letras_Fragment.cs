@@ -90,7 +90,10 @@ namespace Muusika
 
                     foreach (var token in tokens)
                     {
-                        AddLirycFromClipboard(token);
+                        if (token != "") 
+                        {
+                            AddLirycFromClipboard(token);
+                        }
                     }
                 }
                 else
@@ -391,27 +394,55 @@ namespace Muusika
 
         }
 
-        public bool DeleteLirycs()
+        public void DeleteLirycs()
         {
             try
             {
-                foreach (Letra letra in _LetrasSeleccionadas)
+                //Confirm delete
+
+                string Message = string.Empty;
+
+                if (_LetrasSeleccionadas.Count > 1)
                 {
-                    db.DeleteTableLetras(letra);
+                    Message = "¿" + GetString(Resource.String.Delete) + " " + _LetrasSeleccionadas.Count.ToString() + " " + GetString(Resource.String.lirycs)  + "?";
+                }
+                else
+                {
+                    Message = GetString(Resource.String.message_Delete_intial) + " " + _LetrasSeleccionadas[0].Titulo + "?";
                 }
 
-                _LetrasSeleccionadas.Clear();
-                SelectingMultipleItems = false;
-                //Forces Android to execute OnCreateOptionsMenu
-                this.Activity.InvalidateOptionsMenu();
 
-                LoadData();
-                return true;
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this.Activity);
+                dialog.SetPositiveButton(GetString(Resource.String.message_Delete), (sender, args) =>
+                {
+                    //yes
+                    foreach (Letra letra in _LetrasSeleccionadas)
+                    {
+                        db.DeleteTableLetras(letra);
+                    }
+
+                    _LetrasSeleccionadas.Clear();
+                    SelectingMultipleItems = false;
+                    //Forces Android to execute OnCreateOptionsMenu
+                    this.Activity.InvalidateOptionsMenu();
+
+                    LoadData();
+
+                    Toast.MakeText(this.Activity, GetString(Resource.String.message_Delete_success), ToastLength.Short).Show();
+                })
+                .SetNegativeButton(GetString(Resource.String.Cancel), (sender, args) =>
+                {
+
+                })
+                .SetMessage(Message);
+                //.SetTitle(GetString(Resource.String.message_Delete));
+
+                dialog.Show();
+
             }
             catch (Exception ex)
             {
                 Log.Error("Error letras_Fragment", ex.Message);
-                return false;
             }
         }//DeleteLirycs
 
