@@ -11,10 +11,18 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" 
         />
   <!-- app:actionLayout="@layout/search_view_layout"  -->
-  
-    <item android:id="@+id/action_backup"
-          android:title="@string/Backup"
+
+  <item android:id="@+id/action_intro"
+          android:title="@string/Intro"
           android:showAsAction="never" />
+  
+  <item android:id="@+id/action_settings"
+          android:title="@string/Settings"
+          android:showAsAction="never" />
+  
+    <!--<item android:id="@+id/action_backup"
+          android:title="@string/Backup"
+          android:showAsAction="never" />-->
 </menu>
 
 <!-- Code to implement into Activity:

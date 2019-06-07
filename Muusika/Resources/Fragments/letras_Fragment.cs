@@ -87,7 +87,7 @@ namespace Muusika
             {
                 string clipboardText = await CrossClipboard.Current.GetTextAsync();
 
-                if (clipboardText != "")
+                if (clipboardText != "" && clipboardText != null)
                 {
                     if (clipboardText.Contains("--- Muusika ---"))
                     {

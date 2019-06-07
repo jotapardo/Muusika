@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">Muusika</string>
   
   <string name="title_Lyrics">Letras</string>
@@ -25,6 +25,8 @@
   <string name="Cancel">Cancelar</string>
   <string name="Search">Buscar</string>
   <string name="title_search">Buscar...</string>
+  <string name="Intro">Ver funciones</string>
+  <string name="Settings">Ajustes</string>
   <string name="Backup">Copia de seguridad</string>
   <string name="AddFavorite">Añadir a favoritos</string>
   <string name="RemoveFavorite">Quitar de favoritos</string>
@@ -84,7 +86,13 @@
   <!-- Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
   <string name="abc_shareactionprovider_share_with">Share with</string>
 
-  
-  
+
+  <!-- Intro Slide https://github.com/paolorotolo/AppIntro/blob/master/appintro/src/main/res/values/strings.xml -->
+  <string name="app_intro_skip_button">OMITIR</string>
+  <string name="app_intro_next_button" tools:ignore="MissingTranslation">SIGUIENTE</string>
+  <string name="app_intro_back_button" tools:ignore="MissingTranslation">ATRAS</string>
+  <string name="app_intro_done_button">LISTO</string>
+  <string name="app_intro_image_content_description" tools:ignore="MissingTranslation">gráficos</string>
+
 
 </resources>

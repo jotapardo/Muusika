@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Common.Apis;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
@@ -43,6 +44,25 @@ namespace Muusika
                 base.OnCreate(savedInstanceState);
                 Xamarin.Essentials.Platform.Init(this, savedInstanceState);
                 SetContentView(Resource.Layout.activity_main);
+
+                ////Test websearch
+                //StartActivity(new Intent(this, typeof(letras_search_activity)));
+                //Finish();
+
+                //Intro
+                RunOnUiThread(() => {
+                    ISharedPreferences getPresfs = PreferenceManager.GetDefaultSharedPreferences(BaseContext);
+                    bool IsFirstStart = getPresfs.GetBoolean("firstStart", true);
+                    if (IsFirstStart)
+                    {
+                        StartActivity(new Intent(this, typeof(intro_activity)));
+                        Finish();
+                    ISharedPreferencesEditor sharedPreferencesEditor = getPresfs.Edit();
+                    sharedPreferencesEditor.PutBoolean("firstStart", false);
+                    sharedPreferencesEditor.Apply();
+                }
+                });
+
 
                 //Navigation
                 //BottomNavigationView navigation = FindViewById<BottomNavigationView>(Resource.Id.navigation);
@@ -193,10 +213,10 @@ namespace Muusika
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
                     break;
-                case Resource.Id.action_backup:
-                    Intent intent = new Intent(this, typeof(backup_activity));
-                    StartActivity(intent);
-                    break;
+                //case Resource.Id.action_backup:
+                //    Intent intent = new Intent(this, typeof(backup_activity));
+                //    StartActivity(intent);
+                //    break;
                 case Resource.Id.action_addFavorite:
                     break;
                 case Resource.Id.action_removeFavorite:
@@ -206,6 +226,16 @@ namespace Muusika
                     break;
                 case Resource.Id.action_share:
                     mLetras_Fragment.ShareLyrics();
+                    break;
+                case Resource.Id.action_intro:
+                    //Intro
+                    RunOnUiThread(() => {
+                        StartActivity(new Intent(this, typeof(intro_activity)));
+                        Finish();
+                    });
+                    break;
+                case Resource.Id.action_settings:
+                    Toast.MakeText(this, "Muy pronto ;)", ToastLength.Short).Show();
                     break;
             }
             return base.OnOptionsItemSelected(item);
