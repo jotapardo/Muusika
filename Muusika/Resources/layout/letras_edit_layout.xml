@@ -10,7 +10,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/letras_edit_toolbar"
     />
+    
+    <ScrollView android:id="@+id/scrollView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout1">
+            
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -90,4 +99,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>

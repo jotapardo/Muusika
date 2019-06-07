@@ -40,6 +40,10 @@ namespace Muusika
 
         public bool IsSearching;
 
+        LinearLayout nodata_linearLayout;
+
+
+
         public bool IsSelectingMultipleItms
         {
             get
@@ -129,13 +133,17 @@ namespace Muusika
                 _LetrasListView.ItemClick += LetrasListView_ItemClick;
                 _LetrasListView.ItemLongClick += LetrasListView_ItemLongClick;
 
-                //Methods
-                LoadData();
-
 
                 //FloatingActionButton
                 FloatingActionButton fab_Import = view.FindViewById<FloatingActionButton>(Resource.Id.fab_Import);
                 fab_Import.Click += OnFab_Import_Click;
+
+
+                //no data elements
+                nodata_linearLayout = view.FindViewById<LinearLayout>(Resource.Id.nodata_linearLayout);
+
+                //Methods
+                LoadData();
 
                 return view;
             }
@@ -300,6 +308,17 @@ namespace Muusika
                     _Letras = db.SelectTableLetras().OrderBy(n => n.Titulo).ToList();
                     _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
                     _LetrasListView.Adapter = _LetrasAdapter;
+
+                    if (_Letras.Count > 0)
+                    {
+                        nodata_linearLayout.Visibility = ViewStates.Invisible;
+                        _LetrasListView.Visibility = ViewStates.Visible;
+                    }
+                    else
+                    {
+                        nodata_linearLayout.Visibility = ViewStates.Visible;
+                        _LetrasListView.Visibility = ViewStates.Invisible;
+                    }
                 }
             }
             catch (Exception ex)

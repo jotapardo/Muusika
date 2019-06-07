@@ -7,10 +7,10 @@
 
   <string name="LetrasTitulo">Letras</string>
   
-  <string name="Title">Titulo</string>
+  <string name="Title">Titulo *</string>
   <string name="Author">Autor</string>
   <string name="Album">Álbum</string>
-  <string name="Lyric">Letra</string>
+  <string name="Lyric">Letra *</string>
   <string name="Optional">Opcional</string>
 
   <string name="title_add_Lyric">Añadir letra</string>
@@ -42,6 +42,7 @@
 
   <!-- messages -->
   <string name="message_text_empty">El texto no puede estar vacío!</string>
+  <string name="message_nodata">¡Crea tu primer letra, ponte en modo Muusika!</string>
   
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
