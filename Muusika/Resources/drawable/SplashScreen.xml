@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <color android:color="@android:color/white"></color>
+    </item>
+
+    <item>
+        <bitmap android:src="@drawable/muusika_icon" 
+                android:gravity="center"
+                android:tileMode="disabled"/>
+    </item>
+</layer-list>

@@ -6,9 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
     </style>
-    
+
+    <!-- Splash theme-->
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@drawable/SplashScreen</item>
+        <!--<item name="android:windowBackground">@drawable/Muusika_icon</item>-->
+    </style>
+  
     <style name="Widget.MyApp.Toolbar.Solid" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/colorPrimaryToolbar</item>
         <!--<item name="android:elevation" tools:ignore="NewApi">4dp</item>

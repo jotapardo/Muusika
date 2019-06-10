@@ -45,15 +45,15 @@ namespace Muusika.Resources.Activities
                     //    Width = 600
                     //}
                 };
-                var bitmap = writer.Write("My content");
-
-                QRcode_imageView.SetImageBitmap(bitmap);
-
-                moreOptions_button.Click += MoreOptions_Button_Click;
 
                 //Get lyric text from putextra
                 lyricText = Intent.GetStringExtra("lyricText");
 
+                var bitmap = writer.Write(lyricText);
+
+                QRcode_imageView.SetImageBitmap(bitmap);
+
+                moreOptions_button.Click += MoreOptions_Button_Click;
 
                 //Toolbar
                 SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.qr_code_generator_toolbar);
@@ -84,6 +84,17 @@ namespace Muusika.Resources.Activities
             {
                 Log.Error("MoreOptions_Button_Click", ex.Message);
             }
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    this.OnBackPressed();
+                    break;
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
     }

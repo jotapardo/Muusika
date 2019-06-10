@@ -31,7 +31,7 @@ namespace Muusika.Resources.Activities
             AddSlide(AppIntro.AppIntroFragment.NewInstance("Importa letras"
                 , "Utiliza esta opción para importar las letras que comparten contigo desde Muusika"
                 , Resource.Drawable.mobile_receive
-                ,Color.LightGray));//Color.ParseColor("#f64c73")
+                ,Color.ParseColor("#9C27B0")));//Color.ParseColor("#f64c73")
 
             AddSlide(AppIntro.AppIntroFragment.NewInstance("Elige las opciones"
                 , "Puedes elegir entre importar desde un texto copiado o desde un código QR que escanees con tu cámara"

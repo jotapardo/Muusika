@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Common.Apis;
+using Android.Graphics;
 using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
@@ -12,6 +13,7 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+//using GR.Net.Maroulis.Library;
 using Muusika.Resources.Activities;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
@@ -25,7 +27,7 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/Theme.AppCompat.Light.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]//, MainLauncher = true
     public class MainActivity: AppCompatActivity //, BottomNavigationView.IOnNavigationItemSelectedListener
     {
         //TextView textMessage;
@@ -48,6 +50,21 @@ namespace Muusika
                 ////Test websearch
                 //StartActivity(new Intent(this, typeof(letras_search_activity)));
                 //Finish();
+
+                
+                //SplashScreen
+                //Nutget with error EasySplashScreen
+                //var config = new EasySplashScreen(this)
+                //    .WithFullScreen()
+                //    .WithTargetActivity(Java.Lang.Class.FromType(typeof(splash_screen_activity)))
+                //    .WithSplashTimeOut(1000) //1 sec
+                //    .WithBackgroundColor(Color.White)
+                //    .WithLogo(Resource.Drawable.Muusika_icon);
+                ////create view
+                //View view = config.Create();
+                ////Set Content View
+                //SetContentView(view);
+
 
                 //Intro
                 RunOnUiThread(() => {

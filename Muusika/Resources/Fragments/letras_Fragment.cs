@@ -611,12 +611,21 @@ namespace Muusika
                     LyricText += "--- Muusika ---";
                 }
 
-                Intent intentsend = new Intent();
-                intentsend.SetAction(Intent.ActionSend);
-                intentsend.PutExtra(Intent.ExtraText, LyricText);
-                intentsend.SetType("text/plain");
-                StartActivity(intentsend);
-
+                if (_LetrasSeleccionadas.Count == 1)
+                {
+                    Intent intent = new Intent(this.Activity, typeof(qr_code_generator_activity));
+                    intent.PutExtra("lyricText", _LetrasSeleccionadas[0].ToString());
+                    StartActivity(intent);
+                }
+                else
+                {
+                    Intent intentsend = new Intent();
+                    intentsend.SetAction(Intent.ActionSend);
+                    intentsend.PutExtra(Intent.ExtraText, LyricText);
+                    intentsend.SetType("text/plain");
+                    StartActivity(intentsend);
+                }
+                
                 _LetrasSeleccionadas.Clear();
                 SelectingMultipleItems = false;
                 //Forces Android to execute OnCreateOptionsMenu
