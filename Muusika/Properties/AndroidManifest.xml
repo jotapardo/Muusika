@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.jotapardo.Muusika">
 	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
-	<application android:allowBackup="true" android:icon="@mipmap/ic_launcher_foreground" android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme" android:hardwareAccelerated="true"></application>
+	<application android:allowBackup="true" android:icon="@mipmap/ic_launcher_foreground" android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/AppTheme" android:hardwareAccelerated="true">
+		<meta-data android:name="com.google.android.gms.vision.DEPENDENCES" android:value="barcode" />
+	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.VIBRATE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.FLASHLIGHT" />
 </manifest>

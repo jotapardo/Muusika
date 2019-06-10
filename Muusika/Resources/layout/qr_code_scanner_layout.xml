@@ -1,0 +1,41 @@
+﻿
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/relativeLayout1" 
+    android:padding="5dp"
+    >
+    
+    <android.support.v7.widget.Toolbar 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/qr_code_scanner_toolbar"/>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:keepScreenOn="true"
+              android:scrollbarAlwaysDrawVerticalTrack="true">
+        <TextView
+            android:id="@+id/result_textView"    
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Por favor enfoca tu cámara al código QR"
+            android:textSize="20sp"
+        />
+        
+        <SurfaceView
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:id="@+id/camera_surfaceView" 
+        />
+    </LinearLayout>
+    
+	
+    
+    
+</RelativeLayout>

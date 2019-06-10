@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="#ffffff"
+    >
+    
+    <android.support.v7.widget.Toolbar 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/qr_code_generator_toolbar"/>
+    
+    <TextView
+        android:id="@+id/shareQR_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/message_shareQR"
+        android:gravity="center_horizontal" 
+        android:layout_margin="15dp"
+    />
+        
+    <TextView
+        android:id="@+id/shareQR_steps_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/message_shareQR_steps"
+        android:padding="15dp"
+    />
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal">
+		<ImageView
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="300dp"
+			android:layout_height="300dp"
+			android:id="@+id/QRcode_imageView" 
+            android:adjustViewBounds="true"/>
+	</LinearLayout>
+
+    <Button
+            android:text="@string/MoreOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moreOptions_button" />
+    
+</LinearLayout>

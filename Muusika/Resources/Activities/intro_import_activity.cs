@@ -15,7 +15,7 @@ using AppIntro;
 namespace Muusika.Resources.Activities
 {
     [Activity(Label = "into_activity", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
-    public class intro_activity : AppIntro.AppIntro2, ISlideBackgroundColorHolder
+    public class intro_import_activity : AppIntro.AppIntro2, ISlideBackgroundColorHolder
     {
 
         /// <summary>
@@ -28,30 +28,16 @@ namespace Muusika.Resources.Activities
         {
             base.OnCreate(savedInstanceState);
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("TERE TULEMAST"
-                , "Es hora de ponerte en modo Muusika. \n (Por cierto 'Tere tulemast', quiere decir BIENVENIDO en el idioma Estonio)"
-                , Resource.Drawable.Muusika_icon
+            AddSlide(AppIntro.AppIntroFragment.NewInstance("Importa letras"
+                , "Utiliza esta opción para importar las letras que comparten contigo desde Muusika"
+                , Resource.Drawable.mobile_receive
                 ,Color.LightGray));//Color.ParseColor("#f64c73")
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Almacena tus letras"
-                , "Crea tu propia colección de letras, aunque estas no existan ni en Internet"
-                , Resource.Drawable.img_create
+            AddSlide(AppIntro.AppIntroFragment.NewInstance("Elige las opciones"
+                , "Puedes elegir entre importar desde un texto copiado o desde un código QR que escanees con tu cámara"
+                , Resource.Drawable.img_qrcode
                 , Color.ParseColor("#20d2bb")));
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Comparte con amigos"
-                , "Envía tus letras a tus amigos de forma sencilla"
-                , Resource.Drawable.img_share
-                , Color.ParseColor("#3395ff")));
-
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Importa fácilmente"
-                , "Utiliza la opción de importar para que crees una letra que te comparta un amigo desde su Muusika"
-                , Resource.Drawable.img_discover
-                , Color.ParseColor("#f64c73")));
-
-            AddSlide(AppIntro.AppIntroFragment.NewInstance(GetString(Resource.String.app_name)
-                , "COMENZAR"
-                , Resource.Drawable.img_nodata
-                , Color.ParseColor("#c873f4")));
 
             //hide status bar with hour, signal, conection internet, etc
             ShowStatusBar(false);
@@ -73,7 +59,6 @@ namespace Muusika.Resources.Activities
 
         public override void OnDonePressed()
         {
-            StartActivity(new Intent(this, typeof(MainActivity)));
             Finish();
             base.OnDonePressed();
         }

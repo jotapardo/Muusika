@@ -30,6 +30,7 @@
   <string name="Backup">Copia de seguridad</string>
   <string name="AddFavorite">Añadir a favoritos</string>
   <string name="RemoveFavorite">Quitar de favoritos</string>
+  <string name="MoreOptions">Más opciones...</string>
   
 
   <!-- delete messages -->
@@ -45,6 +46,8 @@
   <!-- messages -->
   <string name="message_text_empty">El texto no puede estar vacío!</string>
   <string name="message_nodata">¡Crea tu primer letra, ponte en modo Muusika!</string>
+  <string name="message_shareQR">Para utilizar este código QR:</string> 
+  <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
   
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");

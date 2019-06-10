@@ -80,6 +80,9 @@
     <Compile Include="Resources\Activities\letras_edit_activity.cs" />
     <Compile Include="Resources\Activities\backup_activity.cs" />
     <Compile Include="Resources\model\Adjunto.cs" />
+    <Compile Include="Resources\Activities\qr_code_scanner_activity.cs" />
+    <Compile Include="Resources\Activities\intro_import_activity.cs" />
+    <Compile Include="Resources\Activities\qr_code_generator_activity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -138,6 +141,12 @@
     <AndroidResource Include="Resources\drawable\img_play.png" />
     <AndroidResource Include="Resources\drawable\img_equalizer.png" />
     <AndroidResource Include="Resources\drawable\img_nodata.png" />
+    <AndroidResource Include="Resources\layout\qr_code_scanner_layout.xml" />
+    <AndroidResource Include="Resources\drawable\img_qrcode.png" />
+    <AndroidResource Include="Resources\layout\letras_import_popup_layout.xml" />
+    <AndroidResource Include="Resources\drawable\ic_qrcode.png" />
+    <AndroidResource Include="Resources\drawable\ic_clipboard.png" />
+    <AndroidResource Include="Resources\layout\qr_code_generator_layout.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppIntro">
@@ -161,6 +170,12 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Plugins.Clipboard">
       <Version>2.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.GooglePlayServices.Vision">
+      <Version>60.1142.1</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net">
+      <Version>0.16.4</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

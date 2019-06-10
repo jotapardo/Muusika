@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
@@ -14,6 +15,7 @@ using Android.Widget;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Plugin.Clipboard;
+using static Android.App.ActionBar;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
@@ -25,6 +27,9 @@ namespace Muusika.Resources.Activities
         int IdLetra;
         Letra mLetra = new Letra();
         DataBase db;
+
+        PopupWindow popupWindow;
+
 
         public letras_viewer_activity()
         {
@@ -121,11 +126,9 @@ namespace Muusika.Resources.Activities
                     toast.Show();
                     break;
                 case Resource.Id.menu_share:
-                    Intent intentsend = new Intent();
-                    intentsend.SetAction(Intent.ActionSend);
-                    intentsend.PutExtra(Intent.ExtraText, mLetra.ToString());
-                    intentsend.SetType("text/plain");
-                    StartActivity(intentsend);
+
+                    ShowShareOptions();
+
                     break;
                 case Android.Resource.Id.Home:
                     this.OnBackPressed();
@@ -133,6 +136,29 @@ namespace Muusika.Resources.Activities
             }
             return base.OnOptionsItemSelected(item);
         }//OnOptionsItemSelected
+
+        private void ShowShareOptions()
+        {
+            try
+            {
+                Intent intent = new Intent(this, typeof(qr_code_generator_activity));
+                intent.PutExtra("lyricText", mLetra.ToString());
+                StartActivity(intent);
+
+
+                //Intent intentsend = new Intent();
+                //intentsend.SetAction(Intent.ActionSend);
+                //intentsend.PutExtra(Intent.ExtraText, mLetra.ToString());
+                //intentsend.SetType("text/plain");
+                //StartActivity(intentsend);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("ShowShareOptions", ex.Message);
+            }
+           
+        }
 
         protected override void OnResume()
         {

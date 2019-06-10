@@ -5,7 +5,10 @@ using System.Text;
 using Android.Animation;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
+using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
@@ -21,6 +24,7 @@ using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using NotiXamarin.Adapters;
 using Plugin.Clipboard;
+using static Android.App.ActionBar;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika
@@ -42,7 +46,9 @@ namespace Muusika
 
         LinearLayout nodata_linearLayout;
 
+        PopupWindow popupWindow;
 
+        private const int QRCODE_REQUEST = 1001;
 
         public bool IsSelectingMultipleItms
         {
@@ -85,6 +91,61 @@ namespace Muusika
         {
             try
             {
+                //First time 
+                //Intro
+                this.Activity.RunOnUiThread(() => {
+                    ISharedPreferences getPresfs = PreferenceManager.GetDefaultSharedPreferences(this.Activity.BaseContext);
+                    bool IsFirstStart = getPresfs.GetBoolean("firstImport", true);
+                    if (IsFirstStart)
+                    {
+                        StartActivity(new Intent(this.Activity, typeof(intro_import_activity)));
+                        //Finish();
+                        ISharedPreferencesEditor sharedPreferencesEditor = getPresfs.Edit();
+                        sharedPreferencesEditor.PutBoolean("firstImport", false);
+                        sharedPreferencesEditor.Apply();
+                    }
+                });
+
+                //Show popup
+                LayoutInflater layoutInflater = (LayoutInflater)this.Activity.BaseContext.GetSystemService(Context.LayoutInflaterService);
+                View popupView = layoutInflater.Inflate(Resource.Layout.letras_import_popup_layout, null);
+                popupWindow = new PopupWindow(popupView, LayoutParams.WrapContent, LayoutParams.WrapContent);
+
+
+                //********* Code you need *******************************
+
+                popupWindow.SetBackgroundDrawable(new BitmapDrawable());
+                //popupWindow.OutsideTouchable = true;
+
+                //********************************************************
+
+                Button close_button = (Button)popupView.FindViewById(Resource.Id.close_button);
+                close_button.Click += delegate {
+                    popupWindow.Dismiss();
+                };
+
+                popupWindow.ShowAtLocation(nodata_linearLayout, GravityFlags.Center, 0, 0);
+
+                ImageButton qrcode_imageButton = popupView.FindViewById<ImageButton>(Resource.Id.qrcode_imageButton);
+                qrcode_imageButton.Click += QRcode_ImageButton_Click;
+
+                ImageButton clipboard_imageButton = (ImageButton)popupView.FindViewById(Resource.Id.clipboard_imageButton);
+                clipboard_imageButton.Click += Clipboard_ImageButton_Click;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnFab_Import_Click", ex.Message);
+            }
+        }
+
+        public async void Clipboard_ImageButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Use clipboard
                 string clipboardText = await CrossClipboard.Current.GetTextAsync();
 
                 if (clipboardText != "" && clipboardText != null)
@@ -106,6 +167,7 @@ namespace Muusika
                         AddLyricFromClipboard(clipboardText);
                     }
 
+                    popupWindow.Dismiss();
                 }
                 else
                 {
@@ -116,9 +178,23 @@ namespace Muusika
             }
             catch (Exception ex)
             {
-                Log.Error("OnFab_Import_Click", ex.Message);
+                Log.Error("Clipboard_ImageButton_Click", ex.Message);
             }
         }
+
+        public void QRcode_ImageButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                popupWindow.Dismiss();
+                StartActivityForResult(new Intent(this.Activity, typeof(qr_code_scanner_activity)), QRCODE_REQUEST);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("QRcode_ImageButton_Click", ex.Message);
+            }
+        }
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -803,6 +879,31 @@ namespace Muusika
             }
 
         }//private class SearchViewExpandListener
+
+        public override void OnActivityResult(int requestCode, int resultCode, Intent data)
+        {
+            try
+            {
+                if (resultCode == -1)
+                {
+                    if (data != null)
+                    {
+                        switch (requestCode)
+                        {
+                            case QRCODE_REQUEST:
+                                //Toast.MakeText(this.Activity, data.GetStringExtra("QRcodeResult"), ToastLength.Short).Show();
+                                AddLyricFromClipboard(data.GetStringExtra("QRcodeResult"));
+                                break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnActivityResult", ex.Message);
+            }
+            base.OnActivityResult(requestCode, resultCode, data);
+        }
 
     }//public class letras
 

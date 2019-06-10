@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    android:background="#ffffff"
+    >
+    
+    <TextView
+        android:id="@+id/import_textView"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Elige una opción"
+        android:gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:gravity="center_horizontal" >
+
+		<ImageButton
+			android:src="@drawable/ic_qrcode"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:id="@+id/qrcode_imageButton"
+			android:layout_margin="20dp"
+            android:adjustViewBounds="true"
+        />
+
+		<ImageButton
+			android:src="@drawable/ic_clipboard"
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:id="@+id/clipboard_imageButton"
+			android:layout_margin="20dp"
+            android:adjustViewBounds="true"
+        />
+
+
+    </LinearLayout>
+
+    <Button
+            android:text="Cerrar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/close_button" />
+    
+</LinearLayout>

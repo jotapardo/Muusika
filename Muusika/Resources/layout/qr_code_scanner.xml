@@ -1,0 +1,29 @@
+﻿
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="25px"
+	android:minHeight="25px"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/relativeLayout1" >
+    
+	<SurfaceView
+		android:layout_width="match_parent"
+		android:layout_height="480px"
+        android:layout_centerInParent="true"
+		android:id="@+id/camera_surfaceView" 
+        android:margin="20dp"
+        android:padding="20dp"
+    />
+    
+    <TextView
+        android:id="@+id/result_textView"    
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="Por favor enfoca tu cámara al código QR"
+        android:textSize="20sp"
+        android:marginTop="10dp"
+    />
+</RelativeLayout>

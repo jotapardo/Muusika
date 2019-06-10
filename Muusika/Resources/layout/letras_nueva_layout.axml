@@ -136,7 +136,7 @@
                 android:layout_marginTop="10dp">
 			<EditText
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="400dp"
 				android:id="@+id/LyricEditText"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:padding="5dp"
