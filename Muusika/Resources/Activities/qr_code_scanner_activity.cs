@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using Android;
 using Android.App;
 using Android.Content;
@@ -43,6 +44,7 @@ namespace Muusika.Resources.Activities
             cameraSource = new CameraSource
                 .Builder(this, barCodeDetector)
                 .SetRequestedPreviewSize(640, 480)
+                .SetAutoFocusEnabled(true)
                 .Build();
             camera_surfaceView.Holder.AddCallback(this);
 
@@ -120,7 +122,12 @@ namespace Muusika.Resources.Activities
 
         public void SurfaceDestroyed(ISurfaceHolder holder)
         {
-            cameraSource.Stop();
+            if (cameraSource != null)
+            {
+                cameraSource.Stop();
+                cameraSource.Release();
+                cameraSource = null;
+            }
         }
 
         public void ReceiveDetections(Detections detections)
@@ -148,5 +155,87 @@ namespace Muusika.Resources.Activities
         {
 
         }
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+            try
+            {
+                if (e.Action == MotionEventActions.Up)
+                {
+                    float x = e.XPrecision;
+                    float y = e.YPrecision;
+                    float touchMajor = e.TouchMajor;
+                    float touchMinor = e.TouchMinor;
+
+                    Rect touchRect = new Rect((int)(x - touchMajor / 2), (int)(y - touchMinor / 2), (int)(x + touchMajor / 2), (int)(y + touchMinor / 2));
+
+                    SubmitFocusAreaRect(touchRect);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnTouchEvent", ex.Message);
+            }
+            return base.OnTouchEvent(e);
+        }
+
+        private void SubmitFocusAreaRect(Rect touchRect)
+        {
+            try
+            {
+                Java.Lang.Reflect.Field[] declaredFields = cameraSource.Class.GetFields();
+
+                foreach (var field in declaredFields)
+                {
+                    if (field.GetType() == typeof(Android.Hardware.Camera))
+                    {
+                        field.Accessible = true;
+
+                        try
+                        {
+                            Android.Hardware.Camera camera = (Android.Hardware.Camera) field.Get(cameraSource);
+
+                            if (camera != null)
+                            {
+                                Android.Hardware.Camera.Parameters cameraparameters = camera.GetParameters();
+
+                                if (cameraparameters.MaxNumFocusAreas == 0)
+                                {
+                                    return;
+                                }
+
+                                Rect focusArea = new Rect();
+
+                                focusArea.Set(touchRect.Left * 2000 / camera_surfaceView.Width - 1000,
+                                                touchRect.Top * 2000 / camera_surfaceView.Height - 1000,
+                                                touchRect.Right * 2000 / camera_surfaceView.Width - 1000,
+                                                touchRect.Bottom * 2000 / camera_surfaceView.Height - 1000);
+
+                                List<Android.Hardware.Camera.Area> focusAreas = new List<Android.Hardware.Camera.Area>();
+                                focusAreas.Add(new Android.Hardware.Camera.Area(focusArea, 1000));
+
+                                cameraparameters.FocusMode = Android.Hardware.Camera.Parameters.FocusModeAuto;
+                                cameraparameters.FocusAreas = focusAreas;
+
+                                camera.SetParameters(cameraparameters);
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Error("SubmitFocusAreaRect_Internal", ex.Message);
+                        }
+                    }
+
+                }//foreach
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("SubmitFocusAreaRect", ex.Message);
+            }
+            
+        }//SubmitFocusAreaRect
     }
 }
