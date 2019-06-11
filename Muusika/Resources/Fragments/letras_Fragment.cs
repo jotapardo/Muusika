@@ -291,6 +291,7 @@ namespace Muusika
             try
             {
                 LinearLayout linearLayout = view.FindViewById<LinearLayout>(Resource.Id.LetrasListItem_LinearLayout);
+                ImageView CheckImageView = view.FindViewById<ImageView>(Resource.Id.CheckImageView);
 
                 if (_LetrasSeleccionadas.Select(x => x.IdLetra).Contains(id))
                 {
@@ -298,6 +299,7 @@ namespace Muusika
                     var colorForUnselected = Android.Graphics.Color.Transparent;
                     linearLayout.SetBackgroundColor(colorForUnselected);
                     _LetrasSeleccionadas.Remove(_LetrasAdapter[Position]);
+                    CheckImageView.Visibility = ViewStates.Invisible;
                 }
                 else
                 {
@@ -305,6 +307,8 @@ namespace Muusika
                     var colorForSelected = Android.Graphics.Color.ParseColor(Resources.GetString(Resource.Color.colorListItemSelected));
                     linearLayout.SetBackgroundColor(colorForSelected);
                     _LetrasSeleccionadas.Add(_LetrasAdapter[Position]);
+                    CheckImageView.Visibility = ViewStates.Visible;
+
                 }
 
                 if (_LetrasSeleccionadas.Count > 0)
@@ -341,6 +345,9 @@ namespace Muusika
                     var rl = row.FindViewById<LinearLayout>(Resource.Id.LetrasListItem_LinearLayout);
                     var color = Android.Graphics.Color.Transparent;
                     rl.SetBackgroundColor(color);
+
+                    ImageView CheckImageView = row.FindViewById<ImageView>(Resource.Id.CheckImageView);
+                    CheckImageView.Visibility = ViewStates.Invisible;
                 }
 
                 SelectingMultipleItems = false;

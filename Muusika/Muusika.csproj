@@ -148,6 +148,11 @@
     <AndroidResource Include="Resources\drawable\ic_qrcode.png" />
     <AndroidResource Include="Resources\drawable\ic_clipboard.png" />
     <AndroidResource Include="Resources\layout\qr_code_generator_layout.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_check.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_check.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_check.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_check.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_check.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppIntro">

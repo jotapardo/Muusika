@@ -18,11 +18,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginRight="5dp">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id = "@+id/LetraImageView"
-                android:src = "@drawable/img_equalizer" />
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id = "@+id/LetraImageView"
+                    android:src = "@drawable/img_equalizer" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:id = "@+id/CheckImageView"
+                    android:src = "@drawable/ic_action_check" 
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="@color/colorAccent"
+                    android:visibility="invisible"
+                />
+                
+            </RelativeLayout>
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"

@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#59155F</color>
     <color name="colorAccent">#A54AB6</color>
     
-    <color name="colorListItemSelected">#D0C2D3</color>
+    <color name="colorListItemSelected">#ECF0F1</color><!--#D0C2D3-->
   
     <color name="colorPrimaryToolbar">#9C27B0</color>
     
