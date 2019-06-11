@@ -84,6 +84,7 @@
     <Compile Include="Resources\Activities\qr_code_scanner_activity.cs" />
     <Compile Include="Resources\Activities\intro_import_activity.cs" />
     <Compile Include="Resources\Activities\qr_code_generator_activity.cs" />
+    <Compile Include="Resources\Utils\Uris.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

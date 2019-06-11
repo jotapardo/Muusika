@@ -100,9 +100,9 @@ namespace Muusika.Resources.Activities
             switch (item.ItemId)
             {
                 case Resource.Id.action_attach:
-                    Toast.MakeText(this,"Muy pronto ;)", ToastLength.Short).Show();
-                    //Intent intent = new Intent(this, typeof(letras_attach_activity));
-                    //StartActivity(intent);
+                    //Toast.MakeText(this,"Muy pronto ;)", ToastLength.Short).Show();
+                    Intent intent = new Intent(this, typeof(letras_attach_activity));
+                    StartActivity(intent);
                     break;
                 case Resource.Id.action_edit:
                     Intent intentEdit = new Intent(this, typeof(letras_edit_activity));

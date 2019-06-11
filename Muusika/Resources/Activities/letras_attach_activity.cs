@@ -22,6 +22,7 @@ using Android;
 using Android.Content.PM;
 using Android.Support.V4.App;
 using Android.Webkit;
+using Muusika.Resources.Utils;
 
 namespace Muusika.Resources.Activities
 {
@@ -150,9 +151,16 @@ namespace Muusika.Resources.Activities
                 {
                     if (data != null && data.Data != null)
                     {
+                        string filePath = data.Data.Path;
+
+                        Uris uris;
+
                         switch (requestCode)
                         {
                             case PICK_AUDIO_REQUEST://Audio
+
+                                Android.Net.Uri audioeUri = data.Data;
+                                filePath = uris.GetPath(this, audioeUri);
 
                                 break;
                             case PICK_IMAGE_REQUEST: //Image
