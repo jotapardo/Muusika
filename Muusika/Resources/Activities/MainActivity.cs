@@ -19,9 +19,6 @@ using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Newtonsoft.Json;
 
-
-
-
 using SupportFragment = Android.Support.V4.App.Fragment;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
@@ -51,7 +48,7 @@ namespace Muusika
                 //StartActivity(new Intent(this, typeof(letras_search_activity)));
                 //Finish();
 
-                
+
                 //SplashScreen
                 //Nutget with error EasySplashScreen
                 //var config = new EasySplashScreen(this)
@@ -65,6 +62,14 @@ namespace Muusika
                 ////Set Content View
                 //SetContentView(view);
 
+
+                //SatusBar
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+                {
+                    Window.ClearFlags(WindowManagerFlags.TranslucentStatus);
+                    Window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+                    Window.SetStatusBarColor(Color.ParseColor(GetString(Resource.Color.colorPrimaryDark)));
+                }
 
                 //Intro
                 RunOnUiThread(() => {
