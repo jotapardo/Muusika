@@ -8,26 +8,26 @@ using Muusika.Resources.model;
 
 namespace Muusika.Resources.Utils
 {
-    public class AdjuntoController
+    public class AttachedController
     {
-        DataBase db;
+        private DataBase db;
 
-        public AdjuntoController()
+        public AttachedController()
         {
             //Create Database
             db = new DataBase();
             db.CreateDatabase();
         }
 
-        public bool AlreadyExistAttached(Attached mAttached)
+        public bool AlreadyExistObjetc(Attached mAttached)
         {
             try
             {
-                Letra mLetra;
+                Attached attached;
 
-                mLetra = db.SelectQueryTableAttachedByObjetc(mAttached);
+                attached = db.SelectQueryTableAttachedByObjetc(mAttached);
 
-                if (mLetra != null)
+                if (attached != null)
                     return true;
                 else
                     return false;
@@ -40,7 +40,15 @@ namespace Muusika.Resources.Utils
             }
         }
 
-        public void AddAttached(int pIdLyric, string pType, string pPath, string pName)
+        /// <summary>
+        /// Add new Attached object
+        /// </summary>
+        /// <param name="pIdLyric"></param>
+        /// <param name="pType"></param>
+        /// <param name="pPath"></param>
+        /// <param name="pName"></param>
+        /// <returns>IdAttached</returns>
+        public int Add(int pIdLyric, string pType, string pPath, string pName)
         {
             try
             {
@@ -52,15 +60,15 @@ namespace Muusika.Resources.Utils
                     Name = pName
                 };
 
-                if (AlreadyExistAttached(mAttached))
+                if (AlreadyExistObjetc(mAttached))
                 {
-                    //Toast toast = Toast.MakeText(this.Activity, Resource.String.message_Lyric_alredy_added, ToastLength.Long);
-                    //toast.SetGravity(GravityFlags.Center, 0, 0);
-                    //toast.Show();
+                    return 0;
+                   
                 }
                 else
                 {
                     db.InsertIntoTableAttached(mAttached);
+                    return db.SelectQueryTableAttachedByObjetc(mAttached).IdAttached;
                     //LoadData();
                 }
 
@@ -68,12 +76,13 @@ namespace Muusika.Resources.Utils
             catch (Exception ex)
             {
                 Log.Error("Error AddLyric", ex.Message);
+                return -1;
             }
         }//AddLyric
 
-        public List<Attached> GetList(int IdLyric)
+        public List<Attached> GetList(int pIdLyric)
         {
-            return db.SelectTableAttachedByIdLyric(IdLyric).ToList();
+            return db.SelectTableAttachedByIdLyric(pIdLyric).ToList();
         }
 
     }

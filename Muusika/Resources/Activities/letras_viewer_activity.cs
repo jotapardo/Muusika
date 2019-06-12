@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
+using Android.Media;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V7.App;
@@ -24,12 +25,17 @@ namespace Muusika.Resources.Activities
     public class letras_viewer_activity : AppCompatActivity
     {
         TextView LyricTextView;
-        int IdLetra;
+        int IdLyric;
         Letra mLetra = new Letra();
         DataBase db;
 
         PopupWindow popupWindow;
 
+        Button play_button;
+        Button stop_button;
+        protected MediaPlayer player;
+
+        bool IsPlaying;
 
         public letras_viewer_activity()
         {
@@ -51,24 +57,94 @@ namespace Muusika.Resources.Activities
                 //Toolbar
                 SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_viewer_toolbar);
                 SetSupportActionBar(toolbar);
-                //backbutton
-                SupportActionBar.SetDisplayHomeAsUpEnabled(true);
+                SupportActionBar.SetDisplayHomeAsUpEnabled(true); //backbutton
                 SupportActionBar.SetHomeButtonEnabled(true);
 
                 SupportActionBar.Title = "NombreCancion";
                 LyricTextView.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-                //Get IdLetra from putextra
-                IdLetra = Convert.ToInt32(Intent.GetStringExtra("IdLetra"));
+                //Get IdLyric from putextra
+                IdLyric = Convert.ToInt32(Intent.GetStringExtra("IdLetra"));
 
                 //Retrieve Lyric
-                RetrieveLyric(IdLetra);
+                RetrieveLyric(IdLyric);
+
+
+                //https://github.com/Cheesebaron/SlidingUpPanel/blob/master/component/GettingStarted.md
+
+
+                //Buttons
+                play_button = FindViewById<Button>(Resource.Id.play_button);
+                play_button.Click += OnPlay_button_Click;
+                stop_button = FindViewById<Button>(Resource.Id.stop_button);
+                stop_button.Click += OnStop_button_Click;
+
+
             }
             catch (Exception ex)
             {
                 Log.Error("Error_OnCreate", ex.Message);
             }
 
+        }
+
+        private void OnStop_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (player == null)
+                {
+                    player = new MediaPlayer();
+                }
+                else
+                {
+                    player.Stop();
+                    IsPlaying = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnStop_button_Click", ex.Message);
+            }
+        }
+
+        private void OnPlay_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //
+                string filePath = db.SelectTableAttachedByIdLyric(1)[0].Path;
+
+                //test play media 
+                if (player == null)
+                {
+                    player = new MediaPlayer();
+                    player.Reset();
+                    player.SetDataSource(filePath);
+                    player.Prepare();
+                    player.Start();
+                    IsPlaying = true;
+                }
+                else
+                {
+                    if (IsPlaying)
+                    {
+                        player.Pause();
+                        IsPlaying = false;
+                    }
+                    else
+                    {
+                        player.Start();
+                        IsPlaying = true;
+                    }
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnPlay_button_Click", ex.Message);
+            }
         }
 
         private void RetrieveLyric(int idLetra)
@@ -101,12 +177,13 @@ namespace Muusika.Resources.Activities
             {
                 case Resource.Id.action_attach:
                     //Toast.MakeText(this,"Muy pronto ;)", ToastLength.Short).Show();
-                    Intent intent = new Intent(this, typeof(letras_attach_activity));
-                    StartActivity(intent);
+                    Intent intentAttached = new Intent(this, typeof(letras_attach_activity));
+                    intentAttached.PutExtra("IdLyric", IdLyric.ToString());
+                    StartActivity(intentAttached);
                     break;
                 case Resource.Id.action_edit:
                     Intent intentEdit = new Intent(this, typeof(letras_edit_activity));
-                    intentEdit.PutExtra("IdLyric", IdLetra.ToString());
+                    intentEdit.PutExtra("IdLyric", IdLyric.ToString());
                     StartActivity(intentEdit);
                     break;
                 case Resource.Id.menu_copy:
@@ -162,13 +239,13 @@ namespace Muusika.Resources.Activities
 
         protected override void OnResume()
         {
-            RetrieveLyric(IdLetra);
+            RetrieveLyric(IdLyric);
             base.OnResume();
         }
 
         protected override void OnRestart()
         {
-            RetrieveLyric(IdLetra);
+            RetrieveLyric(IdLyric);
             base.OnRestart();
         }
 

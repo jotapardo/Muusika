@@ -43,7 +43,13 @@
   <string name="message_Lyric_added">Letra añadida</string>
   <string name="message_Lyric_alredy_added">Ya tienes esta letra en Muusika</string>
 
-  <!-- messages -->
+
+    <!-- import attached -->
+    <string name="message_Attached_added">Adjunto añadido</string>
+    <string name="message_Attached_alredy_added">Ya tienes esta adjunto añadido</string>
+
+    
+    <!-- messages -->
   <string name="message_text_empty">El texto no puede estar vacío!</string>
   <string name="message_nodata">¡Crea tu primer letra, ponte en modo Muusika!</string>
   <string name="message_shareQR">Para utilizar este código QR:</string> 

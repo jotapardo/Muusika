@@ -21,6 +21,7 @@ namespace Muusika.Resources.DataHelper
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
                     connection.CreateTable<Letra>();
+                    connection.CreateTable<Attached>();
                     return true;
                 }
                 
@@ -187,7 +188,6 @@ namespace Muusika.Resources.DataHelper
 
         #endregion
 
-
         #region Attached
 
         public bool InsertIntoTableAttached(Attached attached)
@@ -225,7 +225,7 @@ namespace Muusika.Resources.DataHelper
             }
         }
 
-        public Letra SelectQueryTableAttachedByObjetc(Attached attached)
+        public Attached SelectQueryTableAttachedByObjetc(Attached attached)
         {
             try
             {
@@ -235,7 +235,7 @@ namespace Muusika.Resources.DataHelper
 
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    var Lista = connection.Query<Letra>("SELECT * FROM Attached WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
+                    var Lista = connection.Query<Attached>("SELECT * FROM Attached WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
 
                     if (Lista.Count > 0)
                         return Lista[0];
@@ -246,7 +246,7 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectQueryTableLetrasByObjetc", ex.Message);
+                Log.Error("SelectQueryTableAttachedByObjetc", ex.Message);
                 return null;
             }
         }

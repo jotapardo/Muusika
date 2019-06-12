@@ -33,6 +33,8 @@ namespace Muusika.Resources.Activities
         ImageView image1;
         WebView webView1;
 
+        private int IdLyric;
+
         private const int PICK_AUDIO_REQUEST = 70;
         private const int PICK_IMAGE_REQUEST = 71;
         private const int PICK_VIDEO_REQUEST = 72;
@@ -73,12 +75,17 @@ namespace Muusika.Resources.Activities
 
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.Internet }, REQUEST_INTERNET);
 
+
+                //webView
                 webView1 = FindViewById<WebView>(Resource.Id.webView1);
                 WebSettings webSettings = webView1.Settings;
                 webSettings.JavaScriptEnabled = true;
                 webView1.SetWebChromeClient(new WebChromeClient());
                 webView1.LoadData("<iframe frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\"width=\"788.54\" height=\"443\" type=\"text/html\" src=\"https://www.youtube.com/embed/DBXH9jJRaDk?autoplay=0&fs=0&iv_load_policy=3&showinfo=0&rel=0&cc_load_policy=0&start=0&end=0&origin=https://youtubeembedcode.com\"><div><small><a href=\"https://youtubeembedcode.com/nl/\">youtubeembedcode nl</a></small></div><div><small><a href=\"https://misshowtostartablog.com/best-webhosting-for-wordpress-blogs/\">https://misshowtostartablog.com/best-webhosting-for-wordpress-blogs/</a></small></div></iframe>", "text/html", "UTF-8");
 
+
+                //Get IdLyric from putextra
+                IdLyric = Convert.ToInt32(Intent.GetStringExtra("IdLyric"));
 
             }
             catch (Exception ex)
@@ -169,15 +176,30 @@ namespace Muusika.Resources.Activities
                                 Android.Net.Uri audioUri = data.Data;
                                 filePath = Uris.GetPath(this, audioUri);
 
+                                int IdAttached;
+                                AttachedController attachedController = new AttachedController();
 
 
-                                //test play media 
-                                MediaPlayer player;
-                                player = new MediaPlayer();
-                                player.Reset();
-                                player.SetDataSource(filePath);
-                                player.Prepare();
-                                player.Start();
+                                IdAttached = attachedController.Add((int)IdLyric, "AUDIO", filePath, System.IO.Path.GetFileName(filePath));
+
+                                switch (IdAttached)
+                                {
+                                    case 0:
+                                        //Duplicate attached
+                                        Toast toast = Toast.MakeText(this, Resource.String.message_Attached_alredy_added, ToastLength.Long);
+                                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                                        toast.Show();
+                                        break;
+                                    case -1:
+                                        //Error adding
+                                        break;
+                                    default:
+                                        //Add succefull
+
+                                        
+
+                                        break;
+                                }
 
                                 break;
                             case PICK_IMAGE_REQUEST: //Image

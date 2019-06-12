@@ -1,34 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:keepScreenOn="true"
-              android:scrollbarAlwaysDrawVerticalTrack="true">
-        <android.support.v7.widget.Toolbar 
+
+    <Cheesebaron.SlidingUpPanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    app:shadowHeight="4dp"
+    app:fadeColor="@color/colorAccent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:keepScreenOn="true"
+                  android:scrollbarAlwaysDrawVerticalTrack="true">
+            <android.support.v7.widget.Toolbar 
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/letras_viewer_toolbar"/>
+            
+            <ScrollView android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/scrollView1"
+                    android:paddingLeft="?android:attr/dialogPreferredPadding"
+                    android:paddingRight="?android:attr/dialogPreferredPadding"
+                        >
+                <TextView
+                    android:text="Lyric text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/LyricTextView"
+                    android:scrollbars="vertical"
+                    android:textIsSelectable="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="center"
+                />
+            </ScrollView>
+
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/letras_viewer_toolbar"/>
-            
-    <ScrollView android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scrollView1"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-                >
-        <TextView
-            android:text="Lyric text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:id="@+id/LyricTextView"
-            android:padding="?android:attr/dialogPreferredPadding"
-            android:scrollbars="vertical"
-            android:textIsSelectable="true"
+            android:gravity="center|bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/play_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:text="PLAY/PAUSE" />
+
+            <Button
+                android:id="@+id/stop_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center"
+                android:text="STOP" />
+
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
+            android:id="@+id/button0"
         />
-        </ScrollView>
-    </LinearLayout>
+            
+        </LinearLayout>
+        </LinearLayout>
+        
+
+
+
+     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:padding="?android:attr/dialogPreferredPadding">
+      
+        
+
+        
+    </RelativeLayout>
+</Cheesebaron.SlidingUpPanel.SlidingUpPanelLayout>
