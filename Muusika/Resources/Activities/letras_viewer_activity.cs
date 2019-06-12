@@ -134,6 +134,9 @@ namespace Muusika.Resources.Activities
                     }
                     else
                     {
+                        player.Reset();
+                        player.SetDataSource(filePath);
+                        player.Prepare();
                         player.Start();
                         IsPlaying = true;
                     }
