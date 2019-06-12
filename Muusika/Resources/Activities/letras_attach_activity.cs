@@ -23,6 +23,7 @@ using Android.Content.PM;
 using Android.Support.V4.App;
 using Android.Webkit;
 using Muusika.Resources.Utils;
+using Android.Media;
 
 namespace Muusika.Resources.Activities
 {
@@ -34,6 +35,7 @@ namespace Muusika.Resources.Activities
 
         private const int PICK_AUDIO_REQUEST = 70;
         private const int PICK_IMAGE_REQUEST = 71;
+        private const int PICK_VIDEO_REQUEST = 72;
 
         private const int REQUEST_READEXTERNALSTORAGE = 1000;
         private const int REQUEST_INTERNET = 1001;
@@ -107,6 +109,8 @@ namespace Muusika.Resources.Activities
         {
             try
             {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.ReadExternalStorage }, REQUEST_READEXTERNALSTORAGE);
+
                 Intent intent = new Intent();
                 intent.SetType("audio/*");
                 intent.PutExtra(Intent.ExtraAllowMultiple, true);
@@ -127,6 +131,8 @@ namespace Muusika.Resources.Activities
         {
             try
             {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.ReadExternalStorage }, REQUEST_READEXTERNALSTORAGE);
+
                 Intent intent = new Intent();
                 intent.SetAction(Intent.ActionGetContent);
                 intent.SetType("image/*");
@@ -151,16 +157,27 @@ namespace Muusika.Resources.Activities
                 {
                     if (data != null && data.Data != null)
                     {
-                        string filePath = data.Data.Path;
+                        string filePath;
 
-                        Uris uris;
+
 
                         switch (requestCode)
                         {
                             case PICK_AUDIO_REQUEST://Audio
 
-                                Android.Net.Uri audioeUri = data.Data;
-                                filePath = uris.GetPath(this, audioeUri);
+
+                                Android.Net.Uri audioUri = data.Data;
+                                filePath = Uris.GetPath(this, audioUri);
+
+
+
+                                //test play media 
+                                MediaPlayer player;
+                                player = new MediaPlayer();
+                                player.Reset();
+                                player.SetDataSource(filePath);
+                                player.Prepare();
+                                player.Start();
 
                                 break;
                             case PICK_IMAGE_REQUEST: //Image
@@ -213,6 +230,10 @@ namespace Muusika.Resources.Activities
                                 byte[] img = memoryStream.ToArray();
 
                                 Toast.MakeText(this, "" + img, ToastLength.Short).Show();
+
+                                break;
+                            case PICK_VIDEO_REQUEST:
+
 
                                 break;
                             default:

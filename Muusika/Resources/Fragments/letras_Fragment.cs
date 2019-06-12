@@ -87,7 +87,7 @@ namespace Muusika
             }
         }
 
-        private async void OnFab_Import_Click(object sender, EventArgs e)
+        private void OnFab_Import_Click(object sender, EventArgs e)
         {
             try
             {

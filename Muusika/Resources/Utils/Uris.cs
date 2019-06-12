@@ -124,7 +124,7 @@ namespace Muusika.Resources.Utils
                 return GetDataColumn(context, uri, null, null);
             }
             // File
-            else if ("file".Equals(uri.Scheme, , StringComparison.InvariantCultureIgnoreCase))
+            else if ("file".Equals(uri.Scheme, StringComparison.InvariantCultureIgnoreCase))
             {
                 return uri.Path;
             }

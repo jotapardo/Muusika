@@ -8,6 +8,10 @@ namespace Muusika.Resources.DataHelper
 {
     public class DataBase
     {
+        public DataBase()
+        {
+        }
+
         string folder = System.Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
         public bool CreateDatabase()
@@ -27,6 +31,8 @@ namespace Muusika.Resources.DataHelper
                 return false;
             }
         }
+
+        #region Lyrics
 
         public bool InsertIntoTableLetras(Letra letra)
         {
@@ -104,7 +110,7 @@ namespace Muusika.Resources.DataHelper
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?",Id);
+                    connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?", Id);
                     return true;
                 }
 
@@ -139,7 +145,7 @@ namespace Muusika.Resources.DataHelper
             {
                 string Title = letra.Titulo;
                 string Author = letra.Autor;
-                string Lyric = letra.letra.Replace("\n","");
+                string Lyric = letra.letra.Replace("\n", "");
                 string Album = letra.Album;
 
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
@@ -150,7 +156,7 @@ namespace Muusika.Resources.DataHelper
                         return Lista[0];
                     else
                         return null;
-                    
+
                 }
             }
             catch (SQLiteException ex)
@@ -178,8 +184,92 @@ namespace Muusika.Resources.DataHelper
             }
         }
 
-        public DataBase()
+
+        #endregion
+
+
+        #region Attached
+
+        public bool InsertIntoTableAttached(Attached attached)
         {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    connection.Insert(attached);
+                    return true;
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("InsertIntoTableAttached", ex.Message);
+                return false;
+            }
         }
+
+        public List<Attached> SelectTableAttachedByIdLyric(int IdLyric)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    return connection.Query<Attached>("SELECT * FROM Attached WHERE IdLyric=?", IdLyric);
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("SelectTableAttachedByIdLyric", ex.Message);
+                return null;
+            }
+        }
+
+        public Letra SelectQueryTableAttachedByObjetc(Attached attached)
+        {
+            try
+            {
+                string Type = attached.Type;
+                string Path = attached.Path;
+                string Name = attached.Name;
+
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    var Lista = connection.Query<Letra>("SELECT * FROM Attached WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
+
+                    if (Lista.Count > 0)
+                        return Lista[0];
+                    else
+                        return null;
+
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("SelectQueryTableLetrasByObjetc", ex.Message);
+                return null;
+            }
+        }
+
+        public bool DeleteTableAttached(Attached attached)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    connection.Delete(attached);
+                    return true;
+                }
+
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("DeleteTableAttached", ex.Message);
+                return false;
+            }
+        }
+
+        #endregion
+
     }
 }

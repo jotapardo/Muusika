@@ -4,17 +4,18 @@ using SQLite;
 
 namespace Muusika.Resources.model
 {
-    public class Adjunto
+    public class Attached
     {
         [PrimaryKey, AutoIncrement]
-        public int IdAdjunto { get; set; }
+        public int IdAttached { get; set; }
 
-        public int IdLetra { get; set; }
+        public int IdLyric { get; set; }
 
-        public string Tipo { get; set; } //Audio, Imagen, Link, Video
+        public string Type { get; set; } //Audio, Imagen, Link, Video
 
-        public string Ruta { get; set; }
+        public string Path { get; set; }
 
+        public string Name { get; set; }
 
         //public byte[] Imagen { get; set; }
 

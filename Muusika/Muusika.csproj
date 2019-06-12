@@ -80,11 +80,12 @@
     <Compile Include="Resources\Activities\letras_attach_activity.cs" />
     <Compile Include="Resources\Activities\letras_edit_activity.cs" />
     <Compile Include="Resources\Activities\backup_activity.cs" />
-    <Compile Include="Resources\model\Adjunto.cs" />
+    <Compile Include="Resources\model\Attached.cs" />
     <Compile Include="Resources\Activities\qr_code_scanner_activity.cs" />
     <Compile Include="Resources\Activities\intro_import_activity.cs" />
     <Compile Include="Resources\Activities\qr_code_generator_activity.cs" />
     <Compile Include="Resources\Utils\Uris.cs" />
+    <Compile Include="Resources\Utils\AdjuntoController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
