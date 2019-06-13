@@ -13,10 +13,12 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Cheesebaron.SlidingUpPanel;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Plugin.Clipboard;
 using static Android.App.ActionBar;
+using static Android.Views.View;
 using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
@@ -33,6 +35,9 @@ namespace Muusika.Resources.Activities
 
         Button play_button;
         Button stop_button;
+
+        SlidingUpPanelLayout sliding_layout;
+        LinearLayout dragView;
         protected MediaPlayer player;
 
         bool IsPlaying;
@@ -80,6 +85,17 @@ namespace Muusika.Resources.Activities
                 stop_button.Click += OnStop_button_Click;
 
 
+                //SlidingUpPanelLayout 
+                sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
+                //sliding_layout.PanelHeight = 600;//heigh collapsed
+                
+                sliding_layout.Click += OnSliding_layout_Click;
+                sliding_layout.PanelSlide += OnSliding_layout_PanelSlide;
+
+                //dragView
+                dragView = FindViewById<LinearLayout>(Resource.Id.dragView);
+                dragView.Clickable = true;
+
             }
             catch (Exception ex)
             {
@@ -88,19 +104,42 @@ namespace Muusika.Resources.Activities
 
         }
 
+        private void OnSliding_layout_PanelSlide(object sender, SlidingUpPanelSlideEventArgs args)
+        {
+            try
+            {
+                if (sliding_layout.IsExpanded || sliding_layout.IsAnchored)
+                {
+                    //sliding_layout.SlidingEnabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnSliding_layout_PanelSlide", ex.Message);
+            }
+        }
+
+        private void OnSliding_layout_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                sliding_layout.CollapsePane();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnSliding_layout_Click", ex.Message);
+            }
+        }
+
+        #region MepiaPlayer
         private void OnStop_button_Click(object sender, EventArgs e)
         {
             try
             {
-                if (player == null)
-                {
-                    player = new MediaPlayer();
-                }
-                else
-                {
-                    player.Stop();
-                    IsPlaying = false;
-                }
+                player.Stop();
+                player = null;
+                IsPlaying = false;
+                play_button.Text = "PLAY";
             }
             catch (Exception ex)
             {
@@ -124,6 +163,8 @@ namespace Muusika.Resources.Activities
                     player.Prepare();
                     player.Start();
                     IsPlaying = true;
+
+                    play_button.Text = "PLAY";
                 }
                 else
                 {
@@ -131,16 +172,15 @@ namespace Muusika.Resources.Activities
                     {
                         player.Pause();
                         IsPlaying = false;
+                        play_button.Text = "PAUSE";
                     }
                     else
                     {
-                        player.Reset();
-                        player.SetDataSource(filePath);
-                        player.Prepare();
                         player.Start();
                         IsPlaying = true;
+                        play_button.Text = "PLAY";
                     }
-                    
+
                 }
 
             }
@@ -149,6 +189,8 @@ namespace Muusika.Resources.Activities
                 Log.Error("OnPlay_button_Click", ex.Message);
             }
         }
+        #endregion
+
 
         private void RetrieveLyric(int idLetra)
         {
@@ -166,6 +208,7 @@ namespace Muusika.Resources.Activities
                 Log.Error("ErrorRetrieveLyric", ex.Message);
             }
         }
+
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -216,6 +259,20 @@ namespace Muusika.Resources.Activities
             }
             return base.OnOptionsItemSelected(item);
         }//OnOptionsItemSelected
+
+        public override void OnBackPressed()
+        {
+            if (sliding_layout != null &&
+                (sliding_layout.IsExpanded|| sliding_layout.IsAnchored))
+            {
+                sliding_layout.CollapsePane();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+            
+        }
 
         private void ShowShareOptions()
         {

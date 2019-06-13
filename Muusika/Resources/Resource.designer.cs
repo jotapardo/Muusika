@@ -2854,44 +2854,44 @@ namespace Muusika
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f0a0060
-			public const int abc_background_cache_hint_selector_material_dark = 2131361888;
-			
 			// aapt resource value: 0x7f0a0061
-			public const int abc_background_cache_hint_selector_material_light = 2131361889;
+			public const int abc_background_cache_hint_selector_material_dark = 2131361889;
 			
 			// aapt resource value: 0x7f0a0062
-			public const int abc_btn_colored_borderless_text_material = 2131361890;
+			public const int abc_background_cache_hint_selector_material_light = 2131361890;
 			
 			// aapt resource value: 0x7f0a0063
-			public const int abc_btn_colored_text_material = 2131361891;
+			public const int abc_btn_colored_borderless_text_material = 2131361891;
 			
 			// aapt resource value: 0x7f0a0064
-			public const int abc_color_highlight_material = 2131361892;
+			public const int abc_btn_colored_text_material = 2131361892;
 			
 			// aapt resource value: 0x7f0a0065
-			public const int abc_hint_foreground_material_dark = 2131361893;
+			public const int abc_color_highlight_material = 2131361893;
 			
 			// aapt resource value: 0x7f0a0066
-			public const int abc_hint_foreground_material_light = 2131361894;
+			public const int abc_hint_foreground_material_dark = 2131361894;
+			
+			// aapt resource value: 0x7f0a0067
+			public const int abc_hint_foreground_material_light = 2131361895;
 			
 			// aapt resource value: 0x7f0a0008
 			public const int abc_input_method_navigation_guard = 2131361800;
 			
-			// aapt resource value: 0x7f0a0067
-			public const int abc_primary_text_disable_only_material_dark = 2131361895;
-			
 			// aapt resource value: 0x7f0a0068
-			public const int abc_primary_text_disable_only_material_light = 2131361896;
+			public const int abc_primary_text_disable_only_material_dark = 2131361896;
 			
 			// aapt resource value: 0x7f0a0069
-			public const int abc_primary_text_material_dark = 2131361897;
+			public const int abc_primary_text_disable_only_material_light = 2131361897;
 			
 			// aapt resource value: 0x7f0a006a
-			public const int abc_primary_text_material_light = 2131361898;
+			public const int abc_primary_text_material_dark = 2131361898;
 			
 			// aapt resource value: 0x7f0a006b
-			public const int abc_search_url_text = 2131361899;
+			public const int abc_primary_text_material_light = 2131361899;
+			
+			// aapt resource value: 0x7f0a006c
+			public const int abc_search_url_text = 2131361900;
 			
 			// aapt resource value: 0x7f0a0009
 			public const int abc_search_url_text_normal = 2131361801;
@@ -2902,29 +2902,29 @@ namespace Muusika
 			// aapt resource value: 0x7f0a000b
 			public const int abc_search_url_text_selected = 2131361803;
 			
-			// aapt resource value: 0x7f0a006c
-			public const int abc_secondary_text_material_dark = 2131361900;
-			
 			// aapt resource value: 0x7f0a006d
-			public const int abc_secondary_text_material_light = 2131361901;
+			public const int abc_secondary_text_material_dark = 2131361901;
 			
 			// aapt resource value: 0x7f0a006e
-			public const int abc_tint_btn_checkable = 2131361902;
+			public const int abc_secondary_text_material_light = 2131361902;
 			
 			// aapt resource value: 0x7f0a006f
-			public const int abc_tint_default = 2131361903;
+			public const int abc_tint_btn_checkable = 2131361903;
 			
 			// aapt resource value: 0x7f0a0070
-			public const int abc_tint_edittext = 2131361904;
+			public const int abc_tint_default = 2131361904;
 			
 			// aapt resource value: 0x7f0a0071
-			public const int abc_tint_seek_thumb = 2131361905;
+			public const int abc_tint_edittext = 2131361905;
 			
 			// aapt resource value: 0x7f0a0072
-			public const int abc_tint_spinner = 2131361906;
+			public const int abc_tint_seek_thumb = 2131361906;
 			
 			// aapt resource value: 0x7f0a0073
-			public const int abc_tint_switch_track = 2131361907;
+			public const int abc_tint_spinner = 2131361907;
+			
+			// aapt resource value: 0x7f0a0074
+			public const int abc_tint_switch_track = 2131361908;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int accent_material_dark = 2131361804;
@@ -2932,11 +2932,11 @@ namespace Muusika
 			// aapt resource value: 0x7f0a000d
 			public const int accent_material_light = 2131361805;
 			
-			// aapt resource value: 0x7f0a0055
-			public const int actionbar_title_text = 2131361877;
+			// aapt resource value: 0x7f0a0056
+			public const int actionbar_title_text = 2131361878;
 			
-			// aapt resource value: 0x7f0a005d
-			public const int active_icon_color = 2131361885;
+			// aapt resource value: 0x7f0a005e
+			public const int active_icon_color = 2131361886;
 			
 			// aapt resource value: 0x7f0a000e
 			public const int background_floating_material_dark = 2131361806;
@@ -2974,14 +2974,17 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0019
 			public const int button_material_light = 2131361817;
 			
-			// aapt resource value: 0x7f0a005e
-			public const int cards_and_dialogs_color = 2131361886;
+			// aapt resource value: 0x7f0a005f
+			public const int cards_and_dialogs_color = 2131361887;
 			
 			// aapt resource value: 0x7f0a0051
 			public const int colorAccent = 2131361873;
 			
 			// aapt resource value: 0x7f0a0052
 			public const int colorListItemSelected = 2131361874;
+			
+			// aapt resource value: 0x7f0a0055
+			public const int colorMediaPlayer = 2131361877;
 			
 			// aapt resource value: 0x7f0a004f
 			public const int colorPrimary = 2131361871;
@@ -2992,8 +2995,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0053
 			public const int colorPrimaryToolbar = 2131361875;
 			
-			// aapt resource value: 0x7f0a0074
-			public const int common_google_signin_btn_text_dark = 2131361908;
+			// aapt resource value: 0x7f0a0075
+			public const int common_google_signin_btn_text_dark = 2131361909;
 			
 			// aapt resource value: 0x7f0a0000
 			public const int common_google_signin_btn_text_dark_default = 2131361792;
@@ -3007,8 +3010,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0003
 			public const int common_google_signin_btn_text_dark_pressed = 2131361795;
 			
-			// aapt resource value: 0x7f0a0075
-			public const int common_google_signin_btn_text_light = 2131361909;
+			// aapt resource value: 0x7f0a0076
+			public const int common_google_signin_btn_text_light = 2131361910;
 			
 			// aapt resource value: 0x7f0a0004
 			public const int common_google_signin_btn_text_light_default = 2131361796;
@@ -3022,14 +3025,14 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0007
 			public const int common_google_signin_btn_text_light_pressed = 2131361799;
 			
-			// aapt resource value: 0x7f0a0076
-			public const int common_google_signin_btn_tint = 2131361910;
+			// aapt resource value: 0x7f0a0077
+			public const int common_google_signin_btn_tint = 2131361911;
 			
 			// aapt resource value: 0x7f0a0044
 			public const int design_bottom_navigation_shadow_color = 2131361860;
 			
-			// aapt resource value: 0x7f0a0077
-			public const int design_error = 2131361911;
+			// aapt resource value: 0x7f0a0078
+			public const int design_error = 2131361912;
 			
 			// aapt resource value: 0x7f0a0045
 			public const int design_fab_shadow_end_color = 2131361861;
@@ -3055,8 +3058,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a004c
 			public const int design_snackbar_background_color = 2131361868;
 			
-			// aapt resource value: 0x7f0a0078
-			public const int design_tint_password_toggle = 2131361912;
+			// aapt resource value: 0x7f0a0079
+			public const int design_tint_password_toggle = 2131361913;
 			
 			// aapt resource value: 0x7f0a001a
 			public const int dim_foreground_disabled_material_dark = 2131361818;
@@ -3070,8 +3073,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a001d
 			public const int dim_foreground_material_light = 2131361821;
 			
-			// aapt resource value: 0x7f0a005c
-			public const int divider_color = 2131361884;
+			// aapt resource value: 0x7f0a005d
+			public const int divider_color = 2131361885;
 			
 			// aapt resource value: 0x7f0a001e
 			public const int error_color_material = 2131361822;
@@ -3127,17 +3130,17 @@ namespace Muusika
 			// aapt resource value: 0x7f0a002e
 			public const int material_grey_900 = 2131361838;
 			
+			// aapt resource value: 0x7f0a005b
+			public const int material_light_active_icon = 2131361883;
+			
 			// aapt resource value: 0x7f0a005a
-			public const int material_light_active_icon = 2131361882;
+			public const int material_light_hint_text = 2131361882;
 			
 			// aapt resource value: 0x7f0a0059
-			public const int material_light_hint_text = 2131361881;
+			public const int material_light_primary_text = 2131361881;
 			
-			// aapt resource value: 0x7f0a0058
-			public const int material_light_primary_text = 2131361880;
-			
-			// aapt resource value: 0x7f0a005b
-			public const int material_ripple_light = 2131361883;
+			// aapt resource value: 0x7f0a005c
+			public const int material_ripple_light = 2131361884;
 			
 			// aapt resource value: 0x7f0a004d
 			public const int notification_action_color_filter = 2131361869;
@@ -3160,8 +3163,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0032
 			public const int primary_material_light = 2131361842;
 			
-			// aapt resource value: 0x7f0a0056
-			public const int primary_text = 2131361878;
+			// aapt resource value: 0x7f0a0057
+			public const int primary_text = 2131361879;
 			
 			// aapt resource value: 0x7f0a0033
 			public const int primary_text_default_material_dark = 2131361843;
@@ -3175,8 +3178,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0036
 			public const int primary_text_disabled_material_light = 2131361846;
 			
-			// aapt resource value: 0x7f0a005f
-			public const int quantum_grey_600 = 2131361887;
+			// aapt resource value: 0x7f0a0060
+			public const int quantum_grey_600 = 2131361888;
 			
 			// aapt resource value: 0x7f0a0037
 			public const int ripple_material_dark = 2131361847;
@@ -3184,8 +3187,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0a0038
 			public const int ripple_material_light = 2131361848;
 			
-			// aapt resource value: 0x7f0a0057
-			public const int secondary_text = 2131361879;
+			// aapt resource value: 0x7f0a0058
+			public const int secondary_text = 2131361880;
 			
 			// aapt resource value: 0x7f0a0039
 			public const int secondary_text_default_material_dark = 2131361849;
@@ -3205,11 +3208,11 @@ namespace Muusika
 			// aapt resource value: 0x7f0a003e
 			public const int switch_thumb_disabled_material_light = 2131361854;
 			
-			// aapt resource value: 0x7f0a0079
-			public const int switch_thumb_material_dark = 2131361913;
-			
 			// aapt resource value: 0x7f0a007a
-			public const int switch_thumb_material_light = 2131361914;
+			public const int switch_thumb_material_dark = 2131361914;
+			
+			// aapt resource value: 0x7f0a007b
+			public const int switch_thumb_material_light = 2131361915;
 			
 			// aapt resource value: 0x7f0a003f
 			public const int switch_thumb_normal_material_dark = 2131361855;
@@ -4032,26 +4035,26 @@ namespace Muusika
 			// aapt resource value: 0x7f020054
 			public const int avd_hide_password = 2130837588;
 			
-			// aapt resource value: 0x7f0200ab
-			public const int avd_hide_password_1 = 2130837675;
-			
 			// aapt resource value: 0x7f0200ac
-			public const int avd_hide_password_2 = 2130837676;
+			public const int avd_hide_password_1 = 2130837676;
 			
 			// aapt resource value: 0x7f0200ad
-			public const int avd_hide_password_3 = 2130837677;
+			public const int avd_hide_password_2 = 2130837677;
+			
+			// aapt resource value: 0x7f0200ae
+			public const int avd_hide_password_3 = 2130837678;
 			
 			// aapt resource value: 0x7f020055
 			public const int avd_show_password = 2130837589;
 			
-			// aapt resource value: 0x7f0200ae
-			public const int avd_show_password_1 = 2130837678;
-			
 			// aapt resource value: 0x7f0200af
-			public const int avd_show_password_2 = 2130837679;
+			public const int avd_show_password_1 = 2130837679;
 			
 			// aapt resource value: 0x7f0200b0
-			public const int avd_show_password_3 = 2130837680;
+			public const int avd_show_password_2 = 2130837680;
+			
+			// aapt resource value: 0x7f0200b1
+			public const int avd_show_password_3 = 2130837681;
 			
 			// aapt resource value: 0x7f020056
 			public const int baseline_add_black_36dp = 2130837590;
@@ -4192,121 +4195,124 @@ namespace Muusika
 			public const int ic_done_white = 2130837635;
 			
 			// aapt resource value: 0x7f020084
-			public const int ic_home_black_24dp = 2130837636;
+			public const int ic_drag_handle = 2130837636;
 			
 			// aapt resource value: 0x7f020085
-			public const int ic_launcher_background = 2130837637;
+			public const int ic_home_black_24dp = 2130837637;
 			
 			// aapt resource value: 0x7f020086
-			public const int ic_navigate_before_white = 2130837638;
+			public const int ic_launcher_background = 2130837638;
 			
 			// aapt resource value: 0x7f020087
-			public const int ic_navigate_next_white = 2130837639;
+			public const int ic_navigate_before_white = 2130837639;
 			
 			// aapt resource value: 0x7f020088
-			public const int ic_notifications_black_24dp = 2130837640;
+			public const int ic_navigate_next_white = 2130837640;
 			
 			// aapt resource value: 0x7f020089
-			public const int ic_qrcode = 2130837641;
+			public const int ic_notifications_black_24dp = 2130837641;
 			
 			// aapt resource value: 0x7f02008a
-			public const int ic_search_commit = 2130837642;
+			public const int ic_qrcode = 2130837642;
 			
 			// aapt resource value: 0x7f02008b
-			public const int ic_skip_white = 2130837643;
+			public const int ic_search_commit = 2130837643;
 			
 			// aapt resource value: 0x7f02008c
-			public const int img_create = 2130837644;
+			public const int ic_skip_white = 2130837644;
 			
 			// aapt resource value: 0x7f02008d
-			public const int img_discover = 2130837645;
+			public const int img_create = 2130837645;
 			
 			// aapt resource value: 0x7f02008e
-			public const int img_equalizer = 2130837646;
+			public const int img_discover = 2130837646;
 			
 			// aapt resource value: 0x7f02008f
-			public const int img_image = 2130837647;
+			public const int img_equalizer = 2130837647;
 			
 			// aapt resource value: 0x7f020090
-			public const int img_music = 2130837648;
+			public const int img_image = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int img_nodata = 2130837649;
+			public const int img_music = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int img_play = 2130837650;
+			public const int img_nodata = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int img_profile = 2130837651;
+			public const int img_play = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int img_qrcode = 2130837652;
+			public const int img_profile = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int img_share = 2130837653;
+			public const int img_qrcode = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int indicator_dot_grey = 2130837654;
+			public const int img_share = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int indicator_dot_white = 2130837655;
+			public const int indicator_dot_grey = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int mobile_receive = 2130837656;
+			public const int indicator_dot_white = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int Muusika_icon = 2130837657;
+			public const int mobile_receive = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int navigation_empty_icon = 2130837658;
+			public const int Muusika_icon = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public const int notification_action_background = 2130837659;
+			public const int navigation_empty_icon = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public const int notification_bg = 2130837660;
+			public const int notification_action_background = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public const int notification_bg_low = 2130837661;
+			public const int notification_bg = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public const int notification_bg_low_normal = 2130837662;
+			public const int notification_bg_low = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public const int notification_bg_low_pressed = 2130837663;
+			public const int notification_bg_low_normal = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public const int notification_bg_normal = 2130837664;
+			public const int notification_bg_low_pressed = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public const int notification_bg_normal_pressed = 2130837665;
+			public const int notification_bg_normal = 2130837665;
 			
 			// aapt resource value: 0x7f0200a2
-			public const int notification_icon_background = 2130837666;
-			
-			// aapt resource value: 0x7f0200a9
-			public const int notification_template_icon_bg = 2130837673;
-			
-			// aapt resource value: 0x7f0200aa
-			public const int notification_template_icon_low_bg = 2130837674;
+			public const int notification_bg_normal_pressed = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int notification_tile_bg = 2130837667;
+			public const int notification_icon_background = 2130837667;
+			
+			// aapt resource value: 0x7f0200aa
+			public const int notification_template_icon_bg = 2130837674;
+			
+			// aapt resource value: 0x7f0200ab
+			public const int notification_template_icon_low_bg = 2130837675;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int notify_panel_notification_icon_bg = 2130837668;
+			public const int notification_tile_bg = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int search_suggestions_bg = 2130837669;
+			public const int notify_panel_notification_icon_bg = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int SplashScreen = 2130837670;
+			public const int search_suggestions_bg = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int tooltip_frame_dark = 2130837671;
+			public const int SplashScreen = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int tooltip_frame_light = 2130837672;
+			public const int tooltip_frame_dark = 2130837672;
+			
+			// aapt resource value: 0x7f0200a9
+			public const int tooltip_frame_light = 2130837673;
 			
 			static Drawable()
 			{
@@ -4369,8 +4375,11 @@ namespace Muusika
 			// aapt resource value: 0x7f0c003d
 			public const int META = 2131492925;
 			
-			// aapt resource value: 0x7f0c00f8
-			public const int QRcode_imageView = 2131493112;
+			// aapt resource value: 0x7f0c00df
+			public const int MediaPlayer_LinearLayout = 2131493087;
+			
+			// aapt resource value: 0x7f0c00fb
+			public const int QRcode_imageView = 2131493115;
 			
 			// aapt resource value: 0x7f0c003e
 			public const int SHIFT = 2131492926;
@@ -4387,14 +4396,14 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00d1
 			public const int TituloTextView = 2131493073;
 			
-			// aapt resource value: 0x7f0c00e4
-			public const int action0 = 2131493092;
+			// aapt resource value: 0x7f0c00e7
+			public const int action0 = 2131493095;
 			
-			// aapt resource value: 0x7f0c0102
-			public const int action_addFavorite = 2131493122;
+			// aapt resource value: 0x7f0c0105
+			public const int action_addFavorite = 2131493125;
 			
-			// aapt resource value: 0x7f0c010a
-			public const int action_attach = 2131493130;
+			// aapt resource value: 0x7f0c010d
+			public const int action_attach = 2131493133;
 			
 			// aapt resource value: 0x7f0c0083
 			public const int action_bar = 2131492995;
@@ -4417,29 +4426,29 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0061
 			public const int action_bar_title = 2131492961;
 			
-			// aapt resource value: 0x7f0c00e1
-			public const int action_container = 2131493089;
+			// aapt resource value: 0x7f0c00e4
+			public const int action_container = 2131493092;
 			
 			// aapt resource value: 0x7f0c0084
 			public const int action_context_bar = 2131492996;
 			
-			// aapt resource value: 0x7f0c0105
-			public const int action_copy = 2131493125;
+			// aapt resource value: 0x7f0c0108
+			public const int action_copy = 2131493128;
 			
-			// aapt resource value: 0x7f0c0104
-			public const int action_delete = 2131493124;
+			// aapt resource value: 0x7f0c0107
+			public const int action_delete = 2131493127;
 			
-			// aapt resource value: 0x7f0c00e8
-			public const int action_divider = 2131493096;
+			// aapt resource value: 0x7f0c00eb
+			public const int action_divider = 2131493099;
+			
+			// aapt resource value: 0x7f0c010e
+			public const int action_edit = 2131493134;
+			
+			// aapt resource value: 0x7f0c00e5
+			public const int action_image = 2131493093;
 			
 			// aapt resource value: 0x7f0c010b
-			public const int action_edit = 2131493131;
-			
-			// aapt resource value: 0x7f0c00e2
-			public const int action_image = 2131493090;
-			
-			// aapt resource value: 0x7f0c0108
-			public const int action_intro = 2131493128;
+			public const int action_intro = 2131493131;
 			
 			// aapt resource value: 0x7f0c0003
 			public const int action_menu_divider = 2131492867;
@@ -4456,26 +4465,26 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0063
 			public const int action_mode_close_button = 2131492963;
 			
-			// aapt resource value: 0x7f0c0103
-			public const int action_removeFavorite = 2131493123;
+			// aapt resource value: 0x7f0c0106
+			public const int action_removeFavorite = 2131493126;
 			
-			// aapt resource value: 0x7f0c0101
-			public const int action_save = 2131493121;
+			// aapt resource value: 0x7f0c0104
+			public const int action_save = 2131493124;
 			
-			// aapt resource value: 0x7f0c0107
-			public const int action_search = 2131493127;
+			// aapt resource value: 0x7f0c010a
+			public const int action_search = 2131493130;
+			
+			// aapt resource value: 0x7f0c010c
+			public const int action_settings = 2131493132;
 			
 			// aapt resource value: 0x7f0c0109
-			public const int action_settings = 2131493129;
+			public const int action_share = 2131493129;
 			
-			// aapt resource value: 0x7f0c0106
-			public const int action_share = 2131493126;
+			// aapt resource value: 0x7f0c00e6
+			public const int action_text = 2131493094;
 			
-			// aapt resource value: 0x7f0c00e3
-			public const int action_text = 2131493091;
-			
-			// aapt resource value: 0x7f0c00f1
-			public const int actions = 2131493105;
+			// aapt resource value: 0x7f0c00f4
+			public const int actions = 2131493108;
 			
 			// aapt resource value: 0x7f0c0064
 			public const int activity_chooser_view_content = 2131492964;
@@ -4537,17 +4546,17 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00ab
 			public const int bottom_separator = 2131493035;
 			
-			// aapt resource value: 0x7f0c00e0
-			public const int button0 = 2131493088;
+			// aapt resource value: 0x7f0c00e2
+			public const int button0 = 2131493090;
 			
 			// aapt resource value: 0x7f0c006a
 			public const int buttonPanel = 2131492970;
 			
-			// aapt resource value: 0x7f0c00fc
-			public const int camera_surfaceView = 2131493116;
+			// aapt resource value: 0x7f0c00ff
+			public const int camera_surfaceView = 2131493119;
 			
-			// aapt resource value: 0x7f0c00e5
-			public const int cancel_action = 2131493093;
+			// aapt resource value: 0x7f0c00e8
+			public const int cancel_action = 2131493096;
 			
 			// aapt resource value: 0x7f0c004c
 			public const int center = 2131492940;
@@ -4561,8 +4570,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c007a
 			public const int checkbox = 2131492986;
 			
-			// aapt resource value: 0x7f0c00ed
-			public const int chronometer = 2131493101;
+			// aapt resource value: 0x7f0c00f0
+			public const int chronometer = 2131493104;
 			
 			// aapt resource value: 0x7f0c0055
 			public const int clip_horizontal = 2131492949;
@@ -4636,14 +4645,17 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00b0
 			public const int done = 2131493040;
 			
+			// aapt resource value: 0x7f0c00dd
+			public const int dragView = 2131493085;
+			
 			// aapt resource value: 0x7f0c0085
 			public const int edit_query = 2131492997;
 			
 			// aapt resource value: 0x7f0c0038
 			public const int end = 2131492920;
 			
-			// aapt resource value: 0x7f0c00f3
-			public const int end_padder = 2131493107;
+			// aapt resource value: 0x7f0c00f6
+			public const int end_padder = 2131493110;
 			
 			// aapt resource value: 0x7f0c0047
 			public const int enterAlways = 2131492935;
@@ -4699,8 +4711,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0069
 			public const int icon = 2131492969;
 			
-			// aapt resource value: 0x7f0c00f2
-			public const int icon_group = 2131493106;
+			// aapt resource value: 0x7f0c00f5
+			public const int icon_group = 2131493109;
 			
 			// aapt resource value: 0x7f0c0020
 			public const int icon_only = 2131492896;
@@ -4723,8 +4735,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00ac
 			public const int indicator_container = 2131493036;
 			
-			// aapt resource value: 0x7f0c00ee
-			public const int info = 2131493102;
+			// aapt resource value: 0x7f0c00f1
+			public const int info = 2131493105;
 			
 			// aapt resource value: 0x7f0c0060
 			public const int italic = 2131492960;
@@ -4750,8 +4762,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00d5
 			public const int letras_nueva_toolbar = 2131493077;
 			
-			// aapt resource value: 0x7f0c00dd
-			public const int letras_viewer_toolbar = 2131493085;
+			// aapt resource value: 0x7f0c00de
+			public const int letras_viewer_toolbar = 2131493086;
 			
 			// aapt resource value: 0x7f0c0025
 			public const int light = 2131492901;
@@ -4783,20 +4795,20 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00a8
 			public const int main = 2131493032;
 			
-			// aapt resource value: 0x7f0c0100
-			public const int masked = 2131493120;
+			// aapt resource value: 0x7f0c0103
+			public const int masked = 2131493123;
 			
-			// aapt resource value: 0x7f0c00e7
-			public const int media_actions = 2131493095;
+			// aapt resource value: 0x7f0c00ea
+			public const int media_actions = 2131493098;
 			
-			// aapt resource value: 0x7f0c010c
-			public const int menu_copy = 2131493132;
+			// aapt resource value: 0x7f0c010f
+			public const int menu_copy = 2131493135;
 			
-			// aapt resource value: 0x7f0c010d
-			public const int menu_share = 2131493133;
+			// aapt resource value: 0x7f0c0110
+			public const int menu_share = 2131493136;
 			
-			// aapt resource value: 0x7f0c00fe
-			public const int message = 2131493118;
+			// aapt resource value: 0x7f0c0101
+			public const int message = 2131493121;
 			
 			// aapt resource value: 0x7f0c0039
 			public const int middle = 2131492921;
@@ -4804,23 +4816,23 @@ namespace Muusika
 			// aapt resource value: 0x7f0c005a
 			public const int mini = 2131492954;
 			
-			// aapt resource value: 0x7f0c00f4
-			public const int moreOptions_button = 2131493108;
+			// aapt resource value: 0x7f0c00f7
+			public const int moreOptions_button = 2131493111;
 			
 			// aapt resource value: 0x7f0c0030
 			public const int multiply = 2131492912;
 			
-			// aapt resource value: 0x7f0c010f
-			public const int navigation_dashboard = 2131493135;
+			// aapt resource value: 0x7f0c0112
+			public const int navigation_dashboard = 2131493138;
 			
 			// aapt resource value: 0x7f0c00a1
 			public const int navigation_header_container = 2131493025;
 			
-			// aapt resource value: 0x7f0c010e
-			public const int navigation_home = 2131493134;
+			// aapt resource value: 0x7f0c0111
+			public const int navigation_home = 2131493137;
 			
-			// aapt resource value: 0x7f0c0110
-			public const int navigation_notifications = 2131493136;
+			// aapt resource value: 0x7f0c0113
+			public const int navigation_notifications = 2131493139;
 			
 			// aapt resource value: 0x7f0c0043
 			public const int never = 2131492931;
@@ -4843,14 +4855,14 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0027
 			public const int normal = 2131492903;
 			
-			// aapt resource value: 0x7f0c00f0
-			public const int notification_background = 2131493104;
+			// aapt resource value: 0x7f0c00f3
+			public const int notification_background = 2131493107;
 			
-			// aapt resource value: 0x7f0c00ea
-			public const int notification_main_column = 2131493098;
+			// aapt resource value: 0x7f0c00ed
+			public const int notification_main_column = 2131493101;
 			
-			// aapt resource value: 0x7f0c00e9
-			public const int notification_main_column_container = 2131493097;
+			// aapt resource value: 0x7f0c00ec
+			public const int notification_main_column_container = 2131493100;
 			
 			// aapt resource value: 0x7f0c0053
 			public const int parallax = 2131492947;
@@ -4864,8 +4876,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0054
 			public const int pin = 2131492948;
 			
-			// aapt resource value: 0x7f0c00de
-			public const int play_button = 2131493086;
+			// aapt resource value: 0x7f0c00e0
+			public const int play_button = 2131493088;
 			
 			// aapt resource value: 0x7f0c0006
 			public const int progress_circular = 2131492870;
@@ -4873,11 +4885,11 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0007
 			public const int progress_horizontal = 2131492871;
 			
-			// aapt resource value: 0x7f0c00f5
-			public const int qr_code_generator_toolbar = 2131493109;
+			// aapt resource value: 0x7f0c00f8
+			public const int qr_code_generator_toolbar = 2131493112;
 			
-			// aapt resource value: 0x7f0c00fa
-			public const int qr_code_scanner_toolbar = 2131493114;
+			// aapt resource value: 0x7f0c00fd
+			public const int qr_code_scanner_toolbar = 2131493117;
 			
 			// aapt resource value: 0x7f0c00c5
 			public const int qrcode_imageButton = 2131493061;
@@ -4885,20 +4897,20 @@ namespace Muusika
 			// aapt resource value: 0x7f0c007c
 			public const int radio = 2131492988;
 			
-			// aapt resource value: 0x7f0c00f9
-			public const int relativeLayout1 = 2131493113;
+			// aapt resource value: 0x7f0c00fc
+			public const int relativeLayout1 = 2131493116;
 			
-			// aapt resource value: 0x7f0c00fb
-			public const int result_textView = 2131493115;
+			// aapt resource value: 0x7f0c00fe
+			public const int result_textView = 2131493118;
 			
 			// aapt resource value: 0x7f0c0051
 			public const int right = 2131492945;
 			
-			// aapt resource value: 0x7f0c00ef
-			public const int right_icon = 2131493103;
+			// aapt resource value: 0x7f0c00f2
+			public const int right_icon = 2131493106;
 			
-			// aapt resource value: 0x7f0c00eb
-			public const int right_side = 2131493099;
+			// aapt resource value: 0x7f0c00ee
+			public const int right_side = 2131493102;
 			
 			// aapt resource value: 0x7f0c000c
 			public const int save_image_matrix = 2131492876;
@@ -4957,8 +4969,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c008c
 			public const int search_src_text = 2131493004;
 			
-			// aapt resource value: 0x7f0c00fd
-			public const int search_view = 2131493117;
+			// aapt resource value: 0x7f0c0100
+			public const int search_view = 2131493120;
 			
 			// aapt resource value: 0x7f0c0090
 			public const int search_voice_btn = 2131493008;
@@ -4966,11 +4978,11 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0091
 			public const int select_dialog_listview = 2131493009;
 			
-			// aapt resource value: 0x7f0c00f7
-			public const int shareQR_steps_textView = 2131493111;
+			// aapt resource value: 0x7f0c00fa
+			public const int shareQR_steps_textView = 2131493114;
 			
-			// aapt resource value: 0x7f0c00f6
-			public const int shareQR_textView = 2131493110;
+			// aapt resource value: 0x7f0c00f9
+			public const int shareQR_textView = 2131493113;
 			
 			// aapt resource value: 0x7f0c007b
 			public const int shortcut = 2131492987;
@@ -5023,17 +5035,20 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0052
 			public const int start = 2131492946;
 			
-			// aapt resource value: 0x7f0c00e6
-			public const int status_bar_latest_event_content = 2131493094;
+			// aapt resource value: 0x7f0c00e9
+			public const int status_bar_latest_event_content = 2131493097;
 			
-			// aapt resource value: 0x7f0c00df
-			public const int stop_button = 2131493087;
+			// aapt resource value: 0x7f0c00e1
+			public const int stop_button = 2131493089;
 			
 			// aapt resource value: 0x7f0c007d
 			public const int submenuarrow = 2131492989;
 			
 			// aapt resource value: 0x7f0c008e
 			public const int submit_area = 2131493006;
+			
+			// aapt resource value: 0x7f0c00e3
+			public const int sv = 2131493091;
 			
 			// aapt resource value: 0x7f0c0028
 			public const int tabMode = 2131492904;
@@ -5068,8 +5083,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c0015
 			public const int textinput_error = 2131492885;
 			
-			// aapt resource value: 0x7f0c00ec
-			public const int time = 2131493100;
+			// aapt resource value: 0x7f0c00ef
+			public const int time = 2131493103;
 			
 			// aapt resource value: 0x7f0c001c
 			public const int title = 2131492892;
@@ -5125,8 +5140,8 @@ namespace Muusika
 			// aapt resource value: 0x7f0c00aa
 			public const int view_pager = 2131493034;
 			
-			// aapt resource value: 0x7f0c00ff
-			public const int visible = 2131493119;
+			// aapt resource value: 0x7f0c0102
+			public const int visible = 2131493122;
 			
 			// aapt resource value: 0x7f0c00b9
 			public const int webView1 = 2131493049;
