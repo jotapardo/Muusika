@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Media;
 using Android.OS;
@@ -42,6 +43,7 @@ namespace Muusika.Resources.Activities
         protected MediaPlayer player;
 
         bool IsPlaying;
+        bool IsLooping;
 
         public letras_viewer_activity()
         {
@@ -86,6 +88,7 @@ namespace Muusika.Resources.Activities
                 stop_ImageButton.Click += OnStop_button_Click;
                 repeat_ImageButton = FindViewById<ImageButton>(Resource.Id.repeat_ImageButton);
                 repeat_ImageButton.Click += OnRepeat_button_Click;
+                repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.material_grey_50), Android.Graphics.PorterDuff.Mode.SrcAtop);
 
                 //SlidingUpPanelLayout 
                 sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
@@ -104,18 +107,6 @@ namespace Muusika.Resources.Activities
                 Log.Error("Error_OnCreate", ex.Message);
             }
 
-        }
-
-        private void OnRepeat_button_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error("OnRepeat_button_Click", ex.Message);
-            }
         }
 
         private void OnSliding_layout_PanelSlide(object sender, SlidingUpPanelSlideEventArgs args)
@@ -146,6 +137,33 @@ namespace Muusika.Resources.Activities
         }
 
         #region MepiaPlayer
+
+        private void OnRepeat_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (player != null)
+                {
+                    if (IsLooping)
+                    {
+                        repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
+                        player.Looping = false;
+                        IsLooping = false;
+                    }
+                    else
+                    {
+                        repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.colorPrimary), Android.Graphics.PorterDuff.Mode.SrcAtop);
+                        player.Looping = true;
+                        IsLooping = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnRepeat_button_Click", ex.Message);
+            }
+        }
+
         private void OnStop_button_Click(object sender, EventArgs e)
         {
             try
@@ -172,6 +190,7 @@ namespace Muusika.Resources.Activities
                 if (player == null)
                 {
                     player = new MediaPlayer();
+                    player.Completion += OnPlayer_Completion;
                     player.Reset();
                     player.SetDataSource(filePath);
                     player.Prepare();
@@ -179,6 +198,7 @@ namespace Muusika.Resources.Activities
                     IsPlaying = true;
 
                     play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
+                    repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
                 }
                 else
                 {
@@ -186,13 +206,13 @@ namespace Muusika.Resources.Activities
                     {
                         player.Pause();
                         IsPlaying = false;
-                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
+                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
                     }
                     else
                     {
                         player.Start();
                         IsPlaying = true;
-                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
+                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
                     }
 
                 }
@@ -201,6 +221,21 @@ namespace Muusika.Resources.Activities
             catch (Exception ex)
             {
                 Log.Error("OnPlay_button_Click", ex.Message);
+            }
+        }
+
+        private void OnPlayer_Completion(object sender, EventArgs e)
+        {
+            try
+            {
+                if (IsLooping)
+                {
+                    player.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnPlayer_Completion", ex.Message);
             }
         }
         #endregion

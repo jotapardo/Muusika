@@ -29,27 +29,31 @@ namespace Muusika.Resources.Activities
             base.OnCreate(savedInstanceState);
 
             AddSlide(AppIntro.AppIntroFragment.NewInstance("TERE TULEMAST"
-                , "Es hora de ponerte en modo Muusika. \n (Por cierto 'Tere tulemast', quiere decir BIENVENIDO en el idioma Estonio)"
+                , GetString(Resource.String.DescriptionSlide1)
                 , Resource.Drawable.Muusika_icon
                 ,Color.LightGray));//Color.ParseColor("#f64c73")
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Almacena tus letras"
-                , "Crea tu propia colección de letras, aunque estas no existan ni en Internet"
+            AddSlide(AppIntro.AppIntroFragment.NewInstance(
+                GetString(Resource.String.TitleSlide2)
+                , GetString(Resource.String.DescriptionSlide2)
                 , Resource.Drawable.img_create
                 , Color.ParseColor("#20d2bb")));
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Comparte con amigos"
-                , "Envía tus letras a tus amigos de forma sencilla"
+            AddSlide(AppIntro.AppIntroFragment.NewInstance(
+                GetString(Resource.String.TitleSlide3)
+                , GetString(Resource.String.DescriptionSlide3)
                 , Resource.Drawable.img_share
                 , Color.ParseColor("#3395ff")));
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance("Importa fácilmente"
-                , "Utiliza la opción de importar para que crees una letra que te comparta un amigo desde su Muusika"
+            AddSlide(AppIntro.AppIntroFragment.NewInstance(
+                GetString(Resource.String.TitleSlide4)
+                , GetString(Resource.String.DescriptionSlide4)
                 , Resource.Drawable.img_discover
                 , Color.ParseColor("#f64c73")));
 
-            AddSlide(AppIntro.AppIntroFragment.NewInstance(GetString(Resource.String.app_name)
-                , "COMENZAR"
+            AddSlide(AppIntro.AppIntroFragment.NewInstance(
+                GetString(Resource.String.TitleSlide5)
+                , GetString(Resource.String.DescriptionSlide5)
                 , Resource.Drawable.img_nodata
                 , Color.ParseColor("#c873f4")));
 

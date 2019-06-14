@@ -51,9 +51,21 @@
     
     <!-- messages -->
   <string name="message_text_empty">El texto no puede estar vacío!</string>
-  <string name="message_nodata">¡Crea tu primer letra, ponte en modo Muusika!</string>
+  <string name="message_nodata">Comienza por añadir tu primera letra tocando la opción \'+\'</string>
   <string name="message_shareQR">Para utilizar este código QR:</string> 
   <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
+    
+    <!--Intro Messages-->
+    <string name="TitleSlide1">TERE TULEMAST</string>
+    <string name="DescriptionSlide1">Es hora de ponerte en modo Muusika. \n (Por cierto \'Tere tulemast\', quiere decir BIENVENIDO en el idioma Estonio)</string>
+    <string name="TitleSlide2">Almacena tus letras</string>
+    <string name="DescriptionSlide2">Crea tu propia colección de letras, aunque estas no existan ni en Internet</string>
+    <string name="TitleSlide3">Comparte con amigos</string>
+    <string name="DescriptionSlide3">Envía tus letras a tus amigos de forma sencilla</string>
+    <string name="TitleSlide4">Importa fácilmente</string>
+    <string name="DescriptionSlide4">Utiliza la opción de importar para que crees una letra que te comparta un amigo desde su Muusika</string>
+    <string name="TitleSlide5">Todo listo</string>
+    <string name="DescriptionSlide5">Tener tus colección de letras es aquí y ahora. Es hora de ponerte en modo Muusika</string>
   
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
