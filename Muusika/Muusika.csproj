@@ -156,6 +156,11 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_check.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_check.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_action_check.png" />
+    <AndroidResource Include="Resources\drawable\btn_Pause.png" />
+    <AndroidResource Include="Resources\drawable\btn_Play.png" />
+    <AndroidResource Include="Resources\drawable\btn_Repeat.png" />
+    <AndroidResource Include="Resources\drawable\btn_Stop.png" />
+    <AndroidResource Include="Resources\layout\letras_viewer_layout_slidepanel.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppIntro">

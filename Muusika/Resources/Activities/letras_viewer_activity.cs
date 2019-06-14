@@ -33,8 +33,9 @@ namespace Muusika.Resources.Activities
 
         PopupWindow popupWindow;
 
-        Button play_button;
-        Button stop_button;
+        ImageButton play_ImageButton;
+        ImageButton stop_ImageButton;
+        ImageButton repeat_ImageButton;
 
         SlidingUpPanelLayout sliding_layout;
         LinearLayout dragView;
@@ -79,11 +80,12 @@ namespace Muusika.Resources.Activities
 
 
                 //Buttons
-                play_button = FindViewById<Button>(Resource.Id.play_button);
-                play_button.Click += OnPlay_button_Click;
-                stop_button = FindViewById<Button>(Resource.Id.stop_button);
-                stop_button.Click += OnStop_button_Click;
-
+                play_ImageButton = FindViewById<ImageButton>(Resource.Id.play_ImageButton);
+                play_ImageButton.Click += OnPlay_button_Click;
+                stop_ImageButton = FindViewById<ImageButton>(Resource.Id.stop_ImageButton);
+                stop_ImageButton.Click += OnStop_button_Click;
+                repeat_ImageButton = FindViewById<ImageButton>(Resource.Id.repeat_ImageButton);
+                repeat_ImageButton.Click += OnRepeat_button_Click;
 
                 //SlidingUpPanelLayout 
                 sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
@@ -102,6 +104,18 @@ namespace Muusika.Resources.Activities
                 Log.Error("Error_OnCreate", ex.Message);
             }
 
+        }
+
+        private void OnRepeat_button_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnRepeat_button_Click", ex.Message);
+            }
         }
 
         private void OnSliding_layout_PanelSlide(object sender, SlidingUpPanelSlideEventArgs args)
@@ -139,7 +153,7 @@ namespace Muusika.Resources.Activities
                 player.Stop();
                 player = null;
                 IsPlaying = false;
-                play_button.Text = "PLAY";
+                play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
             }
             catch (Exception ex)
             {
@@ -164,7 +178,7 @@ namespace Muusika.Resources.Activities
                     player.Start();
                     IsPlaying = true;
 
-                    play_button.Text = "PLAY";
+                    play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
                 }
                 else
                 {
@@ -172,13 +186,13 @@ namespace Muusika.Resources.Activities
                     {
                         player.Pause();
                         IsPlaying = false;
-                        play_button.Text = "PAUSE";
+                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
                     }
                     else
                     {
                         player.Start();
                         IsPlaying = true;
-                        play_button.Text = "PLAY";
+                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
                     }
 
                 }
@@ -269,6 +283,12 @@ namespace Muusika.Resources.Activities
             }
             else
             {
+                if (player != null)
+                {
+                    player.Stop(); 
+                    player.Dispose();
+                    player = null;
+                }
                 base.OnBackPressed();
             }
             
