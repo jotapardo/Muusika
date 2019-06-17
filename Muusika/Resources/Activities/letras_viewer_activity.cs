@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Icu.Text;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
@@ -15,6 +16,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Cheesebaron.SlidingUpPanel;
+using Java.Util.Concurrent;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Plugin.Clipboard;
@@ -38,12 +40,21 @@ namespace Muusika.Resources.Activities
         ImageButton stop_ImageButton;
         ImageButton repeat_ImageButton;
 
+        TextView currentPosion_textView;
+        TextView maxTime_textView;
+
         SlidingUpPanelLayout sliding_layout;
         LinearLayout dragView;
+        SeekBar seekBar;
+
         protected MediaPlayer player;
 
         bool IsPlaying;
         bool IsLooping;
+        private int CurrentPosition;
+        private int Duration;
+
+        private Handler handler = new Handler();
 
         public letras_viewer_activity()
         {
@@ -90,6 +101,11 @@ namespace Muusika.Resources.Activities
                 repeat_ImageButton.Click += OnRepeat_button_Click;
                 repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.material_grey_50), Android.Graphics.PorterDuff.Mode.SrcAtop);
 
+
+                //TextViews
+                currentPosion_textView = FindViewById<TextView>(Resource.Id.currentPosion_textView);
+                maxTime_textView = FindViewById<TextView>(Resource.Id.maxTime_textView);
+
                 //SlidingUpPanelLayout 
                 sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
                 //sliding_layout.PanelHeight = 600;//heigh collapsed
@@ -97,16 +113,68 @@ namespace Muusika.Resources.Activities
                 sliding_layout.Click += OnSliding_layout_Click;
                 sliding_layout.PanelSlide += OnSliding_layout_PanelSlide;
 
+
                 //dragView
                 dragView = FindViewById<LinearLayout>(Resource.Id.dragView);
                 dragView.Clickable = true;
+
+
+                //Seekbar
+                seekBar = FindViewById<SeekBar>(Resource.Id.seekBar);
+                seekBar.Clickable = false;
+
+
+                //SaveInstance
+                if (savedInstanceState != null)
+                {
+                    IsPlaying = savedInstanceState.GetBoolean(key: "IsPlaying");
+                    IsLooping = savedInstanceState.GetBoolean(key: "IsLooping");
+                    Duration = savedInstanceState.GetInt("Duration");
+                    CurrentPosition = savedInstanceState.GetInt("CurrentPosition");
+
+                    if (IsPlaying)
+                    {
+                        play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
+                    }
+
+                    if (IsLooping)
+                    {
+                        repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.colorPrimary), Android.Graphics.PorterDuff.Mode.SrcAtop);
+                        player.Looping = true;
+                    }
+                    else
+                    {
+                        repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
+                    }
+
+                    if (CurrentPosition == 0)
+                    {
+                        seekBar.Max = Duration;
+                        String maxTimeString = this.MillisecondsToString(Duration);
+                        maxTime_textView.Text = maxTimeString;
+                    }
+                    else if (CurrentPosition == Duration)
+                    {
+                        //Resets the MediaPlayer to its uninitialized state
+                        player.Reset();
+                    }
+                    else
+                    {
+                        String currentTimeString = this.MillisecondsToString(CurrentPosition);
+                        currentPosion_textView.Text = currentTimeString;
+
+                        String maxTimeString = this.MillisecondsToString(Duration);
+                        maxTime_textView.Text = maxTimeString;
+
+                    }
+                    //CurrentPosition == 0
+                }
 
             }
             catch (Exception ex)
             {
                 Log.Error("Error_OnCreate", ex.Message);
             }
-
         }
 
         private void OnSliding_layout_PanelSlide(object sender, SlidingUpPanelSlideEventArgs args)
@@ -169,9 +237,15 @@ namespace Muusika.Resources.Activities
             try
             {
                 player.Stop();
+                player.Release();
                 player = null;
+
                 IsPlaying = false;
+
                 play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
+
+                CurrentPosition = 0;
+
             }
             catch (Exception ex)
             {
@@ -191,10 +265,33 @@ namespace Muusika.Resources.Activities
                 {
                     player = new MediaPlayer();
                     player.Completion += OnPlayer_Completion;
+                    player.Prepared += OnPlayer_Prepared;
                     player.Reset();
                     player.SetDataSource(filePath);
                     player.Prepare();
+
+                    Duration = player.Duration;
+                    CurrentPosition = player.CurrentPosition;
+
+                    if (CurrentPosition == 0)
+                    {
+                        seekBar.Max = Duration;
+                        String maxTimeString = this.MillisecondsToString(Duration);
+                        maxTime_textView.Text = maxTimeString;
+                    }
+                    else if(CurrentPosition == Duration)
+                    {
+                        //Resets the MediaPlayer to its uninitialized state
+                        player.Reset();
+                    }//CurrentPosition == 0
+
                     player.Start();
+
+                    // Create a thread to update position of SeekBar.
+                    //UpdateSeekBarThread updateSeekBarThread = new UpdateSeekBarThread();
+                    //handler.PostDelayed(updateSeekBarThread, 50);
+
+
                     IsPlaying = true;
 
                     play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
@@ -224,6 +321,21 @@ namespace Muusika.Resources.Activities
             }
         }
 
+        private void OnPlayer_Prepared(object sender, EventArgs e)
+        {
+            try
+            {
+                if (player != null)
+                {
+                    player.SeekTo((int)CurrentPosition);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnPlayer_Prepared", ex.Message);
+            }
+        }
+
         private void OnPlayer_Completion(object sender, EventArgs e)
         {
             try
@@ -238,6 +350,17 @@ namespace Muusika.Resources.Activities
                 Log.Error("OnPlayer_Completion", ex.Message);
             }
         }
+
+        // Convert millisecond to string.
+        private String MillisecondsToString(int milliseconds)
+        {
+            TimeSpan ts = TimeSpan.FromMilliseconds(milliseconds);
+            DateTime dt = new DateTime(ts.Ticks);
+            String hms = dt.ToString(("HH:mm:ss"));
+            return hms;
+        }
+
+
         #endregion
 
 
@@ -258,6 +381,7 @@ namespace Muusika.Resources.Activities
             }
         }
 
+        #region Overrides
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -329,6 +453,59 @@ namespace Muusika.Resources.Activities
             
         }
 
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+            try
+            {
+                outState.PutBoolean("IsPlaying", IsPlaying);
+                outState.PutBoolean("IsLooping", IsLooping);
+                outState.PutInt("Duration", Duration);
+                outState.PutInt("CurrentPosition", CurrentPosition);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnSaveInstanceState", ex.Message);
+            }
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            if (player != null)
+            {
+                Duration = player.Duration;
+                CurrentPosition = player.CurrentPosition;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            //if (player != null)
+            //{
+            //    player.Stop();
+            //    player.Release();
+            //    player = null;
+            //}
+        }
+
+        protected override void OnResume()
+        {
+            RetrieveLyric(IdLyric);
+            base.OnResume();
+        }
+
+        protected override void OnRestart()
+        {
+            RetrieveLyric(IdLyric);
+            base.OnRestart();
+        }
+
+        #endregion
+
+
         private void ShowShareOptions()
         {
             try
@@ -352,19 +529,7 @@ namespace Muusika.Resources.Activities
            
         }
 
-        protected override void OnResume()
-        {
-            RetrieveLyric(IdLyric);
-            base.OnResume();
-        }
-
-        protected override void OnRestart()
-        {
-            RetrieveLyric(IdLyric);
-            base.OnRestart();
-        }
-
-
+        
     }
 
     
