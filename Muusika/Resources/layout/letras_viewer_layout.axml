@@ -10,7 +10,7 @@
     app:fadeColor="@color/colorAccent" 
     app:dragView="@+id/dragView" 
     app:overlay="false"
-    app:collapsedHeight="80dp">
+    app:collapsedHeight="100dp">
     <!-- MAIN CONTENT -->
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
       <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:keepScreenOn="true" android:scrollbarAlwaysDrawVerticalTrack="true">
