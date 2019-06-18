@@ -26,11 +26,11 @@ namespace Muusika.Resources.Activities
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.letras_search_layout);
 
-            string searchText = "https://www.google.com/search?q=letra+colgando+en+tus+manos";
+            //string searchText = "https://www.google.com/search?q=letra+colgando+en+tus+manos";
 
-            string textise = "https://www.textise.net/showText.aspx?strURL=https%253A//www.google.com/search%253Fq%253Dletra+colgando+en+tus+manos";
+            //string textise = "https://www.textise.net/showText.aspx?strURL=https%253A//www.google.com/search%253Fq%253Dletra+colgando+en+tus+manos";
 
-            string ResultSearh = "";
+            //string ResultSearh = "";
 
             //EditText searh = FindViewById<EditText>(Resource.Id.search_textView)
 

@@ -32,8 +32,8 @@ namespace Muusika
     public class letras_Fragment : Android.Support.V4.App.Fragment, ISelectedChecker
     {
         ListView _LetrasListView;
-        List<Letra> _Letras;
-        List<Letra> _LetrasSeleccionadas;
+        List<Lyric> _Letras;
+        List<Lyric> _LetrasSeleccionadas;
 
         letras_listViewAdapter _LetrasAdapter;
 
@@ -65,8 +65,8 @@ namespace Muusika
             db.CreateDatabase();
 
             //Listas
-            _Letras = new List<Letra>();
-            _LetrasSeleccionadas = new List<Letra>();
+            _Letras = new List<Lyric>();
+            _LetrasSeleccionadas = new List<Lyric>();
 
         }
 
@@ -293,7 +293,7 @@ namespace Muusika
                 LinearLayout linearLayout = view.FindViewById<LinearLayout>(Resource.Id.LetrasListItem_LinearLayout);
                 ImageView CheckImageView = view.FindViewById<ImageView>(Resource.Id.CheckImageView);
 
-                if (_LetrasSeleccionadas.Select(x => x.IdLetra).Contains(id))
+                if (_LetrasSeleccionadas.Select(x => x.IdLyric).Contains(id))
                 {
                     //deselect element
                     var colorForUnselected = Android.Graphics.Color.Transparent;
@@ -364,7 +364,7 @@ namespace Muusika
 
         public bool IsItemSelected(int id)
         {
-            return _LetrasSeleccionadas.Select(x => x.IdLetra).Contains(id);
+            return _LetrasSeleccionadas.Select(x => x.IdLyric).Contains(id);
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
@@ -388,7 +388,7 @@ namespace Muusika
             {
                 if (!SelectingMultipleItems)
                 {
-                    _Letras = db.SelectTableLetras().OrderBy(n => n.Titulo).ToList();
+                    _Letras = db.SelectTableLyrics().OrderBy(n => n.Title).ToList();
                     _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
                     _LetrasListView.Adapter = _LetrasAdapter;
 
@@ -414,12 +414,12 @@ namespace Muusika
         {
             try
             {
-                Letra mLetra = new Letra()
+                Lyric mLetra = new Lyric()
                 {
-                    Autor = author,
+                    Author = author,
                     Album = album,
-                    Titulo = title,
-                    letra = Lyric
+                    Title = title,
+                    lyric = Lyric
                 };
 
                 if (AlreadyExistLyric(mLetra))
@@ -430,7 +430,7 @@ namespace Muusika
                 }
                 else
                 {
-                    db.InsertIntoTableLetras(mLetra);
+                    db.InsertIntoTableLyrics(mLetra);
                     LoadData();
                 }
                 
@@ -454,12 +454,12 @@ namespace Muusika
                     string album = tokens[5];
                     string Lyric = tokens[7];
 
-                    Letra mLetra = new Letra()
+                    Lyric mLetra = new Lyric()
                     {
-                        Autor = author,
+                        Author = author,
                         Album = album,
-                        Titulo = title,
-                        letra = Lyric
+                        Title = title,
+                        lyric = Lyric
                     };
 
                     if (AlreadyExistLyric(mLetra))
@@ -468,7 +468,7 @@ namespace Muusika
                     }
                     else
                     {
-                        db.InsertIntoTableLetras(mLetra);
+                        db.InsertIntoTableLyrics(mLetra);
                         LoadData();
 
                         Toast.MakeText(this.Activity, GetString(Resource.String.message_Lyric_added), ToastLength.Short).Show();
@@ -504,15 +504,15 @@ namespace Muusika
         {
             try
             {
-                Letra mLyric = new Letra()
+                Lyric mLyric = new Lyric()
                 {
-                    Titulo = title,
-                    Autor = author,
+                    Title = title,
+                    Author = author,
                     Album = album,
-                    letra = Lyric,
-                    IdLetra = IdLyric
+                    lyric = Lyric,
+                    IdLyric = IdLyric
                 };
-                db.UpdateTableLetras(mLyric);
+                db.UpdateTableLyrics(mLyric);
                 LoadData();
                 return true;
             }
@@ -538,7 +538,7 @@ namespace Muusika
                 }
                 else
                 {
-                    Message = GetString(Resource.String.message_Delete_intial) + " " + _LetrasSeleccionadas[0].Titulo + "?";
+                    Message = GetString(Resource.String.message_Delete_intial) + " " + _LetrasSeleccionadas[0].Title + "?";
                 }
 
 
@@ -546,9 +546,9 @@ namespace Muusika
                 dialog.SetPositiveButton(GetString(Resource.String.message_Delete), (sender, args) =>
                 {
                     //yes
-                    foreach (Letra letra in _LetrasSeleccionadas)
+                    foreach (Lyric letra in _LetrasSeleccionadas)
                     {
-                        db.DeleteTableLetras(letra);
+                        db.DeleteTableLyrics(letra);
                     }
 
                     _LetrasSeleccionadas.Clear();
@@ -582,7 +582,7 @@ namespace Muusika
             {
                 string clipBoard = string.Empty;
 
-                foreach (Letra letra in _LetrasSeleccionadas)
+                foreach (Lyric letra in _LetrasSeleccionadas)
                 {
                     clipBoard += letra.ToString();
                     clipBoard += "--- Muusika ---";
@@ -612,7 +612,7 @@ namespace Muusika
             {
                 string LyricText = string.Empty;
 
-                foreach (Letra letra in _LetrasSeleccionadas)
+                foreach (Lyric letra in _LetrasSeleccionadas)
                 {
                     LyricText += letra.ToString();
                     LyricText += "--- Muusika ---";
@@ -652,7 +652,7 @@ namespace Muusika
             {
                 if (filterQuery != "" )
                 {
-                    _Letras = db.FilterTableLetras(filterQuery);
+                    _Letras = db.FilterTableLyrics(filterQuery);
                     _LetrasAdapter = new letras_listViewAdapter(this, _Letras);
                     _LetrasListView.Adapter = _LetrasAdapter;
 
@@ -675,13 +675,13 @@ namespace Muusika
             }
         }//FilterLyrics
 
-        public bool AlreadyExistLyric(Letra letra)
+        public bool AlreadyExistLyric(Lyric letra)
         {
             try
             {
-                Letra mLetra;
+                Lyric mLetra;
 
-                mLetra = db.SelectQueryTableLetrasByObjetc(letra);
+                mLetra = db.SelectQueryTableLyricsByObjetc(letra);
 
                 if (mLetra != null)
                     return true;

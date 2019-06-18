@@ -20,7 +20,7 @@ namespace Muusika.Resources.DataHelper
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.CreateTable<Letra>();
+                    connection.CreateTable<Lyric>();
                     connection.CreateTable<Attachment>();
                     return true;
                 }
@@ -35,123 +35,123 @@ namespace Muusika.Resources.DataHelper
 
         #region Lyrics
 
-        public bool InsertIntoTableLetras(Letra letra)
+        public bool InsertIntoTableLyrics(Lyric lyric)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Insert(letra);
+                    connection.Insert(lyric);
                     return true;
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("InsertIntoTableLetras", ex.Message);
+                Log.Error("InsertIntoTableLyrics", ex.Message);
                 return false;
             }
         }
 
-        public List<Letra> SelectTableLetras()
+        public List<Lyric> SelectTableLyrics()
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    return connection.Table<Letra>().ToList();
+                    return connection.Table<Lyric>().ToList();
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectTableLetras", ex.Message);
+                Log.Error("SelectTableLyrics", ex.Message);
                 return null;
             }
         }
 
-        public List<Letra> FilterTableLetras(string filterQuery)
+        public List<Lyric> FilterTableLyrics(string filterQuery)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    string strQuery = "SELECT * FROM Letra WHERE Titulo like '%" + filterQuery + "%' OR Autor like '%" + filterQuery + "%' OR Album like '%" + filterQuery + "%' OR letra like '%" + filterQuery + "%'";
-                    return connection.Query<Letra>(strQuery);
+                    string strQuery = "SELECT * FROM Lyric WHERE Title like '%" + filterQuery + "%' OR Author like '%" + filterQuery + "%' OR Album like '%" + filterQuery + "%' OR lyric like '%" + filterQuery + "%'";
+                    return connection.Query<Lyric>(strQuery);
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("FilterTableLetras", ex.Message);
+                Log.Error("FilterTableLyrics", ex.Message);
                 return null;
             }
         }
 
-        public bool UpdateTableLetras(Letra letra)
+        public bool UpdateTableLyrics(Lyric lyric)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Query<Letra>("UPDATE Letra SET Titulo=?, Autor=?, Album=?, letra=? WHERE IdLetra=?", letra.Titulo, letra.Autor, letra.Album, letra.letra, letra.IdLetra);
+                    connection.Query<Lyric>("UPDATE Lyric SET Title=?, Author=?, Album=?, lyric=? WHERE IdLyric=?", lyric.Title, lyric.Author, lyric.Album, lyric.lyric, lyric.IdLyric);
                     return true;
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("UpdateTableLetras", ex.Message);
+                Log.Error("UpdateTableLyrics", ex.Message);
                 return false;
             }
         }
 
-        public bool SelectQueryTableLetras(int Id)
+        public bool SelectQueryTableLyrics(int Id)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?", Id);
+                    connection.Query<Lyric>("SELECT * FROM Lyric WHERE IdLyric=?", Id);
                     return true;
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectQueryTableLetras", ex.Message);
+                Log.Error("SelectQueryTableLyrics", ex.Message);
                 return false;
             }
         }
 
-        public Letra SelectQueryTableLetrasById(int Id)
+        public Lyric SelectQueryTableLyricsById(int Id)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    var Lista = connection.Query<Letra>("SELECT * FROM Letra WHERE IdLetra=?", Id);
+                    var Lista = connection.Query<Lyric>("SELECT * FROM Lyric WHERE IdLyric=?", Id);
                     return Lista[0];
                 }
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectQueryTableLetrasById", ex.Message);
+                Log.Error("SelectQueryTableLyricsById", ex.Message);
                 return null;
             }
         }
 
-        public Letra SelectQueryTableLetrasByObjetc(Letra letra)
+        public Lyric SelectQueryTableLyricsByObjetc(Lyric lyric)
         {
             try
             {
-                string Title = letra.Titulo;
-                string Author = letra.Autor;
-                string Lyric = letra.letra.Replace("\n", "");
-                string Album = letra.Album;
+                string Title = lyric.Title;
+                string Author = lyric.Author;
+                string Lyric = lyric.lyric.Replace("\n", "");
+                string Album = lyric.Album;
 
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    var Lista = connection.Query<Letra>("SELECT * FROM Letra WHERE Titulo=? AND Autor=? AND letra=? and Album=?", Title, Author, Lyric, Album);
+                    var Lista = connection.Query<Lyric>("SELECT * FROM Lyric WHERE Title=? AND Author=? AND lyric=? and Album=?", Title, Author, Lyric, Album);
 
                     if (Lista.Count > 0)
                         return Lista[0];
@@ -162,25 +162,25 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectQueryTableLetrasByObjetc", ex.Message);
+                Log.Error("SelectQueryTableLyricsByObjetc", ex.Message);
                 return null;
             }
         }
 
-        public bool DeleteTableLetras(Letra letra)
+        public bool DeleteTableLyrics(Lyric lyric)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Delete(letra);
+                    connection.Delete(lyric);
                     return true;
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("DeleteTableLetras", ex.Message);
+                Log.Error("DeleteTableLyrics", ex.Message);
                 return false;
             }
         }
@@ -221,6 +221,27 @@ namespace Muusika.Resources.DataHelper
             catch (SQLiteException ex)
             {
                 Log.Error("SelectTableAttachmentByIdLyric", ex.Message);
+                return null;
+            }
+        }
+
+        public Attachment SelectTableAttachmentByIdAttachment(int idAttachment)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    var List = connection.Query<Attachment>("SELECT * FROM Attachment WHERE IdAttachment=?", idAttachment);
+
+                    if (List.Count > 0)
+                        return List[0];
+                    else
+                        return null;
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Error("SelectTableAttachmentByIdAttachment", ex.Message);
                 return null;
             }
         }

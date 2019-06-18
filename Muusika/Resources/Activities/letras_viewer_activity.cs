@@ -18,6 +18,7 @@ using Android.Views;
 using Android.Widget;
 using Cheesebaron.SlidingUpPanel;
 using Java.Util.Concurrent;
+using Muusika.Resources.Adapters;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
 using Plugin.Clipboard;
@@ -35,15 +36,16 @@ namespace Muusika.Resources.Activities
     {
         TextView LyricTextView;
         int IdLyric;
-        Letra mLetra = new Letra();
+        Lyric mLetra = new Lyric();
         DataBase db;
 
-        PopupWindow popupWindow;
+        //PopupWindow popupWindow;
 
         ImageButton play_ImageButton;
         ImageButton stop_ImageButton;
         ImageButton repeat_ImageButton;
 
+        TextView titleCurrentAudio_textView;
         TextView currentPosion_textView;
         TextView maxTime_textView;
 
@@ -63,11 +65,16 @@ namespace Muusika.Resources.Activities
         ListView AttachmentListView;
         List<Attachment> _attachments;
 
+        int _selected_IdAttachment;
+        string _selected_filePath;
+
         public letras_viewer_activity()
         {
             //Create Database
             db = new DataBase();
             db.CreateDatabase();
+
+            _attachments = new List<Attachment>();
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -92,10 +99,7 @@ namespace Muusika.Resources.Activities
                 //Get IdLyric from putextra
                 IdLyric = Convert.ToInt32(Intent.GetStringExtra("IdLetra"));
 
-                //Retrieve Lyric
-                RetrieveLyric(IdLyric);
-
-
+                
                 //https://github.com/Cheesebaron/SlidingUpPanel/blob/master/component/GettingStarted.md
 
 
@@ -112,6 +116,8 @@ namespace Muusika.Resources.Activities
                 //TextViews
                 currentPosion_textView = FindViewById<TextView>(Resource.Id.currentPosion_textView);
                 maxTime_textView = FindViewById<TextView>(Resource.Id.maxTime_textView);
+                titleCurrentAudio_textView = FindViewById<TextView>(Resource.Id.titleCurrentAudio_textView);
+
 
                 //SlidingUpPanelLayout 
                 sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
@@ -133,6 +139,11 @@ namespace Muusika.Resources.Activities
 
                 //Listview
                 AttachmentListView = FindViewById<ListView>(Resource.Id.AttachmentListView);
+                RegisterForContextMenu(AttachmentListView);
+
+
+                //Retrieve Lyric
+                RetrieveLyric(IdLyric);
 
 
                 //SaveInstance
@@ -270,9 +281,6 @@ namespace Muusika.Resources.Activities
         {
             try
             {
-                //
-                string filePath = db.SelectTableAttachmentByIdLyric(1)[0].Path;
-
                 //test play media 
                 if (player == null)
                 {
@@ -280,7 +288,7 @@ namespace Muusika.Resources.Activities
                     player.Completion += OnPlayer_Completion;
                     player.Prepared += OnPlayer_Prepared;
                     player.Reset();
-                    player.SetDataSource(filePath);
+                    player.SetDataSource(_selected_filePath);
                     player.Prepare();
 
                     Duration = player.Duration;
@@ -387,16 +395,94 @@ namespace Muusika.Resources.Activities
         {
             try
             {
-                mLetra = db.SelectQueryTableLetrasById(idLetra);
-                SupportActionBar.Title = mLetra.Titulo;
-                SupportActionBar.Subtitle = mLetra.Autor;
-                LyricTextView.Text = mLetra.letra;
+                mLetra = db.SelectQueryTableLyricsById(idLetra);
+                SupportActionBar.Title = mLetra.Title;
+                SupportActionBar.Subtitle = mLetra.Author;
+                LyricTextView.Text = mLetra.lyric;
+
+                RetrieveAttachments(idLetra);
 
                 //Window.AddFlags(WindowManagerFlags.KeepScreenOn);
             }
             catch (Exception ex)
             {
                 Log.Error("ErrorRetrieveLyric", ex.Message);
+            }
+        }
+
+        private void RetrieveAttachments(int idLetra)
+        {
+            try
+            {
+                _attachments = db.SelectTableAttachmentByIdLyric(idLetra).OrderBy(n => n.Name).ToList();
+
+                // populate the listview with data
+                AttachmentListView.Adapter = new attachment_listViewAdapter(this, _attachments);
+                AttachmentListView.ItemClick += OnAttachmentListView_ItemClick;
+                AttachmentListView.ItemLongClick += OnAttachmentListView_ItemLongClick;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("RetrieveAttachments", ex.Message);
+            }
+        }
+
+        private void OnAttachmentListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            try
+            {
+                //open contextual menu
+                OpenContextMenu(AttachmentListView);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnAttachmentListView_ItemLongClick", ex.Message);
+            }
+        }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            if (v.Id == Resource.Id.AttachmentListView)
+            {
+                var info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+                menu.SetHeaderTitle(_attachments[info.Position].Name);
+                var menuItems = Resources.GetStringArray(Resource.Array.menuAttachmentListView);
+                for (var i = 0; i < menuItems.Length; i++)
+                    menu.Add(Menu.None, i, i, menuItems[i]);
+            }
+            base.OnCreateContextMenu(menu, v, menuInfo);
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            var menuItemIndex = item.ItemId;
+            var menuItems = Resources.GetStringArray(Resource.Array.menuAttachmentListView);
+            var menuItemName = menuItems[menuItemIndex];
+            var listItemName = _attachments[info.Position];
+
+            Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+            return true;
+            //return base.OnContextItemSelected(item);
+        }
+
+
+        private void OnAttachmentListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            try
+            {
+                _selected_IdAttachment = (int)e.Id;
+                Attachment attachment = db.SelectTableAttachmentByIdAttachment(_selected_IdAttachment);
+                _selected_filePath = attachment.Path;
+                titleCurrentAudio_textView.Text = attachment.Name;
+
+                sliding_layout.CollapsePane();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnAttachmentListView_ItemClick", ex.Message);
             }
         }
 
@@ -547,15 +633,7 @@ namespace Muusika.Resources.Activities
         //    //return base.OnCreateView(parent, name, context, attrs);
         //}
 
-        private void LoadAttachments()
-        {
-            throw new NotImplementedException();
-        }
 
-        private void AttachmentListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
 

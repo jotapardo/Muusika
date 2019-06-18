@@ -13,24 +13,24 @@ using SQLite;
 
 namespace Muusika.Resources.model
 {
-    public class Letra
+    public class Lyric
     {
         [PrimaryKey, AutoIncrement]
-        public int IdLetra { get; set; }
+        public int IdLyric { get; set; }
 
-        public string Titulo { get; set; }
+        public string Title { get; set; }
 
-        public string Autor { get; set; }
+        public string Author { get; set; }
 
         public string Album { get; set; }
 
-        public string letra { get; set; }
+        public string lyric { get; set; }
 
-        public bool EsFavorita { get; set; }
+        public bool IsFavorite { get; set; }
 
         public override string ToString()
         {
-            return string.Format("[Muusika - Storage and Share]\n\n*{0}*\nby *{1}*\nfrom *{2}*\n\nLyric: \n\n*\n{3}\n*", Titulo, Autor, Album, letra);
+            return string.Format("[Muusika - Storage and Share]\n\n*{0}*\nby *{1}*\nfrom *{2}*\n\nLyric: \n\n*\n{3}\n*", Title, Author, Album, lyric);
         }
     }
 }

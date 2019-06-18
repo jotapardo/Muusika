@@ -22,18 +22,18 @@ namespace Muusika.Resources.Adapters
         public TextView AdjuntosTextView { get; set; }
     }
 
-    public class letras_listViewAdapter : BaseAdapter<Letra>
+    public class letras_listViewAdapter : BaseAdapter<Lyric>
     {
         private Android.Support.V4.App.Fragment letras_fragment;
-        private List<Letra> lstLetras;
+        private List<Lyric> lstLetras;
 
-        public letras_listViewAdapter(Android.Support.V4.App.Fragment letras_fragment, List<Letra> lstLetras)
+        public letras_listViewAdapter(Android.Support.V4.App.Fragment letras_fragment, List<Lyric> lstLetras)
         {
             this.letras_fragment = letras_fragment;
             this.lstLetras = lstLetras;
         }
 
-        public override Letra this[int position] => lstLetras[position];
+        public override Lyric this[int position] => lstLetras[position];
 
         public override int Count => lstLetras.Count;
 
@@ -44,7 +44,7 @@ namespace Muusika.Resources.Adapters
 
         public override long GetItemId(int position)
         {
-            return lstLetras[position].IdLetra;
+            return lstLetras[position].IdLyric;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -61,8 +61,8 @@ namespace Muusika.Resources.Adapters
             var AlbumTextView = view.FindViewById<TextView>(Resource.Id.AlbumTextView);
             var AdjuntosTextView = view.FindViewById<TextView>(Resource.Id.AdjuntosTextView);
 
-            TituloTextView.Text = lstLetras[position].Titulo;
-            ArtistaTextView.Text = lstLetras[position].Autor;
+            TituloTextView.Text = lstLetras[position].Title;
+            ArtistaTextView.Text = lstLetras[position].Author;
             AlbumTextView.Text = lstLetras[position].Album;
             AdjuntosTextView.Text = "";
 

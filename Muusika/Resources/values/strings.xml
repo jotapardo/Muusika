@@ -67,6 +67,12 @@
     <string name="TitleSlide5">Todo listo</string>
     <string name="DescriptionSlide5">Tener tus colección de letras es aquí y ahora. Es hora de ponerte en modo Muusika</string>
   
+    <!--contextual menu-->
+    <string-array name="menuAttachmentListView">
+        <item>Cambiar nombre</item>
+        <item>Eliminar</item>
+    </string-array>
+    
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.

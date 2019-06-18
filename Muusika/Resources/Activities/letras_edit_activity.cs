@@ -31,7 +31,7 @@ namespace Muusika.Resources.Activities
         DataBase db;
 
         private letras_Fragment mLetras_Fragment;
-        private Letra mLyric;
+        private Lyric mLyric;
 
         public letras_edit_activity()
         {
@@ -104,11 +104,11 @@ namespace Muusika.Resources.Activities
         {
             try
             {
-                mLyric = db.SelectQueryTableLetrasById(IdLyric);
-                TitleEditText.Text = mLyric.Titulo;
-                AuthorEditText.Text = mLyric.Autor;
+                mLyric = db.SelectQueryTableLyricsById(IdLyric);
+                TitleEditText.Text = mLyric.Title;
+                AuthorEditText.Text = mLyric.Author;
                 AlbumEditText.Text = mLyric.Album;
-                LyricEditText.Text = mLyric.letra;
+                LyricEditText.Text = mLyric.lyric;
 
                 //Window.AddFlags(WindowManagerFlags.KeepScreenOn);
             }
