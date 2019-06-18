@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Icu.Text;
@@ -26,7 +27,10 @@ using SupportToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Muusika.Resources.Activities
 {
-    [Activity(Label = "letras_viewer_activity", Theme = "@style/Theme.AppCompat.Light.NoActionBar", NoHistory = false)]
+    [Activity(Label = "letras_viewer_activity"
+        , Theme = "@style/Theme.AppCompat.Light.NoActionBar"
+        , NoHistory = false
+        , ScreenOrientation = ScreenOrientation.Portrait)]
     public class letras_viewer_activity : AppCompatActivity
     {
         TextView LyricTextView;
@@ -55,6 +59,9 @@ namespace Muusika.Resources.Activities
         private int Duration;
 
         private Handler handler = new Handler();
+
+        ListView AttachmentListView;
+        List<Attachment> _attachments;
 
         public letras_viewer_activity()
         {
@@ -122,6 +129,10 @@ namespace Muusika.Resources.Activities
                 //Seekbar
                 seekBar = FindViewById<SeekBar>(Resource.Id.seekBar);
                 seekBar.Clickable = false;
+
+
+                //Listview
+                AttachmentListView = FindViewById<ListView>(Resource.Id.AttachmentListView);
 
 
                 //SaveInstance
@@ -243,6 +254,8 @@ namespace Muusika.Resources.Activities
                 IsPlaying = false;
 
                 play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
+                repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.material_grey_50), Android.Graphics.PorterDuff.Mode.SrcAtop);
+
 
                 CurrentPosition = 0;
 
@@ -258,7 +271,7 @@ namespace Muusika.Resources.Activities
             try
             {
                 //
-                string filePath = db.SelectTableAttachedByIdLyric(1)[0].Path;
+                string filePath = db.SelectTableAttachmentByIdLyric(1)[0].Path;
 
                 //test play media 
                 if (player == null)
@@ -343,6 +356,12 @@ namespace Muusika.Resources.Activities
                 if (IsLooping)
                 {
                     player.Start();
+                }
+                else
+                {
+                    repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.material_grey_50), Android.Graphics.PorterDuff.Mode.SrcAtop);
+                    IsPlaying = false;
+                    play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
                 }
             }
             catch (Exception ex)
@@ -503,6 +522,40 @@ namespace Muusika.Resources.Activities
             base.OnRestart();
         }
 
+        //public override View OnCreateView(View parent, string name, Context context, IAttributeSet attrs)
+        //{
+        //    try
+        //    {
+        //        //View view = Inflate(Resource.Layout.letras_viewer_layout_slidepanel, Resource.Id.AttachmentListView, false);
+
+
+        //        ////ListView
+        //        //AttachmentListView = view.FindViewById<ListView>(Resource.Id.AttachmentListView);
+        //        //AttachmentListView.ItemClick += AttachmentListView_ItemClick;
+        //        ////_LetrasListView.ItemLongClick += LetrasListView_ItemLongClick;
+
+        //        ////Methods
+        //        //LoadAttachments();
+
+        //        //return view;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("OnCreateView", ex.Message);
+        //        return null;
+        //    }
+        //    //return base.OnCreateView(parent, name, context, attrs);
+        //}
+
+        private void LoadAttachments()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AttachmentListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
 

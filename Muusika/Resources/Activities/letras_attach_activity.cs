@@ -177,10 +177,10 @@ namespace Muusika.Resources.Activities
                                 filePath = Uris.GetPath(this, audioUri);
 
                                 int IdAttached;
-                                AttachedController attachedController = new AttachedController();
+                                AttachmentController attachmentController = new AttachmentController();
 
 
-                                IdAttached = attachedController.Add((int)IdLyric, "AUDIO", filePath, System.IO.Path.GetFileName(filePath));
+                                IdAttached = attachmentController.Add((int)IdLyric, "AUDIO", filePath, System.IO.Path.GetFileName(filePath));
 
                                 switch (IdAttached)
                                 {

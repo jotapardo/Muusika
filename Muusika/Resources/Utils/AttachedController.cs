@@ -8,26 +8,26 @@ using Muusika.Resources.model;
 
 namespace Muusika.Resources.Utils
 {
-    public class AttachedController
+    public class AttachmentController
     {
         private DataBase db;
 
-        public AttachedController()
+        public AttachmentController()
         {
             //Create Database
             db = new DataBase();
             db.CreateDatabase();
         }
 
-        public bool AlreadyExistObjetc(Attached mAttached)
+        public bool AlreadyExistObjetc(Attachment mAttachment)
         {
             try
             {
-                Attached attached;
+                Attachment attachment;
 
-                attached = db.SelectQueryTableAttachedByObjetc(mAttached);
+                attachment = db.SelectQueryTableAttachmentByObjetc(mAttachment);
 
-                if (attached != null)
+                if (attachment != null)
                     return true;
                 else
                     return false;
@@ -35,24 +35,24 @@ namespace Muusika.Resources.Utils
             }
             catch (Exception ex)
             {
-                Log.Error("AlreadyExistAttached", ex.Message);
+                Log.Error("AlreadyExistAttachment", ex.Message);
                 return false;
             }
         }
 
         /// <summary>
-        /// Add new Attached object
+        /// Add new Attachment object
         /// </summary>
         /// <param name="pIdLyric"></param>
         /// <param name="pType"></param>
         /// <param name="pPath"></param>
         /// <param name="pName"></param>
-        /// <returns>IdAttached</returns>
+        /// <returns>IdAttachment</returns>
         public int Add(int pIdLyric, string pType, string pPath, string pName)
         {
             try
             {
-                Attached mAttached = new Attached()
+                Attachment mAttachment = new Attachment()
                 {
                     IdLyric = pIdLyric,
                     Type = pType,
@@ -60,15 +60,15 @@ namespace Muusika.Resources.Utils
                     Name = pName
                 };
 
-                if (AlreadyExistObjetc(mAttached))
+                if (AlreadyExistObjetc(mAttachment))
                 {
                     return 0;
                    
                 }
                 else
                 {
-                    db.InsertIntoTableAttached(mAttached);
-                    return db.SelectQueryTableAttachedByObjetc(mAttached).IdAttached;
+                    db.InsertIntoTableAttachment(mAttachment);
+                    return db.SelectQueryTableAttachmentByObjetc(mAttachment).IdAttachment;
                     //LoadData();
                 }
 
@@ -80,9 +80,9 @@ namespace Muusika.Resources.Utils
             }
         }//AddLyric
 
-        public List<Attached> GetList(int pIdLyric)
+        public List<Attachment> GetList(int pIdLyric)
         {
-            return db.SelectTableAttachedByIdLyric(pIdLyric).ToList();
+            return db.SelectTableAttachmentByIdLyric(pIdLyric).ToList();
         }
 
     }

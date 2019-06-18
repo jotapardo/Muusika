@@ -21,7 +21,7 @@ namespace Muusika.Resources.DataHelper
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
                     connection.CreateTable<Letra>();
-                    connection.CreateTable<Attached>();
+                    connection.CreateTable<Attachment>();
                     return true;
                 }
                 
@@ -188,54 +188,54 @@ namespace Muusika.Resources.DataHelper
 
         #endregion
 
-        #region Attached
+        #region Attachment
 
-        public bool InsertIntoTableAttached(Attached attached)
+        public bool InsertIntoTableAttachment(Attachment attachment)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Insert(attached);
+                    connection.Insert(attachment);
                     return true;
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("InsertIntoTableAttached", ex.Message);
+                Log.Error("InsertIntoTableAttachment", ex.Message);
                 return false;
             }
         }
 
-        public List<Attached> SelectTableAttachedByIdLyric(int IdLyric)
+        public List<Attachment> SelectTableAttachmentByIdLyric(int IdLyric)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    return connection.Query<Attached>("SELECT * FROM Attached WHERE IdLyric=?", IdLyric);
+                    return connection.Query<Attachment>("SELECT * FROM Attachment WHERE IdLyric=?", IdLyric);
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectTableAttachedByIdLyric", ex.Message);
+                Log.Error("SelectTableAttachmentByIdLyric", ex.Message);
                 return null;
             }
         }
 
-        public Attached SelectQueryTableAttachedByObjetc(Attached attached)
+        public Attachment SelectQueryTableAttachmentByObjetc(Attachment attachment)
         {
             try
             {
-                string Type = attached.Type;
-                string Path = attached.Path;
-                string Name = attached.Name;
+                string Type = attachment.Type;
+                string Path = attachment.Path;
+                string Name = attachment.Name;
 
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    var Lista = connection.Query<Attached>("SELECT * FROM Attached WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
+                    var Lista = connection.Query<Attachment>("SELECT * FROM Attachment WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
 
                     if (Lista.Count > 0)
                         return Lista[0];
@@ -246,25 +246,25 @@ namespace Muusika.Resources.DataHelper
             }
             catch (SQLiteException ex)
             {
-                Log.Error("SelectQueryTableAttachedByObjetc", ex.Message);
+                Log.Error("SelectQueryTableAttachmentByObjetc", ex.Message);
                 return null;
             }
         }
 
-        public bool DeleteTableAttached(Attached attached)
+        public bool DeleteTableAttachment(Attachment attachment)
         {
             try
             {
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    connection.Delete(attached);
+                    connection.Delete(attachment);
                     return true;
                 }
 
             }
             catch (SQLiteException ex)
             {
-                Log.Error("DeleteTableAttached", ex.Message);
+                Log.Error("DeleteTableAttachment", ex.Message);
                 return false;
             }
         }

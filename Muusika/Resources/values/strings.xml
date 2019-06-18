@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+﻿<resources xmlns:tools="http://schemas.android.com/tools">
   <string name="app_name">Muusika</string>
   
   <string name="title_Lyrics">Letras</string>
@@ -51,7 +51,7 @@
     
     <!-- messages -->
   <string name="message_text_empty">El texto no puede estar vacío!</string>
-  <string name="message_nodata">Comienza por añadir tu primera letra tocando la opción \'+\'</string>
+  <string name="message_nodata">Comienza por añadir tu primera letra tocando el botón morado con el \'+\' en la parte inferior</string>
   <string name="message_shareQR">Para utilizar este código QR:</string> 
   <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
     

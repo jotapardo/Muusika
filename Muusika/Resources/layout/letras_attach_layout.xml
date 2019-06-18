@@ -47,7 +47,9 @@
             android:id="@+id/image_imageButton"
             android:tag="Image"
             android:layout_gravity="left|top"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside" 
+            android:visibility="invisible"
+        />
         
         <ImageButton
             android:src="@drawable/img_play"

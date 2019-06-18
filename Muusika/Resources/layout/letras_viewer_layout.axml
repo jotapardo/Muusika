@@ -10,7 +10,7 @@
     app:fadeColor="@color/colorAccent" 
     app:dragView="@+id/dragView" 
     app:overlay="false"
-    app:collapsedHeight="100dp">
+    app:collapsedHeight="120dp">
     <!-- MAIN CONTENT -->
     <RelativeLayout 
         android:layout_width="match_parent" 
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" 
             android:keepScreenOn="true" 
             android:scrollbarAlwaysDrawVerticalTrack="true"
-            android:layout_marginBottom="100dp">
+            android:layout_marginBottom="140dp">
          <android.support.v7.widget.Toolbar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/letras_viewer_toolbar" />
          <ScrollView android:minWidth="25px" android:minHeight="25px" android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/scrollView1" android:paddingLeft="?android:attr/dialogPreferredPadding" android:paddingRight="?android:attr/dialogPreferredPadding">
             <TextView android:text="Lyric text" 

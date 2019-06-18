@@ -4,10 +4,10 @@ using SQLite;
 
 namespace Muusika.Resources.model
 {
-    public class Attached
+    public class Attachment
     {
         [PrimaryKey, AutoIncrement]
-        public int IdAttached { get; set; }
+        public int IdAttachment { get; set; }
 
         public int IdLyric { get; set; }
 
