@@ -31,6 +31,7 @@
   <string name="AddFavorite">Añadir a favoritos</string>
   <string name="RemoveFavorite">Quitar de favoritos</string>
   <string name="MoreOptions">Más opciones...</string>
+    <string name="Ok">Aceptar</string>
   
 
   <!-- delete messages -->
@@ -38,6 +39,11 @@
   <string name="message_Delete">Eliminar letra</string>
   <string name="Lyrics"> letras</string>
   <string name="message_Delete_success">Letras eliminadas</string>
+
+    <string name="message_Delete_attachmnet">Eliminar adjunto</string>
+    <string name="message_Delete_attachmnet_intial">¿Eliminar adjunto </string>
+    <string name="message_Delete_attachmnet_final"> \n Esto solo eliminará la referencia a tu archivo, pero el archivo seguirá guardado en tu celular.</string>
+    <string name="message_Delete_attachmnet_success">Adjunto eliminado</string>
 
   <!-- import messages -->
   <string name="message_Lyric_added">Letra añadida</string>

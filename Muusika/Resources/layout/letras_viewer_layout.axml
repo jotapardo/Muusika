@@ -39,7 +39,13 @@
       </LinearLayout>
    </RelativeLayout>
    <!-- SLIDING LAYOUT -->
-   <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:background="#ffffff" android:orientation="vertical" android:clickable="true" android:focusable="false">
+   <LinearLayout 
+        android:layout_width="match_parent" 
+        android:layout_height="match_parent" 
+        android:background="#ffffff" 
+        android:orientation="vertical" 
+        android:clickable="true" 
+        android:focusable="false">
       <include layout="@layout/letras_viewer_layout_slidepanel"/>
    </LinearLayout>
 </Cheesebaron.SlidingUpPanel.SlidingUpPanelLayout>

@@ -58,7 +58,8 @@
             android:id="@+id/videoWeb_imageButton"
             android:tag="VideoWeb"
             android:layout_gravity="left|top"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside" 
+            android:visibility="invisible"/>
         
     </GridLayout>
 	<ImageView
@@ -72,7 +73,8 @@
 	<android.webkit.WebView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/webView1" />
+		android:id="@+id/webView1" 
+        android:visibility="invisible"/>
     
     
 </LinearLayout>

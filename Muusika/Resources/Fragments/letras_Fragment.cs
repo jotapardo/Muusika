@@ -555,6 +555,15 @@ namespace Muusika
                     //yes
                     foreach (Lyric letra in _LetrasSeleccionadas)
                     {
+                        //delete attachments
+                        var ListAttachments = db.SelectTableAttachmentByIdLyric(letra.IdLyric);
+
+                        foreach (Attachment attachment in ListAttachments)
+                        {
+                            db.DeleteTableAttachment(attachment);
+                        }
+
+                        //Delete lyric
                         db.DeleteTableLyrics(letra);
                     }
 

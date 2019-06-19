@@ -21,6 +21,7 @@ using Java.Util.Concurrent;
 using Muusika.Resources.Adapters;
 using Muusika.Resources.DataHelper;
 using Muusika.Resources.model;
+using Muusika.Resources.Utils;
 using Plugin.Clipboard;
 using static Android.App.ActionBar;
 using static Android.Views.View;
@@ -39,7 +40,7 @@ namespace Muusika.Resources.Activities
         Lyric mLetra = new Lyric();
         DataBase db;
 
-        //PopupWindow popupWindow;
+        PopupWindow popupWindow;
 
         ImageButton play_ImageButton;
         ImageButton stop_ImageButton;
@@ -67,6 +68,8 @@ namespace Muusika.Resources.Activities
 
         int _selected_IdAttachment;
         string _selected_filePath;
+
+        HideAndShowKeyboard hideAndShowKeyboard = new HideAndShowKeyboard();
 
         public letras_viewer_activity()
         {
@@ -402,6 +405,8 @@ namespace Muusika.Resources.Activities
         {
             try
             {
+                _attachments.Clear();
+
                 _attachments = db.SelectTableAttachmentByIdLyric(idLetra).OrderBy(n => n.Name).ToList();
 
                 // populate the listview with data
@@ -445,17 +450,127 @@ namespace Muusika.Resources.Activities
 
         public override bool OnContextItemSelected(IMenuItem item)
         {
-            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
-            var menuItemIndex = item.ItemId;
-            var menuItems = Resources.GetStringArray(Resource.Array.menuAttachmentListView);
-            var menuItemName = menuItems[menuItemIndex];
-            var listItemName = _attachments[info.Position];
+            try
+            {
+                var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+                //var menuItemIndex = item.ItemId;
+                //var menuItems = Resources.GetStringArray(Resource.Array.menuAttachmentListView);
+                //var menuItemName = menuItems[menuItemIndex];
+                var listItemName = _attachments[info.Position];
 
-            Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+                //Toast.MakeText(this, string.Format("Selected {0} for item {1}", menuItemName, listItemName), ToastLength.Short).Show();
+
+                switch (item.ItemId)
+                {
+                    case 0:
+                        //Rename
+                        UpdateAttachmentName(listItemName);
+                        break;
+                    case 1:
+                        //Delete
+                        DeleteAttachment(listItemName);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("OnContextItemSelected", ex.Message);
+            }
+            
             return true;
             //return base.OnContextItemSelected(item);
         }
 
+        [Obsolete]
+        private void UpdateAttachmentName(Attachment attachment)
+        {
+            try
+            {
+                ////Show popup
+                //LayoutInflater layoutInflater = (LayoutInflater)this.BaseContext.GetSystemService(Context.LayoutInflaterService);
+                //View popupView = layoutInflater.Inflate(Resource.Layout.letras_attachment_popup_layout, null);
+                //popupWindow = new PopupWindow(popupView, LayoutParams.MatchParent, LayoutParams.WrapContent);
+
+                //popupWindow.SetBackgroundDrawable(new BitmapDrawable());
+
+                //Button Ok_button = (Button)popupView.FindViewById(Resource.Id.Ok_button);
+                //Ok_button.Click += delegate {
+                //    popupWindow.Dismiss();
+                //};
+
+                //EditText Name_EditText = popupView.FindViewById<EditText>(Resource.Id.Name_EditText);
+                //hideAndShowKeyboard.showSoftKeyboard(this, Name_EditText);
+
+
+                //popupWindow.ShowAtLocation(AttachmentListView, GravityFlags.Center, 0, 0);
+
+                //popupWindow.Focusable = true;
+
+                Android.Support.V7.App.AlertDialog.Builder alert = new Android.Support.V7.App.AlertDialog.Builder(this);
+
+                alert.SetTitle("Title");
+                alert.SetMessage("Message");
+
+                // Set an EditText view to get user input 
+                EditText input = new EditText(this);
+                input.Text = attachment.Name;
+                alert.SetView(input);
+
+                alert.SetPositiveButton(GetString(Resource.String.Ok), (sender, args) =>
+                {
+
+                })
+                .SetNegativeButton(GetString(Resource.String.Cancel), (sender, args) =>
+                {
+
+                });
+
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UpdateAttachmentName", ex.Message);
+            }
+        }
+
+        private void DeleteAttachment(Attachment attachment)
+        {
+            try
+            {
+                //Confirm delete
+
+                string Message = string.Empty;
+                Message = GetString(Resource.String.message_Delete_attachmnet_intial) + " " + attachment.Name + "?" + GetString(Resource.String.message_Delete_attachmnet_final);
+
+                Android.Support.V7.App.AlertDialog.Builder dialog = new Android.Support.V7.App.AlertDialog.Builder(this);
+                dialog.SetPositiveButton(GetString(Resource.String.message_Delete_attachmnet), (sender, args) =>
+                {
+                    //yes
+                    if (db.DeleteTableAttachment(attachment))
+                    {
+                        RetrieveAttachments(IdLyric);
+                    }
+
+                    Toast.MakeText(this, GetString(Resource.String.message_Delete_attachmnet_success), ToastLength.Short).Show();
+                })
+                .SetNegativeButton(GetString(Resource.String.Cancel), (sender, args) =>
+                {
+
+                })
+                .SetMessage(Message);
+                //.SetTitle(GetString(Resource.String.message_Delete));
+
+                dialog.Show();
+
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error("DeleteAttachment", ex.Message);
+            }
+        }
 
         private void OnAttachmentListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {

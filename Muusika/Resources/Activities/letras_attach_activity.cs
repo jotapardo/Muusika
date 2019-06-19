@@ -97,7 +97,7 @@ namespace Muusika.Resources.Activities
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             //change main_compat_menu
-            MenuInflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
+            //MenuInflater.Inflate(Resource.Menu.letras_main_toolbar, menu);
             return base.OnCreateOptionsMenu(menu);
         }//OnCreateOptionsMenu
 
@@ -307,13 +307,13 @@ namespace Muusika.Resources.Activities
                     // READEXTERNAL permission has been granted, okay to retrieve the location of the device.
                     Log.Info(TAG, "READEXTERNAL permission has now been granted.");
                     //Snackbar.Make(layout, Resource.String.permission_available_camera, Snackbar.LengthShort).Show();
-                    Toast.MakeText(this, "READEXTERNAL permission has now been granted.", ToastLength.Long).Show();
+                    //Toast.MakeText(this, "READEXTERNAL permission has now been granted.", ToastLength.Long).Show();
                 }
                 else
                 {
                     Log.Info(TAG, "READEXTERNAL permission was NOT granted.");
                     //Snackbar.Make(layout, Resource.String.permissions_not_granted, Snackbar.LengthShort).Show();
-                    Toast.MakeText(this, "READEXTERNAL permission was NOT granted.", ToastLength.Long).Show();
+                    //Toast.MakeText(this, "READEXTERNAL permission was NOT granted.", ToastLength.Long).Show();
                 }
             }
             else
@@ -334,13 +334,13 @@ namespace Muusika.Resources.Activities
                     // REQUEST_INTERNET permission has been granted, okay to retrieve the location of the device.
                     Log.Info(TAG, "REQUEST_INTERNET permission has now been granted.");
                     //Snackbar.Make(layout, Resource.String.permission_available_camera, Snackbar.LengthShort).Show();
-                    Toast.MakeText(this, "REQUEST_INTERNET permission has now been granted.", ToastLength.Long).Show();
+                    //Toast.MakeText(this, "REQUEST_INTERNET permission has now been granted.", ToastLength.Long).Show();
                 }
                 else
                 {
                     Log.Info(TAG, "REQUEST_INTERNET permission was NOT granted.");
                     //Snackbar.Make(layout, Resource.String.permissions_not_granted, Snackbar.LengthShort).Show();
-                    Toast.MakeText(this, "REQUEST_INTERNET permission was NOT granted.", ToastLength.Long).Show();
+                    //Toast.MakeText(this, "REQUEST_INTERNET permission was NOT granted.", ToastLength.Long).Show();
                 }
             }
 

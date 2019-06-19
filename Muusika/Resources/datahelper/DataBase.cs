@@ -250,13 +250,13 @@ namespace Muusika.Resources.DataHelper
         {
             try
             {
+                int IdLyric = attachment.IdLyric;
                 string Type = attachment.Type;
                 string Path = attachment.Path;
-                string Name = attachment.Name;
 
                 using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
                 {
-                    var Lista = connection.Query<Attachment>("SELECT * FROM Attachment WHERE Type=? AND Path=? AND Name=?", Type, Path, Name);
+                    var Lista = connection.Query<Attachment>("SELECT * FROM Attachment WHERE IdLyric=? AND Type=? AND Path=?", IdLyric, Type, Path);
 
                     if (Lista.Count > 0)
                         return Lista[0];
