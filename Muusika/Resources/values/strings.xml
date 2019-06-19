@@ -50,10 +50,12 @@
 
     
     <!-- messages -->
-  <string name="message_text_empty">El texto no puede estar vacío!</string>
-  <string name="message_nodata">Comienza por añadir tu primera letra tocando el botón morado con el \'+\' en la parte inferior</string>
-  <string name="message_shareQR">Para utilizar este código QR:</string> 
-  <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
+    <string name="message_text_empty">El texto no puede estar vacío!</string>
+    <string name="message_nodata">Comienza por añadir tu primera letra tocando el botón morado con el \'+\' en la parte inferior</string>
+    <string name="message_shareQR">Para utilizar este código QR:</string> 
+    <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
+    <string name="message_Lyric_holdForMoreOptions">Mantén pulsado una letra para ver más opciones</string>
+    <string name="test">t</string>
     
     <!--Intro Messages-->
     <string name="TitleSlide1">TERE TULEMAST</string>
@@ -72,6 +74,11 @@
         <item>Cambiar nombre</item>
         <item>Eliminar</item>
     </string-array>
+    
+    <!--Media player-->
+    <string name="MediaPlayer_selectAudio">Selecciona primero un audio</string>
+    <string name="MediaPlayer_loopingAudio">El audio se repetirá</string>
+    <string name="MediaPlayer_noLoopingAudio">El audio no se repetirá</string>
     
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");

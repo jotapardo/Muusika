@@ -32,7 +32,7 @@ namespace Muusika.Resources.Activities
         , Theme = "@style/Theme.AppCompat.Light.NoActionBar"
         , NoHistory = false
         , ScreenOrientation = ScreenOrientation.Portrait)]
-    public class letras_viewer_activity : AppCompatActivity
+    public class letras_viewer_activity : AppCompatActivity, SeekBar.IOnSeekBarChangeListener
     {
         TextView LyricTextView;
         int IdLyric;
@@ -135,6 +135,7 @@ namespace Muusika.Resources.Activities
                 //Seekbar
                 seekBar = FindViewById<SeekBar>(Resource.Id.seekBar);
                 seekBar.Clickable = false;
+                //seekBar.SetOnSeekBarChangeListener(this);
 
 
                 //Listview
@@ -239,12 +240,20 @@ namespace Muusika.Resources.Activities
                         repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
                         player.Looping = false;
                         IsLooping = false;
+
+                        Toast toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_noLoopingAudio), ToastLength.Short);
+                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                        toast.Show();
                     }
                     else
                     {
                         repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.colorPrimary), Android.Graphics.PorterDuff.Mode.SrcAtop);
                         player.Looping = true;
                         IsLooping = true;
+
+                        Toast toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_loopingAudio), ToastLength.Short);
+                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                        toast.Show();
                     }
                 }
             }
@@ -259,8 +268,9 @@ namespace Muusika.Resources.Activities
             try
             {
                 player.Stop();
-                player.Release();
-                player = null;
+                player.Reset();
+                player.SetDataSource(_selected_filePath);
+                player.Prepare();
 
                 IsPlaying = false;
 
@@ -269,6 +279,10 @@ namespace Muusika.Resources.Activities
 
 
                 CurrentPosition = 0;
+                seekBar.SetProgress(0, true);
+
+                String currentPositionString = this.MillisecondsToString(0);
+                currentPosion_textView.Text = currentPositionString;
 
             }
             catch (Exception ex)
@@ -284,39 +298,11 @@ namespace Muusika.Resources.Activities
                 //test play media 
                 if (player == null)
                 {
-                    player = new MediaPlayer();
-                    player.Completion += OnPlayer_Completion;
-                    player.Prepared += OnPlayer_Prepared;
-                    player.Reset();
-                    player.SetDataSource(_selected_filePath);
-                    player.Prepare();
+                    Toast toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_selectAudio), ToastLength.Short);
+                    toast.SetGravity(GravityFlags.Center, 0, 0);
+                    toast.Show();
 
-                    Duration = player.Duration;
-                    CurrentPosition = player.CurrentPosition;
-
-                    if (CurrentPosition == 0)
-                    {
-                        seekBar.Max = Duration;
-                        String maxTimeString = this.MillisecondsToString(Duration);
-                        maxTime_textView.Text = maxTimeString;
-                    }
-                    else if(CurrentPosition == Duration)
-                    {
-                        //Resets the MediaPlayer to its uninitialized state
-                        player.Reset();
-                    }//CurrentPosition == 0
-
-                    player.Start();
-
-                    // Create a thread to update position of SeekBar.
-                    //UpdateSeekBarThread updateSeekBarThread = new UpdateSeekBarThread();
-                    //handler.PostDelayed(updateSeekBarThread, 50);
-
-
-                    IsPlaying = true;
-
-                    play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
-                    repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
+                    sliding_layout.ExpandPane();
                 }
                 else
                 {
@@ -328,6 +314,8 @@ namespace Muusika.Resources.Activities
                     }
                     else
                     {
+                        
+
                         player.Start();
                         IsPlaying = true;
                         play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
@@ -383,7 +371,7 @@ namespace Muusika.Resources.Activities
         {
             TimeSpan ts = TimeSpan.FromMilliseconds(milliseconds);
             DateTime dt = new DateTime(ts.Ticks);
-            String hms = dt.ToString(("HH:mm:ss"));
+            String hms = dt.ToString(("mm:ss"));//HH:
             return hms;
         }
 
@@ -419,7 +407,7 @@ namespace Muusika.Resources.Activities
                 // populate the listview with data
                 AttachmentListView.Adapter = new attachment_listViewAdapter(this, _attachments);
                 AttachmentListView.ItemClick += OnAttachmentListView_ItemClick;
-                AttachmentListView.ItemLongClick += OnAttachmentListView_ItemLongClick;
+                //AttachmentListView.ItemLongClick += OnAttachmentListView_ItemLongClick;
 
             }
             catch (Exception ex)
@@ -428,19 +416,19 @@ namespace Muusika.Resources.Activities
             }
         }
 
-        private void OnAttachmentListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
-        {
-            try
-            {
-                //open contextual menu
-                OpenContextMenu(AttachmentListView);
+        //private void OnAttachmentListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        //{
+        //    try
+        //    {
+        //        //open contextual menu
+        //        OpenContextMenu(AttachmentListView);
 
-            }
-            catch (Exception ex)
-            {
-                Log.Error("OnAttachmentListView_ItemLongClick", ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("OnAttachmentListView_ItemLongClick", ex.Message);
+        //    }
+        //}
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
@@ -479,6 +467,46 @@ namespace Muusika.Resources.Activities
                 titleCurrentAudio_textView.Text = attachment.Name;
 
                 sliding_layout.CollapsePane();
+
+                //play audio
+                if (player == null)
+                {
+                    player = new MediaPlayer();
+                    player.Completion += OnPlayer_Completion;
+                    player.Prepared += OnPlayer_Prepared;
+                    
+                }//if (player != null)
+
+                player.Reset();
+                player.SetDataSource(_selected_filePath);
+                player.Prepare();
+
+                Duration = player.Duration;
+                CurrentPosition = player.CurrentPosition;
+
+                if (CurrentPosition == 0)
+                {
+                    seekBar.Max = Duration;
+                    String maxTimeString = this.MillisecondsToString(Duration);
+                    maxTime_textView.Text = maxTimeString;
+                }
+                else if (CurrentPosition == Duration)
+                {
+                    //Resets the MediaPlayer to its uninitialized state
+                    player.Reset();
+                }//CurrentPosition == 0
+
+                player.Start();
+
+                // Create a thread to update position of SeekBar.
+                //UpdateSeekBarThread updateSeekBarThread = new UpdateSeekBarThread();
+                //handler.PostDelayed(updateSeekBarThread, 50);
+
+                IsPlaying = true;
+
+                play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
+                repeat_ImageButton.SetColorFilter(Color.Black, Android.Graphics.PorterDuff.Mode.SrcAtop);
+
             }
             catch (Exception ex)
             {
@@ -549,7 +577,8 @@ namespace Muusika.Resources.Activities
             {
                 if (player != null)
                 {
-                    player.Stop(); 
+                    player.Stop();
+                    player.Release();
                     player.Dispose();
                     player = null;
                 }
@@ -660,7 +689,24 @@ namespace Muusika.Resources.Activities
            
         }
 
-        
+        public void OnProgressChanged(SeekBar seekBar, int progress, bool fromUser)
+        {
+            if (fromUser)
+            {
+                Toast.MakeText(this,"SeekBar value to " + seekBar.Progress.ToString(),ToastLength.Short).Show();
+                player.SeekTo(seekBar.Progress);
+            }
+        }
+
+        public void OnStartTrackingTouch(SeekBar seekBar)
+        {
+            Log.Info("OnStartTrackingTouch", "1");
+        }
+
+        public void OnStopTrackingTouch(SeekBar seekBar)
+        {
+            Log.Info("OnStopTrackingTouch", "1");
+        }
     }
 
     

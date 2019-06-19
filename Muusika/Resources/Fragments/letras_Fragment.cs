@@ -50,6 +50,8 @@ namespace Muusika
 
         private const int QRCODE_REQUEST = 1001;
 
+        TextView message_hold_textView;
+
         public bool IsSelectingMultipleItms
         {
             get
@@ -79,6 +81,9 @@ namespace Muusika
                 //SetHasOptionsMenu(true);
 
                 _Toolbar = this.Activity.FindViewById<SupportToolbar>(Resource.Id.letras_main_toolbar);
+
+                //TextView
+                message_hold_textView = this.Activity.FindViewById<TextView>(Resource.Id.message_hold_textView);
 
             }
             catch (Exception ex)
@@ -396,11 +401,13 @@ namespace Muusika
                     {
                         nodata_linearLayout.Visibility = ViewStates.Invisible;
                         _LetrasListView.Visibility = ViewStates.Visible;
+                        message_hold_textView.Visibility = ViewStates.Visible;
                     }
                     else
                     {
                         nodata_linearLayout.Visibility = ViewStates.Visible;
                         _LetrasListView.Visibility = ViewStates.Invisible;
+                        message_hold_textView.Visibility = ViewStates.Invisible;
                     }
                 }
             }

@@ -195,8 +195,7 @@ namespace Muusika.Resources.Activities
                                         break;
                                     default:
                                         //Add succefull
-
-                                        
+                                        Finish();
 
                                         break;
                                 }
