@@ -290,6 +290,22 @@ namespace Muusika.Resources.DataHelper
             }
         }
 
+        public bool UpdateTableAttachment(Attachment attachment)
+        {
+            try
+            {
+                using (var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "Muusika.db")))
+                {
+                    connection.Query<Lyric>("UPDATE Attachment SET Name=? WHERE IdAttachment=?", attachment.Name, attachment.IdAttachment);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("UpdateTableLyrics", ex.Message);
+                return false;
+            }
+        }
         #endregion
 
     }

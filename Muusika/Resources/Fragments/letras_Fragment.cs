@@ -51,6 +51,7 @@ namespace Muusika
         private const int QRCODE_REQUEST = 1001;
 
         TextView message_hold_textView;
+        FloatingActionButton fab_Import;
 
         public bool IsSelectingMultipleItms
         {
@@ -127,6 +128,7 @@ namespace Muusika
                 Button close_button = (Button)popupView.FindViewById(Resource.Id.close_button);
                 close_button.Click += delegate {
                     popupWindow.Dismiss();
+                    fab_Import.Enabled = true;
                 };
 
                 popupWindow.ShowAtLocation(nodata_linearLayout, GravityFlags.Center, 0, 0);
@@ -137,7 +139,7 @@ namespace Muusika
                 ImageButton clipboard_imageButton = (ImageButton)popupView.FindViewById(Resource.Id.clipboard_imageButton);
                 clipboard_imageButton.Click += Clipboard_ImageButton_Click;
 
-
+                fab_Import.Enabled = false;
 
             }
             catch (Exception ex)
@@ -216,7 +218,7 @@ namespace Muusika
 
 
                 //FloatingActionButton
-                FloatingActionButton fab_Import = view.FindViewById<FloatingActionButton>(Resource.Id.fab_Import);
+                fab_Import = view.FindViewById<FloatingActionButton>(Resource.Id.fab_Import);
                 fab_Import.Click += OnFab_Import_Click;
 
 
@@ -264,6 +266,8 @@ namespace Muusika
                     intent = new Intent(this.Activity, typeof(letras_viewer_activity));
                     intent.PutExtra("IdLetra", _LetrasListView.Adapter.GetItemId(e.Position).ToString());
                     StartActivity(intent);
+
+                    _LetrasListView.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -391,6 +395,9 @@ namespace Muusika
         {
             try
             {
+                _LetrasListView.Enabled = true;
+                fab_Import.Enabled = true;
+
                 if (!SelectingMultipleItems)
                 {
                     _Letras = db.SelectTableLyrics().OrderBy(n => n.Title).ToList();

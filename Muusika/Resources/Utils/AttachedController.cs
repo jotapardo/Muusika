@@ -85,5 +85,25 @@ namespace Muusika.Resources.Utils
             return db.SelectTableAttachmentByIdLyric(pIdLyric).ToList();
         }
 
+        public bool Update(string Name, int IdAttachment)
+        {
+            try
+            {
+                Attachment attachment = new Attachment()
+                {
+                    IdAttachment = IdAttachment,
+                    Name = Name
+                };
+
+                return db.UpdateTableAttachment(attachment);
+                
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Update", ex.Message);
+                return false;
+            }
+        }
+
     }
 }

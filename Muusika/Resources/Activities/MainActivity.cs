@@ -33,6 +33,8 @@ namespace Muusika
         private Fragment2_fragment mFragment2_fragment;
         private Fragment3_fragment mFragment3_fragment;
 
+        FloatingActionButton fab;
+
         //Google
         //GoogleSignInClient mGoogleSignInClient;
 
@@ -114,7 +116,7 @@ namespace Muusika
 
 
                 //FloatActionButton
-                FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+                fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
                 fab.Click += FabOnClick;
 
                 //Toolbar
@@ -145,7 +147,7 @@ namespace Muusika
             intent.PutExtra("Letras_Fragment", JsonConvert.SerializeObject(mLetras_Fragment));
             StartActivity(intent);
 
-
+            fab.Enabled = false;
 
 
         }//FabOnClick
@@ -156,7 +158,14 @@ namespace Muusika
             {
                 //Refresh fragment
                 ShowFragment(mCurrentFragment);
-                mLetras_Fragment.LoadData();
+
+                if (mCurrentFragment == mLetras_Fragment)
+                {
+                    mLetras_Fragment.LoadData();
+                    fab.Enabled = true;
+                }
+
+
 
             }
             catch (Exception ex)

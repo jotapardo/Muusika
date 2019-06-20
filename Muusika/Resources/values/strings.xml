@@ -81,10 +81,14 @@
         <item>Eliminar</item>
     </string-array>
     
+    <!--Attachments-->
+    <string name="message_editName">Cambiar nombre</string>
+    
     <!--Media player-->
     <string name="MediaPlayer_selectAudio">Selecciona primero un audio</string>
     <string name="MediaPlayer_loopingAudio">El audio se repetirá</string>
     <string name="MediaPlayer_noLoopingAudio">El audio no se repetirá</string>
+    <string name="MediaPlayer_attachAudio">Adjunta tu primer audio tocando el ícono del clip ubicado arriba</string>
     
   <!-- Copyright (C) 2012 The Android Open Source Project
      Licensed under the Apache License, Version 2.0 (the "License");

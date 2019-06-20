@@ -301,11 +301,24 @@ namespace Muusika.Resources.Activities
                 //test play media 
                 if (player == null)
                 {
-                    Toast toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_selectAudio), ToastLength.Short);
-                    toast.SetGravity(GravityFlags.Center, 0, 0);
-                    toast.Show();
 
-                    sliding_layout.ExpandPane();
+                    Toast toast;
+
+                    if (_attachments.Count == 0)
+                    {
+                        toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_attachAudio), ToastLength.Long);
+                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                        toast.Show();
+
+                        sliding_layout.CollapsePane();
+                    }
+                    else
+                    {
+                        toast = Toast.MakeText(this, GetString(Resource.String.MediaPlayer_selectAudio), ToastLength.Short);
+                        toast.SetGravity(GravityFlags.Center, 0, 0);
+                        toast.Show();
+                        sliding_layout.ExpandPane();
+                    }
                 }
                 else
                 {
@@ -317,8 +330,6 @@ namespace Muusika.Resources.Activities
                     }
                     else
                     {
-                        
-
                         player.Start();
                         IsPlaying = true;
                         play_ImageButton.SetImageResource(Resource.Drawable.btn_Pause);
@@ -483,7 +494,6 @@ namespace Muusika.Resources.Activities
             //return base.OnContextItemSelected(item);
         }
 
-        [Obsolete]
         private void UpdateAttachmentName(Attachment attachment)
         {
             try
@@ -510,8 +520,8 @@ namespace Muusika.Resources.Activities
 
                 Android.Support.V7.App.AlertDialog.Builder alert = new Android.Support.V7.App.AlertDialog.Builder(this);
 
-                alert.SetTitle("Title");
-                alert.SetMessage("Message");
+                alert.SetTitle(Resource.String.message_editName);
+                //alert.SetMessage("Message");
 
                 // Set an EditText view to get user input 
                 EditText input = new EditText(this);
@@ -520,13 +530,47 @@ namespace Muusika.Resources.Activities
 
                 alert.SetPositiveButton(GetString(Resource.String.Ok), (sender, args) =>
                 {
+                    //if (input.Text.Trim() != "")
+                    //{
+                    //    AttachmentController attachmentController = new AttachmentController();
 
+                    //    if (attachmentController.Update(input.Text.Trim(), attachment.IdAttachment))
+                    //    {
+                    //        Toast.MakeText(this, "Nombre actualizado", ToastLength.Short).Show();
+                    //    }
+                    //}
                 })
                 .SetNegativeButton(GetString(Resource.String.Cancel), (sender, args) =>
                 {
 
                 });
 
+                //dialog
+                Android.Support.V7.App.AlertDialog dialog = alert.Create();
+                dialog.Show();
+                dialog.GetButton((int)DialogButtonType.Positive).Click += (sender, args) =>
+                {
+                    if (input.Text.Trim() != "")
+                    {
+                        AttachmentController attachmentController = new AttachmentController();
+
+                        if (attachmentController.Update(input.Text.Trim(), attachment.IdAttachment))
+                        {
+                            Toast.MakeText(this, "Nombre actualizado", ToastLength.Short).Show();
+                            dialog.Dismiss();
+                            RetrieveAttachments(attachment.IdLyric);
+                        }
+                        else
+                        {
+                            Toast.MakeText(this, "No se pudo cambiar el nombre", ToastLength.Short).Show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.MakeText(this, "El nombre no puede quedar vacío", ToastLength.Short).Show();
+                    }
+
+                };
 
             }
             catch (Exception ex)
@@ -534,6 +578,7 @@ namespace Muusika.Resources.Activities
                 Log.Error("UpdateAttachmentName", ex.Message);
             }
         }
+
 
         private void DeleteAttachment(Attachment attachment)
         {
@@ -550,7 +595,34 @@ namespace Muusika.Resources.Activities
                     //yes
                     if (db.DeleteTableAttachment(attachment))
                     {
+                        //relaod player
+
+                        if (attachment.Name == titleCurrentAudio_textView.Text)
+                        {
+                            player.Stop();
+                            player.Release();
+                            player.Dispose();
+                            player = null;
+
+                            IsPlaying = false;
+
+                            play_ImageButton.SetImageResource(Resource.Drawable.btn_Play);
+                            repeat_ImageButton.SetColorFilter(Resources.GetColor(Resource.Color.material_grey_50), Android.Graphics.PorterDuff.Mode.SrcAtop);
+
+                            CurrentPosition = 0;
+                            seekBar.SetProgress(0, true);
+
+                            currentPosion_textView.Text = this.MillisecondsToString(0);
+                            maxTime_textView.Text = this.MillisecondsToString(0);
+                            titleCurrentAudio_textView.Text = "";
+                        }
+
                         RetrieveAttachments(IdLyric);
+
+                        if (_attachments.Count == 0)
+                        {
+                            sliding_layout.CollapsePane();
+                        }
                     }
 
                     Toast.MakeText(this, GetString(Resource.String.message_Delete_attachmnet_success), ToastLength.Short).Show();
