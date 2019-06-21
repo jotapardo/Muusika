@@ -81,10 +81,11 @@ namespace Muusika
                 _LetrasSeleccionadas.Clear();
                 //SetHasOptionsMenu(true);
 
+
+                //Toolbar from activity (for vfragments views go to OnCerteView)
                 _Toolbar = this.Activity.FindViewById<SupportToolbar>(Resource.Id.letras_main_toolbar);
 
-                //TextView
-                message_hold_textView = this.Activity.FindViewById<TextView>(Resource.Id.message_hold_textView);
+                
 
             }
             catch (Exception ex)
@@ -224,6 +225,10 @@ namespace Muusika
 
                 //no data elements
                 nodata_linearLayout = view.FindViewById<LinearLayout>(Resource.Id.nodata_linearLayout);
+
+
+                //TextView
+                message_hold_textView = view.FindViewById<TextView>(Resource.Id.message_hold_textView);
 
                 //Methods
                 LoadData();

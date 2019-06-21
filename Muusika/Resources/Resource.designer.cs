@@ -5656,17 +5656,17 @@ namespace Muusika
 			// aapt resource value: 0x7f090062
 			public const int Lyrics = 2131296354;
 			
-			// aapt resource value: 0x7f090080
-			public const int MediaPlayer_attachAudio = 2131296384;
-			
-			// aapt resource value: 0x7f09007e
-			public const int MediaPlayer_loopingAudio = 2131296382;
+			// aapt resource value: 0x7f090081
+			public const int MediaPlayer_attachAudio = 2131296385;
 			
 			// aapt resource value: 0x7f09007f
-			public const int MediaPlayer_noLoopingAudio = 2131296383;
+			public const int MediaPlayer_loopingAudio = 2131296383;
 			
-			// aapt resource value: 0x7f09007d
-			public const int MediaPlayer_selectAudio = 2131296381;
+			// aapt resource value: 0x7f090080
+			public const int MediaPlayer_noLoopingAudio = 2131296384;
+			
+			// aapt resource value: 0x7f09007e
+			public const int MediaPlayer_selectAudio = 2131296382;
 			
 			// aapt resource value: 0x7f09005e
 			public const int MoreOptions = 2131296350;
@@ -5794,17 +5794,17 @@ namespace Muusika
 			// aapt resource value: 0x7f090021
 			public const int abc_toolbar_collapse_description = 2131296289;
 			
-			// aapt resource value: 0x7f090082
-			public const int app_intro_back_button = 2131296386;
+			// aapt resource value: 0x7f090083
+			public const int app_intro_back_button = 2131296387;
 			
 			// aapt resource value: 0x7f090044
 			public const int app_intro_done_button = 2131296324;
 			
-			// aapt resource value: 0x7f090083
-			public const int app_intro_image_content_description = 2131296387;
+			// aapt resource value: 0x7f090084
+			public const int app_intro_image_content_description = 2131296388;
 			
-			// aapt resource value: 0x7f090081
-			public const int app_intro_next_button = 2131296385;
+			// aapt resource value: 0x7f090082
+			public const int app_intro_next_button = 2131296386;
 			
 			// aapt resource value: 0x7f090043
 			public const int app_intro_skip_button = 2131296323;
@@ -5940,6 +5940,9 @@ namespace Muusika
 			
 			// aapt resource value: 0x7f090070
 			public const int message_Lyric_holdForMoreOptions = 2131296368;
+			
+			// aapt resource value: 0x7f09007d
+			public const int message_attachment_holdForMoreOptions = 2131296381;
 			
 			// aapt resource value: 0x7f09007c
 			public const int message_editName = 2131296380;

@@ -60,7 +60,7 @@
     <string name="message_nodata">Comienza por añadir tu primera letra tocando el botón morado con el \'+\' en la parte inferior</string>
     <string name="message_shareQR">Para utilizar este código QR:</string> 
     <string name="message_shareQR_steps">1. Abre Muusika en el otro dispositivo\n2. Toca la opción Importar\n3. Elige la imagen de código QR (Imagen del lado izquierdo)\n4. Dirige la cámara del dispositivo a esta pantalla para capturar el código\n</string> 
-    <string name="message_Lyric_holdForMoreOptions">Mantén pulsado una letra para ver más opciones</string>
+    <string name="message_Lyric_holdForMoreOptions">Mantén pulsada una letra para ver más opciones</string>
     <string name="test">t</string>
     
     <!--Intro Messages-->
@@ -83,6 +83,7 @@
     
     <!--Attachments-->
     <string name="message_editName">Cambiar nombre</string>
+    <string name="message_attachment_holdForMoreOptions">Mantén pulsada un adjunto para ver más opciones</string>
     
     <!--Media player-->
     <string name="MediaPlayer_selectAudio">Selecciona primero un audio</string>

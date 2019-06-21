@@ -49,6 +49,7 @@ namespace Muusika.Resources.Activities
         TextView titleCurrentAudio_textView;
         TextView currentPosion_textView;
         TextView maxTime_textView;
+        TextView message_hold_textView;
 
         SlidingUpPanelLayout sliding_layout;
         LinearLayout dragView;
@@ -120,7 +121,7 @@ namespace Muusika.Resources.Activities
                 currentPosion_textView = FindViewById<TextView>(Resource.Id.currentPosion_textView);
                 maxTime_textView = FindViewById<TextView>(Resource.Id.maxTime_textView);
                 titleCurrentAudio_textView = FindViewById<TextView>(Resource.Id.titleCurrentAudio_textView);
-
+                message_hold_textView = FindViewById<TextView>(Resource.Id.message_hold_textView);
 
                 //SlidingUpPanelLayout 
                 sliding_layout = FindViewById<SlidingUpPanelLayout>(Resource.Id.sliding_layout);
@@ -424,6 +425,15 @@ namespace Muusika.Resources.Activities
                 AttachmentListView.Adapter = new attachment_listViewAdapter(this, _attachments);
                 AttachmentListView.ItemClick += OnAttachmentListView_ItemClick;
                 //AttachmentListView.ItemLongClick += OnAttachmentListView_ItemLongClick;
+
+                if (_attachments.Count == 0)
+                {
+                    message_hold_textView.Visibility = ViewStates.Invisible;
+                }
+                else
+                {
+                    message_hold_textView.Visibility = ViewStates.Visible;
+                }
 
             }
             catch (Exception ex)

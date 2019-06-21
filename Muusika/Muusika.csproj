@@ -193,6 +193,9 @@
     <PackageReference Include="ZXing.Net">
       <Version>0.16.4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.TapTargetView">
+      <Version>1.9.1</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\letras_layout.axml">

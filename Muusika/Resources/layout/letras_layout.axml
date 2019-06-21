@@ -4,29 +4,35 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical"
-                  android:layout_height="match_parent"
-                  android:layout_width="match_parent"
+    <LinearLayout 
+            android:orientation="vertical" 
+            android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop="50dp"
         >
+        
         <ListView
-    		android:minWidth="25px"
-    		android:minHeight="25px"
-    		android:layout_width="match_parent"
-    		android:layout_height="match_parent"
-    		android:id="@+id/LetrasListView"
-    		android:scrollbars="vertical"
-    		android:layout_marginTop="50dp"
-    		android:layout_marginBottom="0.0dp" 
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/LetrasListView"
+            android:scrollbars="vertical"
             android:visibility="invisible"
         />
-        <TextView android:layout_height="wrap_content"
-                  android:layout_width="match_parent"
-                  android:gravity="center"
-                  android:text="@string/message_Lyric_holdForMoreOptions"
-                  android:id="@+id/message_hold_textView"
-                  android:visibility="invisible"
-                  android:textAppearance="?android:attr/textAppearanceSmall"
-                  ></TextView>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:gravity="center"
+			android:text="@string/message_Lyric_holdForMoreOptions"
+			android:id="@+id/message_hold_textView"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:layout_margin="30dp"
+			android:textStyle="bold"
+                  >
+		</TextView>
     </LinearLayout>
     
     <LinearLayout android:layout_width="wrap_content"
@@ -34,8 +40,7 @@
                   android:id="@+id/nodata_linearLayout"
                   android:layout_centerInParent="true"
                   android:visibility="visible"
-                  android:orientation="vertical"
-    >
+                  android:orientation="vertical">
         
         <ImageView android:id="@+id/nodata_imageView"
                android:layout_width="match_parent"
@@ -43,16 +48,20 @@
                android:src="@drawable/img_nodata"
                android:layout_centerInParent="true"
                />
-    <TextView android:id="@+id/nodata_textView"
-              android:text="@string/message_nodata"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textAppearance="?android:attr/textAppearanceMedium"
-              android:gravity="center"
-              android:layout_centerInParent="true"
-              android:padding="5dp"
-              android:textColor="@color/colorAccent"
-              ></TextView>
+		<TextView
+			android:id="@+id/nodata_textView"
+			android:text="@string/message_nodata"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center"
+			android:layout_centerInParent="true"
+			android:layout_margin="30dp"
+			android:textColor="@color/colorAccent"
+			android:textStyle="normal"
+            
+              >
+		</TextView>
         
     </LinearLayout>
     
