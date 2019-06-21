@@ -13,6 +13,7 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Com.Getkeepsafe.Taptargetview;
 //using GR.Net.Maroulis.Library;
 using Muusika.Resources.Activities;
 using Muusika.Resources.DataHelper;
@@ -119,12 +120,74 @@ namespace Muusika
                 fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
                 fab.Click += FabOnClick;
 
+
+                //TapTarget
+                this.RunOnUiThread(() =>
+                {
+                    ISharedPreferences getPresfs = PreferenceManager.GetDefaultSharedPreferences(this.BaseContext);
+                    bool IsFirstStart = getPresfs.GetBoolean("firtsTapTarget", true);
+                    if (IsFirstStart)
+                    {
+                        //new TapTargetSequence(this)
+                        //.Targets(
+                        //     TapTarget.ForView(FindViewById(Resource.Id.fab), "Añade tus letras", "Puedes añadir tus letras a tu librería tocando este botón")
+                        //        .OuterCircleColor(Resource.Color.colorPrimaryDark)
+                        //        .TextColor(Resource.Color.primary_text)
+                        //        .DimColor(Resource.Color.quantum_grey_600),
+                        //    TapTarget.ForView(FindViewById(Resource.Id.search_button), "Buscar"),
+                        //    TapTarget.ForView(FindViewById(Resource.Id.fab_Import), "Importa letras", "Puedes importar las letras que tus amigos te compartan a través de Muusika")
+                        //        );
+
+                        TapTargetView.ShowFor(this,
+                        TapTarget.ForView(FindViewById(Resource.Id.fab), "Añade tus letras", "Puedes añadir tus letras a tu librería tocando este botón")
+                            .OuterCircleColor(Resource.Color.colorPrimaryDark)
+                            .TextColor(Resource.Color.primary_text)
+                            .DimColor(Resource.Color.quantum_grey_600)
+                            );
+
+
+                        ISharedPreferencesEditor sharedPreferencesEditor = getPresfs.Edit();
+                        sharedPreferencesEditor.PutBoolean("firtsTapTarget", false);
+                        sharedPreferencesEditor.Apply();
+                    }
+                });
+                /*
+                 * 
+                 * https://www.raywenderlich.com/5194-taptargetview-for-android-tutorial
+                 * https://github.com/KeepSafe/TapTargetView
+                     .outerCircleColor(R.color.red)      // Specify a color for the outer circle
+	                .outerCircleAlpha(0.96f)            // Specify the alpha amount for the outer circle
+                    .targetCircleColor(R.color.white)   // Specify a color for the target circle
+                    .titleTextSize(20)                  // Specify the size (in sp) of the title text
+                    .titleTextColor(R.color.white)      // Specify the color of the title text
+                    .descriptionTextSize(10)            // Specify the size (in sp) of the description text
+                    .descriptionTextColor(R.color.red)  // Specify the color of the description text
+                    .textColor(R.color.blue)            // Specify a color for both the title and description text
+                    .textTypeface(Typeface.SANS_SERIF)  // Specify a typeface for the text
+                    .dimColor(R.color.black)            // If set, will dim behind the view with 30% opacity of the given color
+                    .drawShadow(true)                   // Whether to draw a drop shadow or not
+                    .cancelable(false)                  // Whether tapping outside the outer circle dismisses the view
+                    .tintTarget(true)                   // Whether to tint the target view's color
+                    .transparentTarget(false)           // Specify whether the target is transparent (displays the content underneath)
+                    .icon(Drawable)                     // Specify a custom drawable to draw as the target
+                    .targetRadius(60)
+                 */
+
+
                 //Toolbar
                 SupportToolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.letras_main_toolbar);
                 SetSupportActionBar(toolbar);
                 SupportActionBar.Title = GetString(Resource.String.app_name);
 
+
+                //Google
                 ConectGoogleAccount();
+
+                //TapTargetView.ShowFor(this, TapTarget.ForToolbarMenuItem(toolbar, Resource.Id.action_search,
+                //        GetString(Resource.String.Search), "Aquí podrás filtrar las letras de tu librería por título, autor o incluso parte de la letra")
+                //        .Cancelable(false)
+                //        .TintTarget(true));
+
             }
             catch (Exception ex)
             {

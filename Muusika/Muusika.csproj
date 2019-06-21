@@ -159,7 +159,6 @@
     <AndroidResource Include="Resources\drawable\btn_Play.png" />
     <AndroidResource Include="Resources\drawable\btn_Repeat.png" />
     <AndroidResource Include="Resources\drawable\btn_Stop.png" />
-    <AndroidResource Include="Resources\layout\letras_viewer_layout_slidepanel.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppIntro">
@@ -184,6 +183,9 @@
     <PackageReference Include="Xamarin.GooglePlayServices.Identity">
       <Version>60.1142.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.KeepSafe.TapTargetView">
+      <Version>1.11.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Plugins.Clipboard">
       <Version>2.2.1</Version>
     </PackageReference>
@@ -192,9 +194,6 @@
     </PackageReference>
     <PackageReference Include="ZXing.Net">
       <Version>0.16.4</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.TapTargetView">
-      <Version>1.9.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +341,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\letras_attachment_popup_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\letras_viewer_layout_slidepanel.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

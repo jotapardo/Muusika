@@ -140,7 +140,6 @@
 				android:id="@+id/LyricEditText"
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:padding="5dp"
-				android:background="@color/material_grey_100"
 				android:singleLine="false"
 				android:inputType="textMultiLine"
 				android:gravity="top"
